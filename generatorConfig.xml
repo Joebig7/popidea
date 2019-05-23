@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!-- 数据库驱动包位置 -->
+    <classPathEntry
+            location="C:\Users\张家峰\.m2\repository\mysql\mysql-connector-java\5.1.31\mysql-connector-java-5.1.31.jar"/>
+    <context id="context1">
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!-- 数据库链接URL、用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.25.129:3306/popidea" userId="root" password="root@mamba" />
+        <!-- 生成模型的包名和位置 -->
+        <javaModelGenerator targetPackage="com.mamba.popidea.model" targetProject="../popidea/src/main/java" />
+        <!-- 生成的映射文件报名和位置 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="../popidea/src/main/resources" />
+        <!-- 生成DAO的包名和位置 -->
+        <javaClientGenerator targetPackage="com.mamba.popidea.dao" targetProject="../popidea/src/main/java" type="XMLMAPPER" />
+
+        <!-- 要生成的那些表(更改tableName 和domainObjectName 就可以了) -->
+        <table schema="popidea" tableName="article" domainObjectName="ArticleBean" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+
+        <table schema="popidea" tableName="article_tag_map" domainObjectName="ArticleTagMapBean" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+
+        <table schema="popidea" tableName="comment" domainObjectName="CommentBean" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+
+        <table schema="popidea" tableName="follower" domainObjectName="FollowerBean" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+
+        <table schema="popidea" tableName="industry" domainObjectName="IndustryBean" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+
+        <table schema="popidea" tableName="question" domainObjectName="QuestionBean" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+
+        <table schema="popidea" tableName="special_column" domainObjectName="SpecialColumnBean" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+
+        <table schema="popidea" tableName="tag" domainObjectName="TagBean" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+
+        <table schema="popidea" tableName="topic" domainObjectName="TopicBean" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+
+        <table schema="popidea" tableName="topic_question_map" domainObjectName="TpoicQuestionMapBean" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+
+        <table schema="popidea" tableName="user" domainObjectName="UserBean" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+
+        <table schema="popidea" tableName="user_detail" domainObjectName="UserDetail" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+
+        <table schema="popidea" tableName="user_intergral" domainObjectName="UserIntergralBean" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+    </context>
+</generatorConfiguration>
