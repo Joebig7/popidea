@@ -118,4 +118,13 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="findTopicListWithCondition" resultType="com.mamba.popidea.model.TopicBean">
+    select *from topic
+    <set>
+    <if test="keyword != null" >
+      where `name` like concat("%",#{keyword},"%")
+    </if>
+    </set>
+  </select>
 </mapper>
