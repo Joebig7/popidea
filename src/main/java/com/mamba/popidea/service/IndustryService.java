@@ -1,10 +1,9 @@
 package com.mamba.popidea.service;
 
 import com.mamba.popidea.model.IndustryBean;
-
-import java.util.List;
+import com.mamba.popidea.model.common.result.RestData;
 
 public interface IndustryService {
 
-    List<IndustryBean> getAllIndustryList();
+    RestData<IndustryBean> getAllIndustryList(Integer pageNo, Integer pageSize);
 }
