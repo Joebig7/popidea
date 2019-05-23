@@ -18,4 +18,6 @@ public interface QuestionBeanMapper {
     int updateByPrimaryKeyWithBLOBs(QuestionBean record);
 
     int updateByPrimaryKey(QuestionBean record);
+
+    QuestionBean getQuestionInfo(Long id);
 }

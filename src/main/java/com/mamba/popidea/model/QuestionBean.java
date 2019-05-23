@@ -1,5 +1,8 @@
 package com.mamba.popidea.model;
 
+import javafx.beans.DefaultProperty;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class QuestionBean {
@@ -7,6 +10,7 @@ public class QuestionBean {
 
     private Long userId;
 
+    @NotNull
     private String questionTitle;
 
     private Integer status;
@@ -15,6 +19,7 @@ public class QuestionBean {
 
     private Date updateTime;
 
+    @NotNull
     private String questionContent;
 
     public Long getId() {
