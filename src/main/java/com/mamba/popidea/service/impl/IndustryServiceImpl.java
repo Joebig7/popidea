@@ -28,7 +28,6 @@ public class IndustryServiceImpl implements IndustryService {
         PageHelper.startPage(pageNo, pageSize);
         List<IndustryBean> allIndustryList = industryBeanMapper.findAllIndustryList();
         PageInfo<IndustryBean> pageInfo = new PageInfo<>(allIndustryList);
-        System.out.println(pageInfo.getPageNum()+"===="+pageInfo.getPageSize());
         return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
     }
 }
