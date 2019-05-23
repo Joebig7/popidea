@@ -3,6 +3,7 @@ package com.mamba.popidea.controller.user;
 import com.mamba.popidea.model.UserBean;
 import com.mamba.popidea.model.UserDetail;
 import com.mamba.popidea.model.common.result.RestResp;
+import com.mamba.popidea.model.vo.UserVO;
 import com.mamba.popidea.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -62,5 +63,12 @@ public class UserController {
         return new RestResp<>();
     }
 
+    @ApiOperation(value = "查询用户信息", notes = "查询用户信息")
+    @GetMapping("/info")
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "authorization")
+    public RestResp getWholeUserInfo() {
+        UserVO userVO = userService.geWholeUserInfo();
+        return new RestResp<>(userVO);
+    }
 
 }

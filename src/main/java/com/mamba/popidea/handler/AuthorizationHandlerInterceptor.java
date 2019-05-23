@@ -6,7 +6,6 @@ import com.mamba.popidea.model.common.project.Audience;
 import com.mamba.popidea.utils.JwtUtil;
 import com.mamba.popidea.utils.RedisUtil;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
@@ -57,15 +56,16 @@ public class AuthorizationHandlerInterceptor implements HandlerInterceptor {
         final String token = headerInfo.substring(7);
         try {
             //判断 redis token是否存在
-            if (redisUtil.isKeyExist(token)) {
+            if (!redisUtil.isKeyExist(token)) {
                 throw RestException.newInstance(ErrorCodes.TOKEN_CHECKED_ERROR);
             } else {
                 final Claims claims = JwtUtil.parseJWT(token, audience.getBase64Secret());
                 if (claims != null && request.getAttribute("userId") == null) {
-                    request.setAttribute(USERID.name(), JwtUtil.getUserId(claims));
+                    request.setAttribute(USERID.field(), JwtUtil.getUserId(claims));
                 }
+                redisUtil.expireKey(token);
             }
-        } catch (final SignatureException e) {
+        } catch (Exception e) {
             throw RestException.newInstance(ErrorCodes.TOKEN_CHECKED_ERROR);
         }
     }

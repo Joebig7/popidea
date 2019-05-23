@@ -2,6 +2,7 @@ package com.mamba.popidea.service;
 
 import com.mamba.popidea.model.UserBean;
 import com.mamba.popidea.model.UserDetail;
+import com.mamba.popidea.model.vo.UserVO;
 
 /**
  * @version 1.0
@@ -18,5 +19,8 @@ public interface UserService {
     boolean loginOut(String token);
 
     void detailInfoEdit(UserDetail userDetail);
+
+    UserVO geWholeUserInfo();
+
 
 }

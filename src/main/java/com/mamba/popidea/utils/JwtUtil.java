@@ -32,7 +32,6 @@ public final class JwtUtil {
                 .claim("userId", userBean.getId())
                 .setIssuer(audience.getClientId())
                 .setAudience(audience.getName())
-                .setSubject(audience.getName())
                 .signWith(signatureAlgorithm, calculateKey(audience.getBase64Secret()));
         //添加Token过期时间
         if (audience.getExpiresSecond() >= 0) {
@@ -68,7 +67,7 @@ public final class JwtUtil {
      */
     public static Long getUserId(Claims claims) {
         if (claims != null) {
-            Long userId = (Long) claims.get("userId");
+            Long userId = Long.valueOf(claims.get("userId").toString());
             return userId;
         }
         throw RestException.newInstance(ErrorCodes.USER_LOGIN_FAULT);

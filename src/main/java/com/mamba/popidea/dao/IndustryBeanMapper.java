@@ -3,6 +3,8 @@ package com.mamba.popidea.dao;
 import com.mamba.popidea.model.IndustryBean;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 public interface IndustryBeanMapper {
     int deleteByPrimaryKey(Long id);
@@ -16,4 +18,8 @@ public interface IndustryBeanMapper {
     int updateByPrimaryKeySelective(IndustryBean record);
 
     int updateByPrimaryKey(IndustryBean record);
+
+
+    //==============custom=================
+    List<IndustryBean> findAllIndustryList();
 }

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.mamba.popidea.conf.constant.StaticConstant.*;
+
 /**
  * @version 1.0
  * @author: JoeBig7
@@ -35,5 +37,9 @@ public class RedisUtil {
 
     public Boolean delete(String key) {
         return stringRedisTemplate.delete(key);
+    }
+
+    public void expireKey(String key) {
+        stringRedisTemplate.expire(key, LOGIN_EXPIRE_TIME, TimeUnit.MINUTES);
     }
 }

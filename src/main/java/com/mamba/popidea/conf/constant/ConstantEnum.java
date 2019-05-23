@@ -15,5 +15,10 @@ public enum ConstantEnum {
 
     }
 
+
     private String field;
+
+    public  String field(){
+        return field;
+    }
 }

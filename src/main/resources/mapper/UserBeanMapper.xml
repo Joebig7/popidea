@@ -157,4 +157,13 @@
      from `user`
      where nick_name=#{username} or phone=#{username} or email=#{username}
   </select>
+
+  <select id="findWholeUserInfoById" parameterType="java.lang.Long" resultType="com.mamba.popidea.model.vo.UserVO">
+    select
+      a.nick_name nickName,a.favicon,a.email,a.description,b.introduce,b.place,b.job,b.company,b.school,b.major,b.birthday,c.intergral,e.industry_name industryName
+    from user a left join user_detail b on  a.id=b.user_id
+      left join user_intergral c on c.user_id=a.id
+      left join user_industry_map d on d.user_id=a.id
+      left join industry e on e.id=d.industry_id where a.id=#{userId}
+  </select>
 </mapper>

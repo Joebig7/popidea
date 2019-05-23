@@ -1,6 +1,7 @@
 package com.mamba.popidea.dao;
 
 import com.mamba.popidea.model.UserBean;
+import com.mamba.popidea.model.vo.UserVO;
 import org.apache.ibatis.annotations.Param;
 
 
@@ -20,4 +21,6 @@ public interface UserBeanMapper {
 
     //==============Custom Mapper===========
     UserBean selectUserByLoginName(@Param("username") String username);
+
+    UserVO findWholeUserInfoById(@Param("userId") Long userId);
 }

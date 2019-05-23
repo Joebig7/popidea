@@ -1,6 +1,7 @@
 package com.mamba.popidea.service.impl;
 
 import com.google.common.collect.Maps;
+import com.mamba.popidea.conf.constant.StaticConstant;
 import com.mamba.popidea.dao.UserBeanMapper;
 import com.mamba.popidea.dao.UserDetailMapper;
 import com.mamba.popidea.dao.UserIntergralBeanMapper;
@@ -10,6 +11,7 @@ import com.mamba.popidea.model.UserBean;
 import com.mamba.popidea.model.UserDetail;
 import com.mamba.popidea.model.UserIntergralBean;
 import com.mamba.popidea.model.common.project.Audience;
+import com.mamba.popidea.model.vo.UserVO;
 import com.mamba.popidea.service.UserService;
 import com.mamba.popidea.utils.*;
 import org.slf4j.Logger;
@@ -21,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.Objects;
-
+import static com.mamba.popidea.conf.constant.StaticConstant.*;
 /**
  * @version 1.0
  * @author: JoeBig7
@@ -32,7 +34,7 @@ import java.util.Objects;
 public class UserServiceImpl implements UserService {
 
     private static Logger log = LoggerFactory.getLogger(UserService.class);
-    private static Long LOGIN_EXPIRE_TIME = 30L;
+
     @Autowired
     private Audience audience;
 
@@ -64,6 +66,7 @@ public class UserServiceImpl implements UserService {
             initIntegral(userBean);
             sendEmail(userBean);
         } catch (Exception e) {
+            log.info("用户注册有问题");
             throw ServiceException.newInstance(ErrorCodes.REGISTER_FAILURE_ERROR);
         }
     }
@@ -123,11 +126,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void detailInfoEdit(UserDetail userDetail) {
         Long userId = CommonUtil.getUserId();
+        userDetail.setUserId(userId);
         if (Objects.isNull(userDetailMapper.selectUserDetailByUserId(userId))) {
             userDetailMapper.insertSelective(userDetail);
         } else {
             userDetailMapper.updateByPrimaryKey(userDetail);
         }
+    }
 
+    @Override
+    public UserVO geWholeUserInfo() {
+        Long userId = CommonUtil.getUserId();
+        return userBeanMapper.findWholeUserInfoById(userId);
     }
 }

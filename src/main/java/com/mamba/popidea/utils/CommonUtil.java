@@ -6,18 +6,17 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @version 1.0
  * @author: JoeBig7
  * @date: 2019/5/21 13:58
+ * @description 封装 popidea专用工具
  */
 public class CommonUtil {
 
     public static Long getUserId() {
-        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = servletRequestAttributes.getRequest();
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         try {
             return Long.valueOf(request.getAttribute("userId").toString());
         } catch (NumberFormatException e) {
