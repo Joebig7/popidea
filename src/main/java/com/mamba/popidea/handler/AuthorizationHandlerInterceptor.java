@@ -4,6 +4,7 @@ import com.mamba.popidea.exception.ErrorCodes;
 import com.mamba.popidea.exception.RestException;
 import com.mamba.popidea.model.common.project.Audience;
 import com.mamba.popidea.utils.JwtUtil;
+import com.mamba.popidea.utils.RedisUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class AuthorizationHandlerInterceptor implements HandlerInterceptor {
     @Autowired
     private Audience audience;
 
+    @Autowired
+    private RedisUtil redisUtil;
+
     @Value("#{'${exclude_method}'.split(',')}")
     private List<String> exclude_method;
 
@@ -52,9 +56,14 @@ public class AuthorizationHandlerInterceptor implements HandlerInterceptor {
         }
         final String token = headerInfo.substring(7);
         try {
-            final Claims claims = JwtUtil.parseJWT(token, audience.getBase64Secret());
-            if (claims != null && request.getAttribute("userId") == null) {
-                request.setAttribute(USERID.name(), JwtUtil.getUserId(claims));
+            //判断 redis token是否存在
+            if (redisUtil.isKeyExist(token)) {
+                throw RestException.newInstance(ErrorCodes.TOKEN_CHECKED_ERROR);
+            } else {
+                final Claims claims = JwtUtil.parseJWT(token, audience.getBase64Secret());
+                if (claims != null && request.getAttribute("userId") == null) {
+                    request.setAttribute(USERID.name(), JwtUtil.getUserId(claims));
+                }
             }
         } catch (final SignatureException e) {
             throw RestException.newInstance(ErrorCodes.TOKEN_CHECKED_ERROR);

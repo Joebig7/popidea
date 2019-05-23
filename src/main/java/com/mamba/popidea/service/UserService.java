@@ -1,10 +1,7 @@
 package com.mamba.popidea.service;
 
-import com.mamba.popidea.dao.UserBeanMapper;
 import com.mamba.popidea.model.UserBean;
 import com.mamba.popidea.model.UserDetail;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.annotation.Bean;
 
 /**
  * @version 1.0

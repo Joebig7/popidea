@@ -31,8 +31,7 @@ import java.util.Objects;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static Logger logger = LoggerFactory.getLogger(UserService.class);
-    private static String EMAIL_CONTEXT = "Thank you for participating in PopIdea";
+    private static Logger log = LoggerFactory.getLogger(UserService.class);
     private static Long LOGIN_EXPIRE_TIME = 30L;
     @Autowired
     private Audience audience;
