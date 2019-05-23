@@ -1,4 +1,4 @@
-package com.mamba.popidea.controller.user;
+package com.mamba.popidea.controller;
 
 import com.mamba.popidea.model.UserBean;
 import com.mamba.popidea.model.UserDetail;
