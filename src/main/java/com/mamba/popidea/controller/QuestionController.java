@@ -46,11 +46,9 @@ public class QuestionController {
         return new RestResp(questionService.getQuestionInfo(id));
     }
 
-    @ApiOperation(value = "模糊查询", notes = "查询问题详情")
+    @ApiOperation(value = "模糊查询", notes = "模糊查询")
     @GetMapping("/get")
     public RestResp searchQuestion(@RequestParam("keyword") String keyword, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         return new RestResp(questionService.findQuestionByKeyWord(keyword, pageNo, pageSize));
     }
-
-
 }

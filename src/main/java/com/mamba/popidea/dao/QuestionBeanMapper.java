@@ -23,9 +23,6 @@ public interface QuestionBeanMapper {
     int updateByPrimaryKey(QuestionBean record);
 
     //======================custom==========================
-
-    QuestionBean getQuestionInfo(Long id);
-
     List<QuestionBean> findByKeyWord(@Param("keyword") String keyword);
 
 }

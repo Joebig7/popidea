@@ -4,10 +4,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.mamba.popidea.dao.QuestionBeanMapper;
+import com.mamba.popidea.dao.TopicBeanMapper;
 import com.mamba.popidea.dao.TopicQuestionMapBeanMapper;
+import com.mamba.popidea.exception.ErrorCodes;
+import com.mamba.popidea.exception.ServiceException;
 import com.mamba.popidea.model.QuestionBean;
 import com.mamba.popidea.model.TopicQuestionMapBean;
 import com.mamba.popidea.model.common.result.RestData;
+import com.mamba.popidea.model.vo.QuestionVo;
 import com.mamba.popidea.service.QuestionService;
 import com.mamba.popidea.utils.CollectionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +32,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     private TopicQuestionMapBeanMapper topicQuestionMapBeanMapper;
+
+    @Autowired
+    private TopicBeanMapper topicBeanMapper;
 
     /**
      * 发布或者修改问题
@@ -90,10 +97,19 @@ public class QuestionServiceImpl implements QuestionService {
 
     }
 
-
+    /**
+     * 获取问题详情信息
+     * @param id
+     * @return
+     */
     @Override
     public QuestionBean getQuestionInfo(Long id) {
-        return questionBeanMapper.getQuestionInfo(id);
+        QuestionVo questionBeanVO = (QuestionVo) questionBeanMapper.selectByPrimaryKey(id);
+        if (questionBeanVO == null) {
+            throw ServiceException.newInstance(ErrorCodes.QUESTION_EXIST_ERROR);
+        }
+        questionBeanVO.setTopicBeans(topicBeanMapper.findTopicListWithQuesionId(id));
+        return questionBeanVO;
     }
 
     enum Status {

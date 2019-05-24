@@ -22,7 +22,8 @@ public enum ErrorCodes {
     REGISTER_FAILURE_ERROR(30003, "用户注册失败,请查看邮箱是否正确"),
     TOKEN_CHECKED_ERROR(30004, "登录令牌已经失效"),
     USER_EXIST_ERROR(30005, "用户已存在"),
-    USER_PASSWORD_ERROR(30006,"用户或密码不正确，请重新登录");
+    USER_PASSWORD_ERROR(30006, "用户或密码不正确，请重新登录"),
+    QUESTION_EXIST_ERROR(30007, "问题不存在");
 
     private Integer errorCode;
     private String errorMessage;

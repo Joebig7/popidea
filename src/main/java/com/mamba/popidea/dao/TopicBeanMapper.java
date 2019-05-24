@@ -23,5 +23,7 @@ public interface TopicBeanMapper {
     int updateByPrimaryKey(TopicBean record);
 
     //=======================custom====================
-    List<TopicBean> findTopicListWithCondition(@Param("keyword")String key);
+    List<TopicBean> findTopicListWithCondition(@Param("keyword") String key);
+
+    List<TopicBean> findTopicListWithQuesionId(@Param("id") Long id);
 }
