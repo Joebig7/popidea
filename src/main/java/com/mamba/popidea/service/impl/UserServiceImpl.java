@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
         if (!redisUtil.isKeyExist(token)) {
             throw ServiceException.newInstance(ErrorCodes.TOKEN_CHECKED_ERROR);
         } else {
-            return redisUtil.delete(token);
+            return redisUtil.delete(token.substring(7).trim());
         }
     }
 

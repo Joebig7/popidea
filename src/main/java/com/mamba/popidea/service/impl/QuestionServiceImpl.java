@@ -26,13 +26,11 @@ public class QuestionServiceImpl implements QuestionService {
      */
     @Override
     public void releaseOrUpdateQuestion(QuestionBean questionBean) {
-        Long userId = CommonUtil.getUserId();
         if (Objects.nonNull(questionBean.getId())) {
             questionBean.setUpdateTime(new Date());
             questionBean.setQuestionContent(questionBean.getQuestionContent());
             questionBeanMapper.updateByPrimaryKeySelective(questionBean);
         } else {
-            questionBean.setUserId(userId);
             questionBean.setStatus(Status.OK.code());
             questionBeanMapper.insert(questionBean);
         }

@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Date;
-import java.util.Objects;
 
 /**
  * @version 1.0
@@ -29,12 +27,13 @@ public class QuestionController {
     @ApiOperation(value = "发布问题", notes = "发布问题")
     @PostMapping("/release")
     public RestResp releaseQuestion(@Valid @RequestBody QuestionBean questionBean) {
+        questionBean.setUserId(CommonUtil.getUserId());
         questionService.releaseOrUpdateQuestion(questionBean);
         return new RestResp();
     }
 
     @ApiOperation(value = "删除问题", notes = "删除问题")
-    @PostMapping("/release")
+    @PostMapping("/delete")
     public RestResp releaseQuestion(@RequestParam("id") Long id) {
         questionService.deleteQuestion(id);
         return new RestResp();

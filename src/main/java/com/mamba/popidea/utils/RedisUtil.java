@@ -32,7 +32,7 @@ public class RedisUtil {
     }
 
     public boolean isKeyExist(String key) {
-        return stringRedisTemplate.keys(key) != null;
+        return stringRedisTemplate.hasKey(key);
     }
 
     public Boolean delete(String key) {
