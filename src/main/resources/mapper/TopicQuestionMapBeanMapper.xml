@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mamba.popidea.dao.TpoicQuestionMapBeanMapper" >
-  <resultMap id="BaseResultMap" type="com.mamba.popidea.model.TpoicQuestionMapBean" >
+<mapper namespace="com.mamba.popidea.dao.TopicQuestionMapBeanMapper" >
+  <resultMap id="BaseResultMap" type="com.mamba.popidea.model.TopicQuestionMapBean" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="topic_id" property="topicId" jdbcType="BIGINT" />
     <result column="question_id" property="questionId" jdbcType="BIGINT" />
@@ -21,13 +21,13 @@
     delete from topic_question_map
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.mamba.popidea.model.TpoicQuestionMapBean" >
+  <insert id="insert" parameterType="com.mamba.popidea.model.TopicQuestionMapBean" >
     insert into topic_question_map (id, topic_id, question_id, 
       create_time, update_time)
     values (#{id,jdbcType=BIGINT}, #{topicId,jdbcType=BIGINT}, #{questionId,jdbcType=BIGINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.mamba.popidea.model.TpoicQuestionMapBean" >
+  <insert id="insertSelective" parameterType="com.mamba.popidea.model.TopicQuestionMapBean" >
     insert into topic_question_map
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -64,7 +64,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mamba.popidea.model.TpoicQuestionMapBean" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.mamba.popidea.model.TopicQuestionMapBean" >
     update topic_question_map
     <set >
       <if test="topicId != null" >
@@ -82,7 +82,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mamba.popidea.model.TpoicQuestionMapBean" >
+  <update id="updateByPrimaryKey" parameterType="com.mamba.popidea.model.TopicQuestionMapBean" >
     update topic_question_map
     set topic_id = #{topicId,jdbcType=BIGINT},
       question_id = #{questionId,jdbcType=BIGINT},
@@ -90,4 +90,11 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="batchInsert" parameterType="java.lang.List">
+    insert into  topic_question_map (topic_id,question_id) values
+    <foreach collection="topics" item="item" separator=","  index="index">
+      (#{topicId},#{id})
+    </foreach>
+   </select>
 </mapper>

@@ -1,6 +1,9 @@
 package com.mamba.popidea.service;
 
 import com.mamba.popidea.model.QuestionBean;
+import com.mamba.popidea.model.common.result.RestData;
+
+import java.util.List;
 
 /**
  * @version 1.0
@@ -9,9 +12,11 @@ import com.mamba.popidea.model.QuestionBean;
  */
 public interface QuestionService {
 
-    void releaseOrUpdateQuestion(QuestionBean questionBean);
+    void releaseOrUpdateQuestion(QuestionBean questionBean, List<Long> topics);
 
     void deleteQuestion(Long id);
 
     QuestionBean getQuestionInfo(Long id);
+
+    RestData<QuestionBean> findQuestionByKeyWord(String key, Integer pageNo, Integer pageSize);
 }

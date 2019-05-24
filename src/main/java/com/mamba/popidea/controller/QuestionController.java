@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @version 1.0
@@ -26,9 +27,9 @@ public class QuestionController {
 
     @ApiOperation(value = "发布问题", notes = "发布问题")
     @PostMapping("/release")
-    public RestResp releaseQuestion(@Valid @RequestBody QuestionBean questionBean) {
+    public RestResp releaseQuestion(@Valid @RequestBody QuestionBean questionBean, @RequestParam("topics[]") List<Long> topics) {
         questionBean.setUserId(CommonUtil.getUserId());
-        questionService.releaseOrUpdateQuestion(questionBean);
+        questionService.releaseOrUpdateQuestion(questionBean, topics);
         return new RestResp();
     }
 
@@ -40,8 +41,16 @@ public class QuestionController {
     }
 
     @ApiOperation(value = "查询问题详情", notes = "查询问题详情")
-    @PostMapping("/get")
+    @GetMapping("/get")
     public RestResp getQuestionInfo(@RequestParam("id") Long id) {
         return new RestResp(questionService.getQuestionInfo(id));
     }
+
+    @ApiOperation(value = "模糊查询", notes = "查询问题详情")
+    @GetMapping("/get")
+    public RestResp searchQuestion(@RequestParam("keyword") String keyword, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        return new RestResp(questionService.findQuestionByKeyWord(keyword, pageNo, pageSize));
+    }
+
+
 }

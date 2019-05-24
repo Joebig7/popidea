@@ -1,7 +1,10 @@
 package com.mamba.popidea.dao;
 
 import com.mamba.popidea.model.QuestionBean;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 public interface QuestionBeanMapper {
@@ -19,5 +22,10 @@ public interface QuestionBeanMapper {
 
     int updateByPrimaryKey(QuestionBean record);
 
+    //======================custom==========================
+
     QuestionBean getQuestionInfo(Long id);
+
+    List<QuestionBean> findByKeyWord(@Param("keyword") String keyword);
+
 }

@@ -2,7 +2,7 @@ package com.mamba.popidea.model;
 
 import java.util.Date;
 
-public class TpoicQuestionMapBean {
+public class TopicQuestionMapBean {
     private Long id;
 
     private Long topicId;
