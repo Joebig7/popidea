@@ -14,7 +14,7 @@ public final class DateUtil {
      * @return
      */
     public static  Date getCurrentTime() {
-        return new Date(System.currentTimeMillis());
+        return new Date();
     }
 
     public static Long getCurrentTimeMillis(){
