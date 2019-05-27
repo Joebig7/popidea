@@ -26,7 +26,7 @@ public class CommentController {
 
     @ApiOperation(value = "发布评论", notes = "发布评论")
     @PostMapping("/release")
-    public RestResp releaseComment(@Valid @RequestBody(value = "commentBean") CommentBean commentBean) {
+    public RestResp releaseComment(@Valid @RequestBody CommentBean commentBean) {
         commentService.releaseComment(commentBean);
         return new RestResp();
     }

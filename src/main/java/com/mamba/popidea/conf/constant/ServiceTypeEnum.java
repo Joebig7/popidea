@@ -9,7 +9,7 @@ package com.mamba.popidea.conf.constant;
 public final class ServiceTypeEnum {
 
 
-    enum CommentStatus {
+    public enum CommentStatus {
         COMMENT_TO_QUESTION(0),
         COMMENT_TO_ARTICLE(1),
         COMMENT_TO_USER(2);
@@ -18,6 +18,22 @@ public final class ServiceTypeEnum {
 
         CommentStatus(Integer type) {
             this.type = type;
+        }
+    }
+
+    public enum AnswerStatus {
+        NORMAL(true),
+        DELETE(false);
+
+        private boolean status;
+
+        AnswerStatus(boolean status) {
+            this.status = status;
+
+        }
+
+        public boolean getStatus() {
+            return status;
         }
     }
 
