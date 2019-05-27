@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+
 /**
  * @version 1.0
  * @author: JoeBig7
@@ -29,7 +31,7 @@ public class QuestionServiceTest {
         questionBean.setQuestionTitle("测试一下问题发布");
         questionBean.setQuestionContent("这是内容。。。");
         questionBean.setStatus(1);
-        questionService.releaseOrUpdateQuestion(questionBean);
+        questionService.releaseOrUpdateQuestion(questionBean,new ArrayList<>());
 
     }
 

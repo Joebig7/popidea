@@ -1,16 +1,18 @@
 package com.mamba.popidea.model;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 public class CommentBean {
     private Long commentId;
 
+    @NotBlank(message = "commentTargetId不能为空")
     private Long commentTargetId;
 
     private Long replyCommentId;
-
+    @NotBlank(message = "userId不能为空")
     private Long userId;
-
+    @NotBlank(message = "type不能为空")
     private Integer type;
 
     private Date createTime;
