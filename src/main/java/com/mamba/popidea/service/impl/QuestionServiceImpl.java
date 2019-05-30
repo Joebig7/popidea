@@ -110,7 +110,7 @@ public class QuestionServiceImpl implements QuestionService {
         }
         questionBeanVO.setTopicBeans(topicBeanMapper.findTopicListWithQuesionId(id));
 
-        //TODO 添加多人关注这个问题
+        //TODO 添加多少人关注这个问题
         //TODO 添加有多少人评论了该问题
         return questionBeanVO;
     }

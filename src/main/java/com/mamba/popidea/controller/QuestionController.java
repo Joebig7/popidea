@@ -5,6 +5,7 @@ import com.mamba.popidea.model.common.result.RestResp;
 import com.mamba.popidea.service.QuestionService;
 import com.mamba.popidea.utils.CommonUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
     @ApiOperation(value = "发布问题", notes = "发布问题")
     @PostMapping("/release")
     public RestResp releaseQuestion(@Valid @RequestBody QuestionBean questionBean, @RequestParam("topics[]") List<Long> topics) {
@@ -33,6 +35,7 @@ public class QuestionController {
         return new RestResp();
     }
 
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
     @ApiOperation(value = "删除问题", notes = "删除问题")
     @PostMapping("/delete")
     public RestResp releaseQuestion(@RequestParam("id") Long id) {
@@ -40,12 +43,14 @@ public class QuestionController {
         return new RestResp();
     }
 
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
     @ApiOperation(value = "查询问题详情", notes = "查询问题详情")
     @GetMapping("/detail")
     public RestResp getQuestionInfo(@RequestParam("id") Long id) {
         return new RestResp(questionService.getQuestionInfo(id));
     }
 
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
     @ApiOperation(value = "模糊查询", notes = "模糊查询")
     @GetMapping("/get")
     public RestResp searchQuestion(@RequestParam("keyword") String keyword, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {

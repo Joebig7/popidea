@@ -46,7 +46,7 @@ public class UserController {
 
     @ApiOperation(value = "用户注销", notes = "用户注销")
     @PostMapping("/loginOut")
-    @ApiImplicitParam(paramType = "header", dataType = "string", name = "authorization")
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
     public RestResp<Boolean> login(HttpServletRequest request) {
         return new RestResp<>(userService.loginOut(getToken(request)));
     }
@@ -57,7 +57,7 @@ public class UserController {
 
     @ApiOperation(value = "用户详细信息添加/编辑", notes = "用户详细信息添加/编辑")
     @PostMapping("/detail/edit")
-    @ApiImplicitParam(paramType = "header", dataType = "string", name = "authorization")
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
     public RestResp detailEdit(@ApiParam("用户详细信息") @Valid @RequestBody UserDetail userDetail) {
         userService.detailInfoEdit(userDetail);
         return new RestResp<>();
@@ -65,7 +65,7 @@ public class UserController {
 
     @ApiOperation(value = "查询用户信息", notes = "查询用户信息")
     @GetMapping("/info")
-    @ApiImplicitParam(paramType = "header", dataType = "string", name = "authorization")
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
     public RestResp getWholeUserInfo() {
         UserVO userVO = userService.geWholeUserInfo();
         return new RestResp<>(userVO);

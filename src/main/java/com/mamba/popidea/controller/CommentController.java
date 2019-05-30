@@ -4,6 +4,7 @@ import com.mamba.popidea.model.CommentBean;
 import com.mamba.popidea.model.common.result.RestResp;
 import com.mamba.popidea.service.CommentService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
     @ApiOperation(value = "发布评论", notes = "发布评论")
     @PostMapping("/release")
     public RestResp releaseComment(@Valid @RequestBody CommentBean commentBean) {
@@ -31,6 +33,7 @@ public class CommentController {
         return new RestResp();
     }
 
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
     @ApiOperation(value = "查询评论详情", notes = "查询评论详情")
     @GetMapping("/find")
     public RestResp findComment(@Valid @RequestBody CommentBean commentBean) {

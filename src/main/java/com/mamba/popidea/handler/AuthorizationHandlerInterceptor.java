@@ -39,7 +39,7 @@ public class AuthorizationHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
 
-        final String authHeader = request.getHeader("authorization");
+        final String authHeader = request.getHeader("Authorization");
         if ("OPTIONS".equals(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
             return true;
