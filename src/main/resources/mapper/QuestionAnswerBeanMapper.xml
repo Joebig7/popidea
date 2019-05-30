@@ -9,7 +9,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.example.demo.model.QuestionAnswerBean" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.mamba.popidea.model.QuestionAnswerBean" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -30,7 +30,7 @@
     delete from question_answer
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.model.QuestionAnswerBean" >
+  <insert id="insert" parameterType="com.mamba.popidea.model.QuestionAnswerBean" >
     insert into question_answer (id, question_id, user_id, 
       status, create_time, update_time, 
       content)
@@ -38,7 +38,7 @@
       #{status,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.model.QuestionAnswerBean" >
+  <insert id="insertSelective" parameterType="com.mamba.popidea.model.QuestionAnswerBean" >
     insert into question_answer
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.QuestionAnswerBean" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.mamba.popidea.model.QuestionAnswerBean" >
     update question_answer
     <set >
       <if test="questionId != null" >
@@ -111,7 +111,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.model.QuestionAnswerBean" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mamba.popidea.model.QuestionAnswerBean" >
     update question_answer
     set question_id = #{questionId,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=BIGINT},
@@ -121,7 +121,7 @@
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.QuestionAnswerBean" >
+  <update id="updateByPrimaryKey" parameterType="com.mamba.popidea.model.QuestionAnswerBean" >
     update question_answer
     set question_id = #{questionId,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=BIGINT},

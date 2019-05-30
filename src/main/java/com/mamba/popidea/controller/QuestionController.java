@@ -41,7 +41,7 @@ public class QuestionController {
     }
 
     @ApiOperation(value = "查询问题详情", notes = "查询问题详情")
-    @GetMapping("/get")
+    @GetMapping("/detail")
     public RestResp getQuestionInfo(@RequestParam("id") Long id) {
         return new RestResp(questionService.getQuestionInfo(id));
     }

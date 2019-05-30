@@ -91,10 +91,10 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="batchInsert" parameterType="java.lang.List">
+  <insert id="batchInsert" parameterType="java.util.List">
     insert into  topic_question_map (topic_id,question_id) values
     <foreach collection="topics" item="item" separator=","  index="index">
-      (#{topicId},#{id})
+      (#{item.topicId},#{item.questionId})
     </foreach>
-   </select>
+   </insert>
 </mapper>

@@ -19,5 +19,5 @@ public interface TopicQuestionMapBeanMapper {
     int updateByPrimaryKey(TopicQuestionMapBean record);
 
     //===================custom=================
-    void batchInsert(List<TopicQuestionMapBean> questionMapBeans);
+    void batchInsert(List<TopicQuestionMapBean> topics);
 }
