@@ -1,9 +1,8 @@
 package com.mamba.popidea.service;
 
 import com.mamba.popidea.model.QuestionBean;
+import com.mamba.popidea.model.bo.QuestionBeanBo;
 import com.mamba.popidea.model.common.result.RestData;
-
-import java.util.List;
 
 /**
  * @version 1.0
@@ -12,7 +11,7 @@ import java.util.List;
  */
 public interface QuestionService {
 
-    void releaseOrUpdateQuestion(QuestionBean questionBean, List<Long> topics);
+    void releaseOrUpdateQuestion(QuestionBeanBo questionBeanBo);
 
     void deleteQuestion(Long id);
 

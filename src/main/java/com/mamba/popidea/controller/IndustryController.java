@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author: JoeBig7
  * @date: 2019/5/23 16:55
  */
-@Api(value = "行业相关api")
+@Api(value = "行业相关api", tags = "行业")
 @RequestMapping("/industry")
 @RestController
 public class IndustryController {
@@ -29,6 +29,6 @@ public class IndustryController {
     @GetMapping("/all")
     @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     public RestResp getAllIndustry(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-        return new RestResp<>(industryService.getAllIndustryList(pageNo,pageSize));
+        return new RestResp<>(industryService.getAllIndustryList(pageNo, pageSize));
     }
 }

@@ -38,7 +38,7 @@
       #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{questionContent,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.mamba.popidea.model.QuestionBean" >
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.mamba.popidea.model.QuestionBean" >
     insert into question
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

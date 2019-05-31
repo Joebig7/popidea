@@ -10,12 +10,14 @@ import com.mamba.popidea.exception.ErrorCodes;
 import com.mamba.popidea.exception.ServiceException;
 import com.mamba.popidea.model.QuestionBean;
 import com.mamba.popidea.model.TopicQuestionMapBean;
+import com.mamba.popidea.model.bo.QuestionBeanBo;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.vo.QuestionVo;
 import com.mamba.popidea.service.QuestionService;
 import com.mamba.popidea.utils.CollectionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -39,30 +41,41 @@ public class QuestionServiceImpl implements QuestionService {
     /**
      * 发布或者修改问题
      *
-     * @param questionBean
+     * @param questionBeanBo
      */
+    @Transactional
     @Override
-    public void releaseOrUpdateQuestion(QuestionBean questionBean, List<Long> topics) {
+    public void releaseOrUpdateQuestion(QuestionBeanBo questionBeanBo) {
+        QuestionBean questionBean = new QuestionBean();
+        convert(questionBeanBo, questionBean);
         if (Objects.nonNull(questionBean.getId())) {
-            questionBean.setUpdateTime(new Date());
             questionBean.setQuestionContent(questionBean.getQuestionContent());
             questionBeanMapper.updateByPrimaryKeySelective(questionBean);
         } else {
+            List<Long> topics = questionBeanBo.getTopics();
+            questionBean.setStatus(Status.OK.code());
+            questionBeanMapper.insertSelective(questionBean);
             //所属话题
             if (CollectionUtil.NotEmpty(topics)) {
                 batchInsert(questionBean.getId(), topics);
             }
-            questionBean.setStatus(Status.OK.code());
-            questionBeanMapper.insert(questionBean);
         }
     }
 
+    private QuestionBean convert(QuestionBeanBo questionBeanBo, QuestionBean questionBean) {
+        questionBean.setUserId(questionBeanBo.getUserId());
+        questionBean.setStatus(questionBeanBo.getStatus());
+        questionBean.setQuestionContent(questionBeanBo.getQuestionContent());
+        questionBean.setQuestionTitle(questionBeanBo.getQuestionTitle());
+        questionBean.setId(questionBeanBo.getId());
+        return questionBean;
+    }
 
     private void batchInsert(Long questionId, List<Long> topics) {
         List<TopicQuestionMapBean> topicQuestionMapBeanList = Lists.newArrayList();
         topics.forEach(id -> {
             TopicQuestionMapBean topicQuestionMapBean = new TopicQuestionMapBean();
-            topicQuestionMapBean.setId(questionId);
+            topicQuestionMapBean.setQuestionId(questionId);
             topicQuestionMapBean.setTopicId(id);
             topicQuestionMapBeanList.add(topicQuestionMapBean);
         });
@@ -99,6 +112,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     /**
      * 获取问题详情信息
+     *
      * @param id
      * @return
      */

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date: 2019/5/23 16:55
  */
 
-@Api(value = "话题相关api")
+@Api(value = "话题相关Api", tags = "话题")
 @RestController
 @RequestMapping("/topic")
 public class TopicController {

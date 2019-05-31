@@ -93,7 +93,7 @@
 
   <insert id="batchInsert" parameterType="java.util.List">
     insert into  topic_question_map (topic_id,question_id) values
-    <foreach collection="topics" item="item" separator=","  index="index">
+    <foreach collection="list" item="item" separator=","  index="index">
       (#{item.topicId},#{item.questionId})
     </foreach>
    </insert>

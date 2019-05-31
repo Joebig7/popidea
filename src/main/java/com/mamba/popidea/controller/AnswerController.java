@@ -1,6 +1,5 @@
 package com.mamba.popidea.controller;
 
-import com.mamba.popidea.model.CommentBean;
 import com.mamba.popidea.model.QuestionAnswerBean;
 import com.mamba.popidea.model.common.result.RestResp;
 import com.mamba.popidea.service.AnswerService;
@@ -18,7 +17,7 @@ import javax.validation.Valid;
  * @date: 2019/5/27 17:39
  */
 
-@Api(value = "回答相关Api", tags = "回答相关Api")
+@Api(value = "回答相关Api",tags = "回答")
 @RestController
 @RequestMapping("/answer")
 public class AnswerController {

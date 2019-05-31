@@ -16,7 +16,7 @@ import javax.validation.Valid;
  * @author: JoeBig7
  * @date: 2019/5/27 16:20
  */
-@Api(value = "评论相关Api", tags = "评论相关Api")
+@Api(value = "评论相关Api",tags = "评论")
 @RestController
 @RequestMapping("/comment")
 public class CommentController {
