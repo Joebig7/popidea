@@ -12,6 +12,28 @@ import java.util.List;
  */
 public class QuestionVo extends QuestionBean {
 
+    //关注数
+    private Long focusCount;
+
+    //回答数
+    private Long answerCount;
+
+    public Long getFocusCount() {
+        return focusCount;
+    }
+
+    public void setFocusCount(Long focusCount) {
+        this.focusCount = focusCount;
+    }
+
+    public Long getAnswerCount() {
+        return answerCount;
+    }
+
+    public void setAnswerCount(Long answerCount) {
+        this.answerCount = answerCount;
+    }
+
     private List<TopicBean> topicBeans;
 
     public List<TopicBean> getTopicBeans() {

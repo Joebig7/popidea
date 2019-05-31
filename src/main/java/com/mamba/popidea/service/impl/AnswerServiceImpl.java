@@ -45,6 +45,8 @@ public class AnswerServiceImpl implements AnswerService {
      */
     @Override
     public RestData<QuestionAnswerBean> findAnswerList(Long questionId, Integer pageNo, Integer pageSize) {
+        //TODO 获取 回答内容+ 用户信息 + 赞、踩信息 + 收藏评论数量
+
         return null;
     }
 }
