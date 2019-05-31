@@ -4,7 +4,6 @@ import com.google.common.collect.Maps;
 import com.mamba.popidea.exception.JsonException;
 import com.mamba.popidea.exception.RestException;
 import com.mamba.popidea.exception.ServiceException;
-import com.mamba.popidea.model.common.StatusEnum;
 import com.mamba.popidea.model.common.result.RestResp;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
@@ -16,7 +15,6 @@ import java.util.Map;
 
 import static com.mamba.popidea.exception.ErrorCodes.PARAM_CHECK_ERROR;
 import static com.mamba.popidea.exception.ErrorCodes.WEB_PARAM_PARSE_ERROR;
-import static com.mamba.popidea.model.common.StatusEnum.OK;
 
 /**
  * @version 1.0

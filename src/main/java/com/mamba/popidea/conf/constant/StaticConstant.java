@@ -5,7 +5,7 @@ package com.mamba.popidea.conf.constant;
  * @author: JoeBig7
  * @date: 2019/5/23 14:13
  */
-public  class StaticConstant {
+public class StaticConstant {
 
     public static Long LOGIN_EXPIRE_TIME = 30L;
 }

@@ -17,7 +17,7 @@ import javax.validation.Valid;
  * @date: 2019/5/27 17:39
  */
 
-@Api(value = "回答相关Api",tags = "回答")
+@Api(value = "回答相关Api", tags = "回答")
 @RestController
 @RequestMapping("/answer")
 public class AnswerController {
@@ -25,7 +25,7 @@ public class AnswerController {
     @Autowired
     private AnswerService answerService;
 
-    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "发布回答", notes = "发布回答")
     @PostMapping("/release")
     public RestResp releaseComment(@Valid @RequestBody QuestionAnswerBean questionAnswerBean) {
@@ -33,7 +33,7 @@ public class AnswerController {
         return new RestResp();
     }
 
-    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "发布回答", notes = "发布回答")
     @GetMapping("/list")
     public RestResp getAnswerList(@RequestParam("questionId") Long questionId, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {

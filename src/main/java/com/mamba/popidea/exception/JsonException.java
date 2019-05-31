@@ -8,15 +8,15 @@ package com.mamba.popidea.exception;
  **/
 public class JsonException extends BaseException {
 
-    public JsonException(ErrorCodes errorCodes){
-         super(errorCodes);
+    public JsonException(ErrorCodes errorCodes) {
+        super(errorCodes);
     }
 
-    public static JsonException newInstance(){
-         return  newInstance(ErrorCodes.JSON_PARSE_ERROR);
+    public static JsonException newInstance() {
+        return newInstance(ErrorCodes.JSON_PARSE_ERROR);
     }
 
-    public static JsonException newInstance(ErrorCodes errorCodes){
-         return new JsonException(errorCodes);
+    public static JsonException newInstance(ErrorCodes errorCodes) {
+        return new JsonException(errorCodes);
     }
 }

@@ -11,13 +11,14 @@ public final class DateUtil {
 
     /**
      * 获取当前日期
+     *
      * @return
      */
-    public static  Date getCurrentTime() {
+    public static Date getCurrentTime() {
         return new Date();
     }
 
-    public static Long getCurrentTimeMillis(){
+    public static Long getCurrentTimeMillis() {
         return System.currentTimeMillis();
     }
 }

@@ -1,7 +1,6 @@
 package com.mamba.popidea.service.impl;
 
 import com.google.common.collect.Maps;
-import com.mamba.popidea.conf.constant.StaticConstant;
 import com.mamba.popidea.dao.UserBeanMapper;
 import com.mamba.popidea.dao.UserDetailMapper;
 import com.mamba.popidea.dao.UserIntergralBeanMapper;
@@ -23,7 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.Objects;
-import static com.mamba.popidea.conf.constant.StaticConstant.*;
+
+import static com.mamba.popidea.conf.constant.StaticConstant.LOGIN_EXPIRE_TIME;
+
 /**
  * @version 1.0
  * @author: JoeBig7

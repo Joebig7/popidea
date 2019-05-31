@@ -14,7 +14,8 @@ import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
 
-import static com.mamba.popidea.utils.DateUtil.*;
+import static com.mamba.popidea.utils.DateUtil.getCurrentTime;
+import static com.mamba.popidea.utils.DateUtil.getCurrentTimeMillis;
 
 /**
  * program: JwtUtil

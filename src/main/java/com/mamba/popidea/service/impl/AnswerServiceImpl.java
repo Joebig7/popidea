@@ -8,7 +8,7 @@ import com.mamba.popidea.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.mamba.popidea.conf.constant.ServiceTypeEnum.*;
+import static com.mamba.popidea.conf.constant.ServiceTypeEnum.AnswerStatus;
 
 /**
  * @version 1.0

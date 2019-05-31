@@ -16,7 +16,7 @@ import javax.validation.Valid;
  * @author: JoeBig7
  * @date: 2019/5/27 16:20
  */
-@Api(value = "评论相关Api",tags = "评论")
+@Api(value = "评论相关Api", tags = "评论")
 @RestController
 @RequestMapping("/comment")
 public class CommentController {
@@ -25,7 +25,7 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "发布评论", notes = "发布评论")
     @PostMapping("/release")
     public RestResp releaseComment(@Valid @RequestBody CommentBean commentBean) {
@@ -33,7 +33,7 @@ public class CommentController {
         return new RestResp();
     }
 
-    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "查询评论详情", notes = "查询评论详情")
     @GetMapping("/find")
     public RestResp findComment(@Valid @RequestBody CommentBean commentBean) {

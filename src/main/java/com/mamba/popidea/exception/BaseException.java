@@ -5,18 +5,18 @@ package com.mamba.popidea.exception;
  * @author: JoeBig7
  * @date: 2019/5/20 16:40
  */
-public class BaseException extends RuntimeException{
+public class BaseException extends RuntimeException {
 
     private ErrorCodes code;
     private String msg;
 
-    protected   BaseException(ErrorCodes errorCodes){
-        this(errorCodes,errorCodes.toString());
+    protected BaseException(ErrorCodes errorCodes) {
+        this(errorCodes, errorCodes.toString());
     }
 
-    protected  BaseException(ErrorCodes errorCodes,String msg){
+    protected BaseException(ErrorCodes errorCodes, String msg) {
         super(msg);
-        this.code=errorCodes;
+        this.code = errorCodes;
         this.msg = msg;
     }
 
@@ -35,7 +35,6 @@ public class BaseException extends RuntimeException{
     public void setMsg(String msg) {
         this.msg = msg;
     }
-
 
 
 }

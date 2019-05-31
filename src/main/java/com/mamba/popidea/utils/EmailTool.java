@@ -56,7 +56,7 @@ public class EmailTool {
             MimeMessageHelper helper = new MimeMessageHelper(message);
             helper.setFrom(username);
             helper.setTo(toEmail);
-            helper.setText(text,true);
+            helper.setText(text, true);
             helper.setSubject("欢迎注册PopIdea");
             sender.send(message);
         } catch (MessagingException e) {
