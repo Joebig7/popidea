@@ -3,6 +3,7 @@ package com.mamba.popidea.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
+import com.mamba.popidea.convert.BeanConvert;
 import com.mamba.popidea.dao.QuestionBeanMapper;
 import com.mamba.popidea.dao.TopicBeanMapper;
 import com.mamba.popidea.dao.TopicQuestionMapBeanMapper;
@@ -39,6 +40,9 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     private TopicBeanMapper topicBeanMapper;
 
+    @Autowired
+    private BeanConvert beanConvert;
+
     /**
      * 发布或者修改问题
      *
@@ -47,8 +51,8 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     @Override
     public void releaseOrUpdateQuestion(QuestionBeanBo questionBeanBo) {
-        QuestionBean questionBean = new QuestionBean();
-        convert(questionBeanBo, questionBean);
+
+        QuestionBean questionBean = beanConvert.convert(questionBeanBo);
         if (Objects.nonNull(questionBean.getId())) {
             questionBean.setQuestionContent(questionBean.getQuestionContent());
             questionBeanMapper.updateByPrimaryKeySelective(questionBean);
@@ -61,17 +65,6 @@ public class QuestionServiceImpl implements QuestionService {
                 batchInsert(questionBean.getId(), topics);
             }
         }
-    }
-
-    private QuestionBean convert(QuestionBeanBo questionBeanBo, QuestionBean questionBean) {
-        try {
-            BeanUtils.copyProperties(questionBean, questionBeanBo);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return questionBean;
     }
 
     private void batchInsert(Long questionId, List<Long> topics) {
