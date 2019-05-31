@@ -15,10 +15,12 @@ import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.vo.QuestionVo;
 import com.mamba.popidea.service.QuestionService;
 import com.mamba.popidea.utils.CollectionUtil;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Objects;
 
@@ -62,11 +64,13 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     private QuestionBean convert(QuestionBeanBo questionBeanBo, QuestionBean questionBean) {
-        questionBean.setUserId(questionBeanBo.getUserId());
-        questionBean.setStatus(questionBeanBo.getStatus());
-        questionBean.setQuestionContent(questionBeanBo.getQuestionContent());
-        questionBean.setQuestionTitle(questionBeanBo.getQuestionTitle());
-        questionBean.setId(questionBeanBo.getId());
+        try {
+            BeanUtils.copyProperties(questionBean, questionBeanBo);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
         return questionBean;
     }
 
