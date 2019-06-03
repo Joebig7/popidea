@@ -22,5 +22,7 @@ public interface UserService {
 
     UserVO geWholeUserInfo();
 
+    void switchToAnonymousMode();
+
 
 }

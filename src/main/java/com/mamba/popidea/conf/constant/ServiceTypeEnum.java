@@ -37,5 +37,21 @@ public final class ServiceTypeEnum {
         }
     }
 
+    public enum UserStatus {
+        // 0-禁用 1正常 2匿名
+        DISABLE(0),
+        NORMAL(1),
+        Anonymous(2);
+
+        private int status;
+
+        UserStatus(Integer status) {
+            this.status = status;
+        }
+
+        public Integer getStatus() {
+            return status;
+        }
+    }
 
 }

@@ -19,7 +19,7 @@ import java.util.List;
  * @author: JoeBig7
  * @date: 2019/5/23 16:53
  */
-@Api(value = "问题相关Api")
+@Api(value = "问题相关Api",tags = "问题")
 @RestController
 @RequestMapping("/question")
 public class QuestionController {

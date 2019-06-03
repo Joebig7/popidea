@@ -71,4 +71,12 @@ public class UserController {
         return new RestResp<>(userVO);
     }
 
+    @ApiOperation(value = "切换为匿名模式", notes = "切换为匿名模式")
+    @PostMapping("/switch")
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
+    public RestResp switchToAnonymousMode() {
+        userService.switchToAnonymousMode();
+        return new RestResp<>();
+    }
+
 }
