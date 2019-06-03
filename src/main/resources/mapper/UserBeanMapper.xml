@@ -166,4 +166,8 @@
       left join user_industry_map d on d.user_id=a.id
       left join industry e on e.id=d.industry_id where a.id=#{userId}
   </select>
+
+  <update id="switchMode">
+      update `user` set `status`=#{status} where id=#{userId}
+  </update>
 </mapper>

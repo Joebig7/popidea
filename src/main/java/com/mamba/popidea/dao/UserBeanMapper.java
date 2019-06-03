@@ -23,4 +23,6 @@ public interface UserBeanMapper {
     UserBean selectUserByLoginName(@Param("username") String username);
 
     UserVO findWholeUserInfoById(@Param("userId") Long userId);
+
+    int switchMode(@Param("userId") Long userId, @Param("status") Integer status);
 }

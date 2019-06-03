@@ -1,6 +1,7 @@
 package com.mamba.popidea.service.impl;
 
 import com.google.common.collect.Maps;
+import com.mamba.popidea.conf.constant.ServiceTypeEnum;
 import com.mamba.popidea.dao.UserBeanMapper;
 import com.mamba.popidea.dao.UserDetailMapper;
 import com.mamba.popidea.dao.UserIntergralBeanMapper;
@@ -152,14 +153,15 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void switchToAnonymousMode() {
-        UserBean userBean = userBeanMapper.selectByPrimaryKey(CommonUtil.getUserId());
-
-        if (userBean.getStatus() == UserStatus.NORMAL.getStatus()) {
-            userBean.setStatus(UserStatus.Anonymous.getStatus());
+        Long userId = CommonUtil.getUserId();
+        if (CommonUtil.isUserAnonymous()) {
+            userBeanMapper.switchMode(userId, UserStatus.NORMAL.getStatus());
         } else {
-            userBean.setStatus(UserStatus.NORMAL.getStatus());
+            userBeanMapper.switchMode(userId, UserStatus.Anonymous.getStatus());
         }
+    }
 
-        userBeanMapper.updateByPrimaryKeySelective(userBean);
+    protected UserBean findUserById(Long userId) {
+        return userBeanMapper.selectByPrimaryKey(CommonUtil.getUserId());
     }
 }
