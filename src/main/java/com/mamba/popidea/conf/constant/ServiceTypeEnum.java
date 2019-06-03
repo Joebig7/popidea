@@ -54,4 +54,21 @@ public final class ServiceTypeEnum {
         }
     }
 
+
+    public enum QuestionStatus {
+        FALSE(0),
+        OK(1),
+        DELETE(2);
+
+        QuestionStatus(Integer status) {
+            this.status = status;
+        }
+
+        public Integer status;
+
+        public Integer getStatus() {
+            return status;
+        }
+    }
+
 }

@@ -16,14 +16,15 @@ import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.vo.QuestionVo;
 import com.mamba.popidea.service.QuestionService;
 import com.mamba.popidea.utils.CollectionUtil;
-import org.apache.commons.beanutils.BeanUtils;
+import com.mamba.popidea.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Objects;
+
+import static com.mamba.popidea.conf.constant.ServiceTypeEnum.*;
 
 /**
  * 问题 业务层
@@ -58,7 +59,7 @@ public class QuestionServiceImpl implements QuestionService {
             questionBeanMapper.updateByPrimaryKeySelective(questionBean);
         } else {
             List<Long> topics = questionBeanBo.getTopics();
-            questionBean.setStatus(Status.OK.code());
+            questionBean.setStatus(QuestionStatus.OK.getStatus());
             questionBeanMapper.insertSelective(questionBean);
             //所属话题
             if (CollectionUtil.NotEmpty(topics)) {
@@ -87,7 +88,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public void deleteQuestion(Long id) {
         QuestionBean questionBean = questionBeanMapper.selectByPrimaryKey(id);
-        questionBean.setStatus(Status.DELETE.code());
+        questionBean.setStatus(QuestionStatus.DELETE.getStatus());
         questionBeanMapper.updateByPrimaryKeySelective(questionBean);
     }
 
@@ -99,9 +100,17 @@ public class QuestionServiceImpl implements QuestionService {
      * @param pageSize
      * @return
      */
-    public RestData<QuestionBean> findQuestionByKeyWord(String keyword, Integer pageNo, Integer pageSize) {
+    public RestData<QuestionVo> findQuestionByKeyWord(String keyword, Integer pageNo, Integer pageSize) {
         PageHelper.startPage(pageNo, pageSize);
-        PageInfo<QuestionBean> pageInfo = new PageInfo<>(questionBeanMapper.findByKeyWord(keyword));
+        PageInfo<QuestionVo> pageInfo = null;
+        if (CommonUtil.isUserAnonymous()) {
+            //TODO
+//            pageInfo = new PageInfo<QuestionVo>(questionBeanMapper.findQuestionByKeyWordAnonymous(keyword));
+
+        } else {
+
+        }
+
         return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
 
     }
@@ -114,30 +123,22 @@ public class QuestionServiceImpl implements QuestionService {
      */
     @Override
     public QuestionBean getQuestionInfo(Long id) {
-        QuestionVo questionBeanVO = (QuestionVo) questionBeanMapper.selectByPrimaryKey(id);
-        if (questionBeanVO == null) {
-            throw ServiceException.newInstance(ErrorCodes.QUESTION_EXIST_ERROR);
-        }
-        questionBeanVO.setTopicBeans(topicBeanMapper.findTopicListWithQuesionId(id));
+        QuestionVo questionBeanVO = null;
+        if (CommonUtil.isUserAnonymous()) {
+            //TODO 添加多少人关注这个问题
+            //TODO 添加有多少人回答了该问题
+            questionBeanVO = (QuestionVo) questionBeanMapper.selectByPrimaryKey(id);
+            if (questionBeanVO == null) {
+                throw ServiceException.newInstance(ErrorCodes.QUESTION_EXIST_ERROR);
+            }
+        } else {
 
-        //TODO 添加多少人关注这个问题
-        //TODO 添加有多少人评论了该问题
+        }
+//        questionBeanVO.setTopicBeans(topicBeanMapper.findTopicListWithQuesionId(id));
+
+
         return questionBeanVO;
     }
 
-    enum Status {
-        FALSE(0),
-        OK(1),
-        DELETE(2);
 
-        Status(Integer status) {
-            this.status = status;
-        }
-
-        private Integer status;
-
-        Integer code() {
-            return status;
-        }
-    }
 }

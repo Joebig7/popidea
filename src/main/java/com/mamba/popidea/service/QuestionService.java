@@ -3,6 +3,7 @@ package com.mamba.popidea.service;
 import com.mamba.popidea.model.QuestionBean;
 import com.mamba.popidea.model.bo.QuestionBeanBo;
 import com.mamba.popidea.model.common.result.RestData;
+import com.mamba.popidea.model.vo.QuestionVo;
 
 /**
  * @version 1.0
@@ -17,5 +18,5 @@ public interface QuestionService {
 
     QuestionBean getQuestionInfo(Long id);
 
-    RestData<QuestionBean> findQuestionByKeyWord(String key, Integer pageNo, Integer pageSize);
+    RestData<QuestionVo> findQuestionByKeyWord(String key, Integer pageNo, Integer pageSize);
 }

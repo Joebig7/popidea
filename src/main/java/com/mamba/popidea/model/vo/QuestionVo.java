@@ -12,6 +12,11 @@ import java.util.List;
  */
 public class QuestionVo extends QuestionBean {
 
+
+    private String username;
+
+    private String description;
+
     //关注数
     private Long focusCount;
 
