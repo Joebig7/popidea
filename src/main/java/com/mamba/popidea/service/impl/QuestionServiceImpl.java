@@ -104,7 +104,7 @@ public class QuestionServiceImpl implements QuestionService {
         PageHelper.startPage(pageNo, pageSize);
         PageInfo<QuestionVo> pageInfo = null;
         if (CommonUtil.isUserAnonymous()) {
-            //TODO
+            //TODO  匿名  不显示用户信息
 //            pageInfo = new PageInfo<QuestionVo>(questionBeanMapper.findQuestionByKeyWordAnonymous(keyword));
 
         } else {

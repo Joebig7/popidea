@@ -17,6 +17,10 @@ public class QuestionVo extends QuestionBean {
 
     private String description;
 
+    private String nickName;
+
+    private String favicon;
+
     //关注数
     private Long focusCount;
 

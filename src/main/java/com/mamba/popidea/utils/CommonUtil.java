@@ -42,6 +42,10 @@ public class CommonUtil {
         }
     }
 
+    /**
+     * 判断用户是否匿名
+     * @return
+     */
     public static boolean isUserAnonymous() {
         UserBean userBean = userBeanMapper.selectByPrimaryKey(getUserId());
         if (userBean.getStatus() == UserStatus.Anonymous.getStatus()) {
