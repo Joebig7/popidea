@@ -22,7 +22,7 @@ public interface UserService {
 
     UserVO geWholeUserInfo();
 
-    void switchToAnonymousMode();
+    void switchToAnonymousMode(Integer status);
 
 
 }

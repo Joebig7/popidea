@@ -1,7 +1,6 @@
 package com.mamba.popidea.service.impl;
 
 import com.google.common.collect.Maps;
-import com.mamba.popidea.conf.constant.ServiceTypeEnum;
 import com.mamba.popidea.dao.UserBeanMapper;
 import com.mamba.popidea.dao.UserDetailMapper;
 import com.mamba.popidea.dao.UserIntergralBeanMapper;
@@ -24,8 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.mamba.popidea.conf.constant.ServiceTypeEnum.UserStatus;
 import static com.mamba.popidea.conf.constant.StaticConstant.LOGIN_EXPIRE_TIME;
-import static com.mamba.popidea.conf.constant.ServiceTypeEnum.*;
 
 /**
  * @version 1.0
@@ -152,9 +151,9 @@ public class UserServiceImpl implements UserService {
      * 状态切换 匿名/正常
      */
     @Override
-    public void switchToAnonymousMode() {
+    public void switchToAnonymousMode(Integer status) {
         Long userId = CommonUtil.getUserId();
-        if (CommonUtil.isUserAnonymous()) {
+        if (UserStatus.Anonymous.getStatus() == status) {
             userBeanMapper.switchMode(userId, UserStatus.NORMAL.getStatus());
         } else {
             userBeanMapper.switchMode(userId, UserStatus.Anonymous.getStatus());
