@@ -44,14 +44,12 @@ public class QuestionController {
         return new RestResp();
     }
 
-    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
     @ApiOperation(value = "查询问题详情", notes = "查询问题详情")
     @GetMapping("/detail")
     public RestResp getQuestionInfo(@RequestParam("id") Long id) {
         return new RestResp(questionService.getQuestionInfo(id));
     }
 
-    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
     @ApiOperation(value = "模糊查询", notes = "模糊查询")
     @GetMapping("/get")
     public RestResp searchQuestion(@RequestParam("keyword") String keyword, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
