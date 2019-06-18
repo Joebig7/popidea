@@ -10,6 +10,8 @@ import com.mamba.popidea.utils.FastJsonUtil;
  */
 public class UserTemplate {
 
+    public static final UserTemplate userTemplate = new UserTemplate();
+
     private String name = "匿名用户";
     private String favicon = "www.xxxx.com";
 

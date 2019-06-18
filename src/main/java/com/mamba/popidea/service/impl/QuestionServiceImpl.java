@@ -3,6 +3,7 @@ package com.mamba.popidea.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
+import com.mamba.popidea.conf.template.UserTemplate;
 import com.mamba.popidea.convert.BeanConvert;
 import com.mamba.popidea.dao.QuestionBeanMapper;
 import com.mamba.popidea.dao.TopicBeanMapper;
@@ -17,6 +18,7 @@ import com.mamba.popidea.model.vo.QuestionVo;
 import com.mamba.popidea.service.QuestionService;
 import com.mamba.popidea.utils.CollectionUtil;
 import com.mamba.popidea.utils.CommonUtil;
+import com.mamba.popidea.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +45,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     private BeanConvert beanConvert;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     /**
      * 发布或者修改问题
@@ -123,21 +128,47 @@ public class QuestionServiceImpl implements QuestionService {
      */
     @Override
     public QuestionBean getQuestionInfo(Long id) {
-        QuestionVo questionBeanVO = null;
         if (CommonUtil.isUserAnonymous()) {
-            //TODO 添加多少人关注这个问题
-            //TODO 添加有多少人回答了该问题
-            questionBeanVO = (QuestionVo) questionBeanMapper.selectByPrimaryKey(id);
-            if (questionBeanVO == null) {
-                throw ServiceException.newInstance(ErrorCodes.QUESTION_EXIST_ERROR);
-            }
+            return combineQuestionPropertyAnonymous(id);
         } else {
-
+            return combineQuestionProperty(id);
         }
+    }
+
+    private Long getQuestionFocusCount(Long questionId) {
+        //TODO 多少人关注这个问题
+
+        return null;
+    }
 
 
+    private Long getQuestionAnswerCount(Long questionId) {
+        //TODO 多少人回答了该问题
+        return null;
+    }
+
+    private QuestionVo combineQuestionPropertyAnonymous(Long questionId) {
+        QuestionVo questionBeanVO = (QuestionVo) questionBeanMapper.selectByPrimaryKey(questionId);
+        if (questionBeanVO == null) {
+            throw ServiceException.newInstance(ErrorCodes.QUESTION_EXIST_ERROR);
+        }
+        questionBeanVO.setNickName(UserTemplate.userTemplate.getName());
+        questionBeanVO.setFavicon(UserTemplate.userTemplate.getFavicon());
+        questionBeanVO.setFocusCount(getQuestionFocusCount(questionId));
+        questionBeanVO.setAnswerCount(getQuestionAnswerCount(questionId));
         return questionBeanVO;
     }
+
+    private QuestionVo combineQuestionProperty(Long questionId) {
+        QuestionVo questionBeanVO = questionBeanMapper.getQuestionDetailInfo(questionId);
+        if (questionBeanVO == null) {
+            throw ServiceException.newInstance(ErrorCodes.QUESTION_EXIST_ERROR);
+        }
+        questionBeanVO.setFocusCount(getQuestionFocusCount(questionId));
+        questionBeanVO.setAnswerCount(getQuestionAnswerCount(questionId));
+        return questionBeanVO;
+    }
+
 
     /**
      * 获取用户提问问题列表
@@ -151,7 +182,6 @@ public class QuestionServiceImpl implements QuestionService {
         PageHelper.startPage(pageNo, pageSize);
         List<QuestionBean> questionBeanList = questionBeanMapper.findByUserId(CommonUtil.getUserId());
         PageInfo<QuestionBean> pageInfo = new PageInfo<>(questionBeanList);
-
         return new RestData(pageInfo);
     }
 }

@@ -56,6 +56,7 @@ public class QuestionController {
         return new RestResp(questionService.findQuestionByKeyWord(keyword, pageNo, pageSize));
     }
 
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "获取用户提问列表", notes = "获取用户提问列表")
     @GetMapping("/getWithUserId")
     public RestResp searchQuestion(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {

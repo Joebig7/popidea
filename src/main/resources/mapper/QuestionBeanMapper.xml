@@ -144,5 +144,9 @@
        select *from question where user_id = #{userId}
   </select>
 
+  <select id="getQuestionDetailInfo" parameterType="java.lang.Long" resultType="com.mamba.popidea.model.vo.QuestionVo">
+    select a.*,b.favicon,b.description,b.nick_name nickName from question a
+      left join `user` b on a.user_id=b.id where a.id=#{id}
+  </select>
 </mapper>
 
