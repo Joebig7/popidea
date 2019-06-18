@@ -139,5 +139,10 @@
   <select id="findByKeyWord" parameterType="java.lang.String" resultType="com.mamba.popidea.model.QuestionBean">
        select *from questoin where question_title like concat("%",#{keyword},"%");
   </select>
+
+  <select id="findByuserId" parameterType="java.lang.Long" resultType="com.mamba.popidea.model.QuestionBean">
+       select *from question where user_id = #{userId}
+  </select>
+
 </mapper>
 

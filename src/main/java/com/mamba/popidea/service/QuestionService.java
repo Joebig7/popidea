@@ -19,4 +19,6 @@ public interface QuestionService {
     QuestionBean getQuestionInfo(Long id);
 
     RestData<QuestionVo> findQuestionByKeyWord(String key, Integer pageNo, Integer pageSize);
+
+    RestData<QuestionBean> findQuestionByUserId(Integer pageNo, Integer pageSize);
 }

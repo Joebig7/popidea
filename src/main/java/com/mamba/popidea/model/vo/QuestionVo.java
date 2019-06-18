@@ -13,8 +13,6 @@ import java.util.List;
 public class QuestionVo extends QuestionBean {
 
 
-    private String username;
-
     private String description;
 
     private String nickName;
@@ -51,5 +49,29 @@ public class QuestionVo extends QuestionBean {
 
     public void setTopicBeans(List<TopicBean> topicBeans) {
         this.topicBeans = topicBeans;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getFavicon() {
+        return favicon;
+    }
+
+    public void setFavicon(String favicon) {
+        this.favicon = favicon;
     }
 }

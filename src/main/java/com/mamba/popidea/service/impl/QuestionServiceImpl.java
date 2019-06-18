@@ -134,11 +134,24 @@ public class QuestionServiceImpl implements QuestionService {
         } else {
 
         }
-//        questionBeanVO.setTopicBeans(topicBeanMapper.findTopicListWithQuesionId(id));
 
 
         return questionBeanVO;
     }
 
+    /**
+     * 获取用户提问问题列表
+     *
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public RestData<QuestionBean> findQuestionByUserId(Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<QuestionBean> questionBeanList = questionBeanMapper.findByUserId(CommonUtil.getUserId());
+        PageInfo<QuestionBean> pageInfo = new PageInfo<>(questionBeanList);
 
+        return new RestData(pageInfo);
+    }
 }

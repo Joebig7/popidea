@@ -25,4 +25,5 @@ public interface QuestionBeanMapper {
     //======================custom==========================
     List<QuestionBean> findByKeyWord(@Param("keyword") String keyword);
 
+    List<QuestionBean> findByUserId(@Param("userId") Long userId);
 }

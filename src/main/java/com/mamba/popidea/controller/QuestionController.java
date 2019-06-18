@@ -19,7 +19,7 @@ import java.util.List;
  * @author: JoeBig7
  * @date: 2019/5/23 16:53
  */
-@Api(value = "问题相关Api",tags = "问题")
+@Api(value = "问题相关Api", tags = "问题")
 @RestController
 @RequestMapping("/question")
 public class QuestionController {
@@ -27,7 +27,7 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
-    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "发布问题", notes = "发布问题")
     @PostMapping("/release")
     public RestResp releaseQuestion(@Valid @RequestBody QuestionBeanBo questionBeanBo) {
@@ -36,7 +36,7 @@ public class QuestionController {
         return new RestResp();
     }
 
-    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization",required = true)
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "删除问题", notes = "删除问题")
     @PostMapping("/delete")
     public RestResp releaseQuestion(@RequestParam("id") Long id) {
@@ -54,5 +54,11 @@ public class QuestionController {
     @GetMapping("/get")
     public RestResp searchQuestion(@RequestParam("keyword") String keyword, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         return new RestResp(questionService.findQuestionByKeyWord(keyword, pageNo, pageSize));
+    }
+
+    @ApiOperation(value = "获取用户提问列表", notes = "获取用户提问列表")
+    @GetMapping("/getWithUserId")
+    public RestResp searchQuestion(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        return new RestResp(questionService.findQuestionByUserId(pageNo, pageSize));
     }
 }
