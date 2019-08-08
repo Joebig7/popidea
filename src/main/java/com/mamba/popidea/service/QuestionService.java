@@ -1,5 +1,6 @@
 package com.mamba.popidea.service;
 
+import com.github.pagehelper.PageInfo;
 import com.mamba.popidea.model.QuestionBean;
 import com.mamba.popidea.model.bo.QuestionBeanBo;
 import com.mamba.popidea.model.common.result.RestData;
@@ -20,5 +21,5 @@ public interface QuestionService {
 
     RestData<QuestionVo> findQuestionByKeyWord(String key, Integer pageNo, Integer pageSize);
 
-    RestData<QuestionBean> findQuestionByUserId(Integer pageNo, Integer pageSize);
+    PageInfo<QuestionBean> findQuestionByUserId(Integer pageNo, Integer pageSize);
 }

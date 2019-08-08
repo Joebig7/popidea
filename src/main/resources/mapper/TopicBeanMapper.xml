@@ -128,7 +128,7 @@
     </set>
   </select>
 
-  <select id="findTopicListWithQuesionId" resultType="com.mamba.popidea.model.TopicBean">
+  <select id="findTopicListWithQuesionId" resultMap="ResultMapWithBLOBs">
     select *from topic t
     LEFT JOIN topic_question_map m on t.topic_id=m.topic_id where question_id=#{id}
   </select>

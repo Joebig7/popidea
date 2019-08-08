@@ -50,11 +50,6 @@ public class QuestionController {
         return new RestResp(questionService.getQuestionInfo(id));
     }
 
-    @ApiOperation(value = "模糊查询", notes = "模糊查询")
-    @GetMapping("/get")
-    public RestResp searchQuestion(@RequestParam("keyword") String keyword, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-        return new RestResp(questionService.findQuestionByKeyWord(keyword, pageNo, pageSize));
-    }
 
     @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "获取用户提问列表", notes = "获取用户提问列表")
@@ -62,4 +57,14 @@ public class QuestionController {
     public RestResp searchQuestion(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         return new RestResp(questionService.findQuestionByUserId(pageNo, pageSize));
     }
+
+
+
+    @ApiOperation(value = "模糊查询", notes = "模糊查询")
+    @GetMapping("/get")
+    public RestResp searchQuestion(@RequestParam("keyword") String keyword, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        return new RestResp(questionService.findQuestionByKeyWord(keyword, pageNo, pageSize));
+    }
+
+
 }

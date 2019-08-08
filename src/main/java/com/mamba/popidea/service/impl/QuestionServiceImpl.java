@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-import static com.mamba.popidea.conf.constant.ServiceTypeEnum.*;
+import static com.mamba.popidea.conf.constant.ServiceTypeEnum.QuestionStatus;
 
 /**
  * 问题 业务层
@@ -97,28 +97,6 @@ public class QuestionServiceImpl implements QuestionService {
         questionBeanMapper.updateByPrimaryKeySelective(questionBean);
     }
 
-    /**
-     * 模糊搜索
-     *
-     * @param keyword
-     * @param pageNo
-     * @param pageSize
-     * @return
-     */
-    public RestData<QuestionVo> findQuestionByKeyWord(String keyword, Integer pageNo, Integer pageSize) {
-        PageHelper.startPage(pageNo, pageSize);
-        PageInfo<QuestionVo> pageInfo = null;
-        if (CommonUtil.isUserAnonymous()) {
-            //TODO  匿名  不显示用户信息
-//            pageInfo = new PageInfo<QuestionVo>(questionBeanMapper.findQuestionByKeyWordAnonymous(keyword));
-
-        } else {
-
-        }
-
-        return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
-
-    }
 
     /**
      * 获取问题详情信息
@@ -128,11 +106,13 @@ public class QuestionServiceImpl implements QuestionService {
      */
     @Override
     public QuestionBean getQuestionInfo(Long id) {
-        if (CommonUtil.isUserAnonymous()) {
-            return combineQuestionPropertyAnonymous(id);
-        } else {
-            return combineQuestionProperty(id);
+        QuestionVo questionBeanVO = (QuestionVo) questionBeanMapper.selectByPrimaryKey(id);
+        if (questionBeanVO == null) {
+            throw ServiceException.newInstance(ErrorCodes.QUESTION_EXIST_ERROR);
         }
+        questionBeanVO.setFocusCount(getQuestionFocusCount(id));
+        questionBeanVO.setAnswerCount(getQuestionAnswerCount(id));
+        return questionBeanVO;
     }
 
     private Long getQuestionFocusCount(Long questionId) {
@@ -147,6 +127,39 @@ public class QuestionServiceImpl implements QuestionService {
         return null;
     }
 
+
+    /**
+     * 获取用户提问问题列表
+     *
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public PageInfo<QuestionBean> findQuestionByUserId(Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<QuestionBean> questionBeanList = questionBeanMapper.findByUserId(CommonUtil.getUserId());
+        PageInfo<QuestionBean> pageInfo = new PageInfo<>(questionBeanList);
+        return pageInfo;
+    }
+
+
+    /**
+     * 模糊搜索
+     *
+     * @param keyword
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public RestData<QuestionVo> findQuestionByKeyWord(String keyword, Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<QuestionVo> questionBeanList = questionBeanMapper.findByKeyWord(keyword);
+        PageInfo<QuestionVo> pageInfo =new PageInfo<>(questionBeanList);
+        return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
+    }
+
+    @Deprecated
     private QuestionVo combineQuestionPropertyAnonymous(Long questionId) {
         QuestionVo questionBeanVO = (QuestionVo) questionBeanMapper.selectByPrimaryKey(questionId);
         if (questionBeanVO == null) {
@@ -159,6 +172,7 @@ public class QuestionServiceImpl implements QuestionService {
         return questionBeanVO;
     }
 
+    @Deprecated
     private QuestionVo combineQuestionProperty(Long questionId) {
         QuestionVo questionBeanVO = questionBeanMapper.getQuestionDetailInfo(questionId);
         if (questionBeanVO == null) {
@@ -170,18 +184,4 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
 
-    /**
-     * 获取用户提问问题列表
-     *
-     * @param pageNo
-     * @param pageSize
-     * @return
-     */
-    @Override
-    public RestData<QuestionBean> findQuestionByUserId(Integer pageNo, Integer pageSize) {
-        PageHelper.startPage(pageNo, pageSize);
-        List<QuestionBean> questionBeanList = questionBeanMapper.findByUserId(CommonUtil.getUserId());
-        PageInfo<QuestionBean> pageInfo = new PageInfo<>(questionBeanList);
-        return new RestData(pageInfo);
-    }
 }

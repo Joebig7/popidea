@@ -136,8 +136,15 @@
        select *from qusetion where id=#{id} and `status`=1
   </select>
 
-  <select id="findByKeyWord" parameterType="java.lang.String" resultType="com.mamba.popidea.model.QuestionBean">
-       select *from questoin where question_title like concat("%",#{keyword},"%");
+  <select id="findByKeyWord" parameterType="java.lang.String" resultType="com.mamba.popidea.model.vo.QuestionVo">
+      select a.*,b.favicon,b.description,b.nick_name nickName from question a
+      left join `user` b on a.user_id=b.id
+      <where>
+         <if test="keyword!=null">
+           where question_title like concat("%",#{keyword},"%");
+         </if>
+      </where>
+
   </select>
 
   <select id="findByuserId" parameterType="java.lang.Long" resultType="com.mamba.popidea.model.QuestionBean">
