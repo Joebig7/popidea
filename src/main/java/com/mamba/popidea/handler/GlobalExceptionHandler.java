@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Map<String, Object> exceptionHandler(Exception exception) {
         if (exception instanceof JsonException) {
-            log.info(((JsonException) exception).getMsg());
+            log.error("【全局异常拦截】JsonException",exception.getMessage());
             JsonException jsonException = JsonException.newInstance();
             return getErrorMap(jsonException.getMsg(), jsonException.getCode().getErrorCode());
         } else if (exception instanceof RestException) {
