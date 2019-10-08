@@ -11,6 +11,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Map;
 
@@ -24,7 +25,7 @@ import static com.mamba.popidea.exception.ErrorCodes.*;
  */
 
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
@@ -32,7 +33,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Map<String, Object> exceptionHandler(Exception exception) {
         if (exception instanceof JsonException) {
-            log.error("【全局异常拦截】JsonException",exception.getMessage());
+            log.error(exception.getMessage());
             JsonException jsonException = JsonException.newInstance();
             return getErrorMap(jsonException.getMsg(), jsonException.getCode().getErrorCode());
         } else if (exception instanceof RestException) {
