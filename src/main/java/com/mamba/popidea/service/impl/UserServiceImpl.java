@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDetailMapper userDetailMapper;
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional
     @Override
     public void register(UserBean userBean) {
         try {
