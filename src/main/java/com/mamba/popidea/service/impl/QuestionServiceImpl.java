@@ -3,7 +3,6 @@ package com.mamba.popidea.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
-import com.mamba.popidea.conf.template.UserTemplate;
 import com.mamba.popidea.convert.BeanConvert;
 import com.mamba.popidea.dao.QuestionBeanMapper;
 import com.mamba.popidea.dao.TopicBeanMapper;
@@ -159,29 +158,6 @@ public class QuestionServiceImpl implements QuestionService {
         return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
     }
 
-    @Deprecated
-    private QuestionVo combineQuestionPropertyAnonymous(Long questionId) {
-        QuestionVo questionBeanVO = (QuestionVo) questionBeanMapper.selectByPrimaryKey(questionId);
-        if (questionBeanVO == null) {
-            throw ServiceException.newInstance(ErrorCodes.QUESTION_EXIST_ERROR);
-        }
-        questionBeanVO.setNickName(UserTemplate.userTemplate.getName());
-        questionBeanVO.setFavicon(UserTemplate.userTemplate.getFavicon());
-        questionBeanVO.setFocusCount(getQuestionFocusCount(questionId));
-        questionBeanVO.setAnswerCount(getQuestionAnswerCount(questionId));
-        return questionBeanVO;
-    }
-
-    @Deprecated
-    private QuestionVo combineQuestionProperty(Long questionId) {
-        QuestionVo questionBeanVO = questionBeanMapper.getQuestionDetailInfo(questionId);
-        if (questionBeanVO == null) {
-            throw ServiceException.newInstance(ErrorCodes.QUESTION_EXIST_ERROR);
-        }
-        questionBeanVO.setFocusCount(getQuestionFocusCount(questionId));
-        questionBeanVO.setAnswerCount(getQuestionAnswerCount(questionId));
-        return questionBeanVO;
-    }
 
 
 }

@@ -32,9 +32,6 @@ public class AuthorizationHandlerInterceptor implements HandlerInterceptor {
     @Autowired
     private RedisUtil redisUtil;
 
-    @Value("#{'${exclude_method}'.split(',')}")
-    private List<String> exclude_method;
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
@@ -55,15 +52,9 @@ public class AuthorizationHandlerInterceptor implements HandlerInterceptor {
         }
         final String token = headerInfo.substring(7);
         try {
-            //判断 redis token是否存在
-            if (!redisUtil.isKeyExist(token)) {
-                throw RestException.newInstance(ErrorCodes.TOKEN_CHECKED_ERROR);
-            } else {
                 final Claims claims = JwtUtil.parseJWT(token, audience.getBase64Secret());
                 if (claims != null && request.getAttribute("userId") == null) {
                     request.setAttribute(USERID.field(), JwtUtil.getUserId(claims));
-                }
-                redisUtil.expireKey(token);
             }
         } catch (Exception e) {
             throw RestException.newInstance(ErrorCodes.TOKEN_CHECKED_ERROR);

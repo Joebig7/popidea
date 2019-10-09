@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
@@ -62,9 +61,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(UserBean userBean) {
         try {
-            userBean.setStatus(1);
+            userBean.setStatus(UserStatus.NORMAL.getStatus());
             userBeanMapper.insertSelective(userBean);
-            //初始化积分
             initIntegral(userBean);
             sendEmail(userBean);
         } catch (Exception e) {
@@ -96,7 +94,6 @@ public class UserServiceImpl implements UserService {
 
         if (password.equals(userBean.getPassword())) {
             String token = JwtUtil.createJWT(userBean, audience);
-            cacheTokenToRedis(token, userBean, LOGIN_EXPIRE_TIME);
             return token;
         } else {
             throw ServiceException.newInstance(ErrorCodes.USER_PASSWORD_ERROR);

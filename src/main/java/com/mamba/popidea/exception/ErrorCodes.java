@@ -18,7 +18,7 @@ public enum ErrorCodes {
     PARAM_NULL_ERROR(10003, "参数不能为空"),
     PARAM_CHECK_ERROR(10004, "参数校验失败"),
     USER_LOGIN_FAULT(30001, "用户登录失败"),
-    USER_NULL_ERROR(30002, "用户尚未注册，请先注册"),
+    USER_NULL_ERROR(30002, "用户尚未注册，请先进行注册"),
     REGISTER_FAILURE_ERROR(30003, "用户注册失败,请查看邮箱是否正确"),
     TOKEN_CHECKED_ERROR(30004, "登录令牌已经失效"),
     USER_EXIST_ERROR(30005, "用户已存在"),

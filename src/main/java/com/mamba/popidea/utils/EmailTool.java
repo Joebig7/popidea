@@ -15,6 +15,8 @@ import java.util.Properties;
 public class EmailTool {
 
 
+    private static final String SUBJECT = "欢迎注册PopIdea";
+
     private String host;
     private String username;
     private String password;
@@ -57,7 +59,7 @@ public class EmailTool {
             helper.setFrom(username);
             helper.setTo(toEmail);
             helper.setText(text, true);
-            helper.setSubject("欢迎注册PopIdea");
+            helper.setSubject(SUBJECT);
             sender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();
