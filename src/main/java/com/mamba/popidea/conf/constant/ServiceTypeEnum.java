@@ -38,11 +38,9 @@ public final class ServiceTypeEnum {
     }
 
     public enum UserStatus {
-        // 0-禁用 1正常 2匿名
+        // 0-禁用 1正常
         DISABLE(0),
-        NORMAL(1),
-        Anonymous(2);
-
+        NORMAL(1);
         private int status;
 
         UserStatus(Integer status) {
@@ -56,8 +54,8 @@ public final class ServiceTypeEnum {
 
 
     public enum QuestionStatus {
-        FALSE(0),
-        OK(1),
+        DISABLE(0),
+        NORMAL(1),
         DELETE(2);
 
         QuestionStatus(Integer status) {

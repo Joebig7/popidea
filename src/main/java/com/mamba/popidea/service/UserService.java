@@ -21,8 +21,4 @@ public interface UserService {
     void detailInfoEdit(UserDetail userDetail);
 
     UserVO geWholeUserInfo();
-
-    void switchToAnonymousMode(Integer status);
-
-
 }

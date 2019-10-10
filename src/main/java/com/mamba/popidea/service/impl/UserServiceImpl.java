@@ -23,7 +23,6 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.mamba.popidea.conf.constant.ServiceTypeEnum.UserStatus;
-import static com.mamba.popidea.conf.constant.StaticConstant.LOGIN_EXPIRE_TIME;
 
 /**
  * @version 1.0
@@ -142,19 +141,6 @@ public class UserServiceImpl implements UserService {
     public UserVO geWholeUserInfo() {
         Long userId = CommonUtil.getUserId();
         return userBeanMapper.findWholeUserInfoById(userId);
-    }
-
-    /**
-     * 状态切换 匿名/正常
-     */
-    @Override
-    public void switchToAnonymousMode(Integer status) {
-        Long userId = CommonUtil.getUserId();
-        if (UserStatus.Anonymous.getStatus() == status) {
-            userBeanMapper.switchMode(userId, UserStatus.NORMAL.getStatus());
-        } else {
-            userBeanMapper.switchMode(userId, UserStatus.Anonymous.getStatus());
-        }
     }
 
     protected UserBean findUserById(Long userId) {

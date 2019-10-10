@@ -3,7 +3,7 @@ package com.mamba.popidea.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
-import com.mamba.popidea.convert.BeanConvert;
+import com.mamba.popidea.convert.QuestionBeanBoConverter;
 import com.mamba.popidea.dao.QuestionBeanMapper;
 import com.mamba.popidea.dao.TopicBeanMapper;
 import com.mamba.popidea.dao.TopicQuestionMapBeanMapper;
@@ -43,7 +43,7 @@ public class QuestionServiceImpl implements QuestionService {
     private TopicBeanMapper topicBeanMapper;
 
     @Autowired
-    private BeanConvert beanConvert;
+    private QuestionBeanBoConverter questionBeanBoConverter;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -56,23 +56,22 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     @Override
     public void releaseOrUpdateQuestion(QuestionBeanBo questionBeanBo) {
+        QuestionBean questionBean = questionBeanBoConverter.convert(questionBeanBo);
 
-        QuestionBean questionBean = beanConvert.convert(questionBeanBo);
         if (Objects.nonNull(questionBean.getId())) {
-            questionBean.setQuestionContent(questionBean.getQuestionContent());
             questionBeanMapper.updateByPrimaryKeySelective(questionBean);
         } else {
             List<Long> topics = questionBeanBo.getTopics();
-            questionBean.setStatus(QuestionStatus.OK.getStatus());
+            questionBean.setStatus(QuestionStatus.NORMAL.getStatus());
             questionBeanMapper.insertSelective(questionBean);
-            //所属话题
+
             if (CollectionUtil.NotEmpty(topics)) {
-                batchInsert(questionBean.getId(), topics);
+                batchInsertTopics(questionBean.getId(), topics);
             }
         }
     }
 
-    private void batchInsert(Long questionId, List<Long> topics) {
+    private void batchInsertTopics(Long questionId, List<Long> topics) {
         List<TopicQuestionMapBean> topicQuestionMapBeanList = Lists.newArrayList();
         topics.forEach(id -> {
             TopicQuestionMapBean topicQuestionMapBean = new TopicQuestionMapBean();

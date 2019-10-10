@@ -41,19 +41,4 @@ public class CommonUtil {
             throw RestException.newInstance(ErrorCodes.TOKEN_CHECKED_ERROR);
         }
     }
-
-    /**
-     * 判断用户是否匿名
-     *
-     * @return
-     */
-    @Deprecated
-    public static boolean isUserAnonymous() {
-        UserBean userBean = userBeanMapper.selectByPrimaryKey(getUserId());
-        if (userBean.getStatus() == UserStatus.Anonymous.getStatus()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
