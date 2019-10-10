@@ -21,6 +21,7 @@ import com.mamba.popidea.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -91,6 +92,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public void deleteQuestion(Long id) {
         QuestionBean questionBean = questionBeanMapper.selectByPrimaryKey(id);
+        assertNull(questionBean);
         questionBean.setStatus(QuestionStatus.DELETE.getStatus());
         questionBeanMapper.updateByPrimaryKeySelective(questionBean);
     }
@@ -103,14 +105,12 @@ public class QuestionServiceImpl implements QuestionService {
      * @return
      */
     @Override
-    public QuestionBean getQuestionInfo(Long id) {
-        QuestionVo questionBeanVO = (QuestionVo) questionBeanMapper.selectByPrimaryKey(id);
-        if (questionBeanVO == null) {
-            throw ServiceException.newInstance(ErrorCodes.QUESTION_EXIST_ERROR);
-        }
-        questionBeanVO.setFocusCount(getQuestionFocusCount(id));
-        questionBeanVO.setAnswerCount(getQuestionAnswerCount(id));
-        return questionBeanVO;
+    public QuestionVo getQuestionInfo(Long id) {
+        QuestionVo questionDetailInfo = questionBeanMapper.getQuestionDetailInfo(id);
+        assertNull(questionDetailInfo);
+        questionDetailInfo.setFocusCount(getQuestionFocusCount(id));
+        questionDetailInfo.setAnswerCount(getQuestionAnswerCount(id));
+        return questionDetailInfo;
     }
 
     private Long getQuestionFocusCount(Long questionId) {
@@ -127,22 +127,6 @@ public class QuestionServiceImpl implements QuestionService {
 
 
     /**
-     * 获取用户提问问题列表
-     *
-     * @param pageNo
-     * @param pageSize
-     * @return
-     */
-    @Override
-    public PageInfo<QuestionBean> findQuestionByUserId(Integer pageNo, Integer pageSize) {
-        PageHelper.startPage(pageNo, pageSize);
-        List<QuestionBean> questionBeanList = questionBeanMapper.findByUserId(CommonUtil.getUserId());
-        PageInfo<QuestionBean> pageInfo = new PageInfo<>(questionBeanList);
-        return pageInfo;
-    }
-
-
-    /**
      * 模糊搜索
      *
      * @param keyword
@@ -150,13 +134,27 @@ public class QuestionServiceImpl implements QuestionService {
      * @param pageSize
      * @return
      */
-    public RestData<QuestionVo> findQuestionByKeyWord(String keyword, Integer pageNo, Integer pageSize) {
+    public RestData<QuestionBean> getQuestionListByKeyWord(String keyword, Integer pageNo, Integer pageSize) {
+        if (StringUtils.isEmpty(keyword)) {
+            throw ServiceException.newInstance(ErrorCodes.KEYWORD_EXIST_ERROR);
+        }
         PageHelper.startPage(pageNo, pageSize);
-        List<QuestionVo> questionBeanList = questionBeanMapper.findByKeyWord(keyword);
-        PageInfo<QuestionVo> pageInfo =new PageInfo<>(questionBeanList);
+        List<QuestionBean> questionBeanList = questionBeanMapper.findByKeyWord(keyword);
+        PageInfo<QuestionBean> pageInfo = new PageInfo<>(questionBeanList);
         return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
     }
 
+
+    /**
+     * 判断question是否存在，如果不存在抛出异常
+     *
+     * @param questionBean
+     */
+    private void assertNull(QuestionBean questionBean) {
+        if (Objects.isNull(questionBean)) {
+            throw new ServiceException(ErrorCodes.QUESTION_EXIST_ERROR);
+        }
+    }
 
 
 }

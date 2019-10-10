@@ -12,6 +12,11 @@
   <resultMap id="ResultMapWithBLOBs" type="com.mamba.popidea.model.QuestionBean" extends="BaseResultMap" >
     <result column="question_content" property="questionContent" jdbcType="LONGVARCHAR" />
   </resultMap>
+
+  <resultMap id="QuestionVoMap" type="com.mamba.popidea.model.vo.QuestionVo" extends="ResultMapWithBLOBs" >
+    <result column="favicon" property="favicon" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, user_id, question_title, status, create_time, update_time
   </sql>
@@ -136,24 +141,14 @@
        select *from qusetion where id=#{id} and `status`=1
   </select>
 
-  <select id="findByKeyWord" parameterType="java.lang.String" resultType="com.mamba.popidea.model.vo.QuestionVo">
-      select a.*,b.favicon,b.description,b.nick_name nickName from question a
-      left join `user` b on a.user_id=b.id
-      <where>
-         <if test="keyword!=null">
-           where question_title like concat("%",#{keyword},"%");
-         </if>
-      </where>
-
+  <select id="findByKeyWord" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+      select * from question
+      where (question_title like concat("%",#{keyword},"%") or question_content like concat("%",#{keyword},"%")) and `status`=1
   </select>
 
-  <select id="findByuserId" parameterType="java.lang.Long" resultType="com.mamba.popidea.model.QuestionBean">
-       select *from question where user_id = #{userId}
-  </select>
-
-  <select id="getQuestionDetailInfo" parameterType="java.lang.Long" resultType="com.mamba.popidea.model.vo.QuestionVo">
-    select a.*,b.favicon,b.description,b.nick_name nickName from question a
-      left join `user` b on a.user_id=b.id where a.id=#{id}
+  <select id="getQuestionDetailInfo" parameterType="java.lang.Long" resultMap="QuestionVoMap">
+    select a.*,b.favicon,b.nick_name from question a
+      left join `user` b on a.user_id=b.id where a.id=#{id} and  a.`status`=1
   </select>
 </mapper>
 

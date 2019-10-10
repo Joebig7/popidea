@@ -17,9 +17,8 @@ public interface QuestionService {
 
     void deleteQuestion(Long id);
 
-    QuestionBean getQuestionInfo(Long id);
+    QuestionVo getQuestionInfo(Long id);
 
-    RestData<QuestionVo> findQuestionByKeyWord(String key, Integer pageNo, Integer pageSize);
+    RestData<QuestionBean> getQuestionListByKeyWord(String key, Integer pageNo, Integer pageSize);
 
-    PageInfo<QuestionBean> findQuestionByUserId(Integer pageNo, Integer pageSize);
 }

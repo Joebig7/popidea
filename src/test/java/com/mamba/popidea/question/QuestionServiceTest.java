@@ -6,6 +6,8 @@ import com.mamba.popidea.model.QuestionBean;
 import com.mamba.popidea.model.TopicBean;
 import com.mamba.popidea.model.TopicQuestionMapBean;
 import com.mamba.popidea.model.bo.QuestionBeanBo;
+import com.mamba.popidea.model.common.result.RestData;
+import com.mamba.popidea.model.vo.QuestionVo;
 import com.mamba.popidea.service.QuestionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,21 +60,22 @@ public class QuestionServiceTest {
     }
 
     @Test
-    public void delete() {
+    public void testDelete() {
 
-        questionService.deleteQuestion(1L);
+        questionService.deleteQuestion(20L);
 
     }
 
 
     @Test
-    public void test() {
-        List<TopicQuestionMapBean> list = Lists.newArrayList();
+    public void testGetQuestionInfo() {
+        QuestionVo questionInfo   = questionService.getQuestionInfo(20L);
+        System.out.println(questionInfo);
+    }
 
-        TopicQuestionMapBean topicQuestionMapBean = new TopicQuestionMapBean();
-        topicQuestionMapBean.setQuestionId(12L);
-        topicQuestionMapBean.setTopicId(13L);
-        list.add(topicQuestionMapBean);
-        topicQuestionMapBeanMapper.batchInsert(list);
+    @Test
+    public void testFindQuestionByKeyWord() {
+        RestData<QuestionBean> listByKeyWord = questionService.getQuestionListByKeyWord("测试", 1, 20);
+        System.out.println(listByKeyWord);
     }
 }

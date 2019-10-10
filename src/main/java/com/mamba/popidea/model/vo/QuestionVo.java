@@ -13,7 +13,6 @@ import java.util.List;
 public class QuestionVo extends QuestionBean {
 
 
-    private String description;
 
     private String nickName;
 
@@ -49,14 +48,6 @@ public class QuestionVo extends QuestionBean {
 
     public void setTopicBeans(List<TopicBean> topicBeans) {
         this.topicBeans = topicBeans;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getNickName() {
