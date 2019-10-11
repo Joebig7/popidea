@@ -1,6 +1,8 @@
 package com.mamba.popidea.answer;
 
 import com.mamba.popidea.model.QuestionAnswerBean;
+import com.mamba.popidea.model.common.result.RestData;
+import com.mamba.popidea.model.vo.AnswerVo;
 import com.mamba.popidea.service.AnswerService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,5 +38,12 @@ public class AnswerServiceTest {
         questionAnswerBean1.setContent("这是更新的内容！");
 
         answerService.releaseOrUpdateAnswer(questionAnswerBean1);
+    }
+
+    @Test
+    public void testGetAnswerList(){
+
+        RestData<AnswerVo> answerList = answerService.findAnswerList(20L, 1, 10);
+        System.out.println(answerList);
     }
 }

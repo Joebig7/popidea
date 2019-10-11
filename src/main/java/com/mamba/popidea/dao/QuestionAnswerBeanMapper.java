@@ -2,6 +2,10 @@ package com.mamba.popidea.dao;
 
 
 import com.mamba.popidea.model.QuestionAnswerBean;
+import com.mamba.popidea.model.vo.AnswerVo;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface QuestionAnswerBeanMapper {
     int deleteByPrimaryKey(Long id);
@@ -17,4 +21,6 @@ public interface QuestionAnswerBeanMapper {
     int updateByPrimaryKeyWithBLOBs(QuestionAnswerBean record);
 
     int updateByPrimaryKey(QuestionAnswerBean record);
+
+    List<AnswerVo> getAnswerList(@Param("id")Long id);
 }

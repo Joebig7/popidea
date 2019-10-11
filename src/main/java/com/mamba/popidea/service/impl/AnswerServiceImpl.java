@@ -1,12 +1,18 @@
 package com.mamba.popidea.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mamba.popidea.dao.QuestionAnswerBeanMapper;
 import com.mamba.popidea.model.QuestionAnswerBean;
 import com.mamba.popidea.model.common.result.RestData;
+import com.mamba.popidea.model.vo.AnswerVo;
+import com.mamba.popidea.model.vo.QuestionVo;
 import com.mamba.popidea.service.AnswerService;
 import com.mamba.popidea.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static com.mamba.popidea.conf.constant.ServiceTypeEnum.AnswerStatus;
 
@@ -49,9 +55,18 @@ public class AnswerServiceImpl implements AnswerService {
      * @return
      */
     @Override
-    public RestData<QuestionAnswerBean> findAnswerList(Long questionId, Integer pageNo, Integer pageSize) {
-        //TODO 获取 回答内容+ 用户信息 + 赞、踩信息 + 收藏评论数量
+    public RestData<AnswerVo> findAnswerList(Long questionId, Integer pageNo, Integer pageSize) {
 
-        return null;
+        PageHelper.startPage(pageNo, pageSize);
+        List<AnswerVo> answerList = answerBeanMapper.getAnswerList(questionId);
+        PageInfo<AnswerVo> pageInfo = new PageInfo<>(answerList);
+        List<AnswerVo> result = pageInfo.getList();
+
+        result.forEach(answerVo -> {
+            //TODO 赞、踩信息 + 收藏评论数量
+        });
+
+
+        return new RestData<>(result, pageInfo.getTotal());
     }
 }
