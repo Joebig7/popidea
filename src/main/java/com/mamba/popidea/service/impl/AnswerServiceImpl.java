@@ -29,10 +29,15 @@ public class AnswerServiceImpl implements AnswerService {
      * @param questionAnswerBean
      */
     @Override
-    public void releaseAnswer(QuestionAnswerBean questionAnswerBean) {
-        questionAnswerBean.setUserId(CommonUtil.getUserId());
-        questionAnswerBean.setStatus(AnswerStatus.NORMAL.getStatus());
-        answerBeanMapper.insert(questionAnswerBean);
+    public void releaseOrUpdateAnswer(QuestionAnswerBean questionAnswerBean) {
+
+        if (questionAnswerBean.getId() != null) {
+            answerBeanMapper.updateByPrimaryKeySelective(questionAnswerBean);
+        } else {
+            questionAnswerBean.setStatus(AnswerStatus.NORMAL.getStatus());
+            answerBeanMapper.insert(questionAnswerBean);
+        }
+
     }
 
     /**

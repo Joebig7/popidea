@@ -9,7 +9,7 @@ public class QuestionAnswerBean {
 
     private Long userId;
 
-    private Boolean status;
+    private Integer status;
 
     private Date createTime;
 
@@ -41,11 +41,11 @@ public class QuestionAnswerBean {
         this.userId = userId;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

@@ -10,7 +10,7 @@ import com.mamba.popidea.model.common.result.RestData;
  */
 public interface AnswerService {
 
-    void releaseAnswer(QuestionAnswerBean questionAnswerBean);
+    void releaseOrUpdateAnswer(QuestionAnswerBean questionAnswerBean);
 
     RestData<QuestionAnswerBean> findAnswerList(Long questionId, Integer pageNo, Integer pageSize);
 }

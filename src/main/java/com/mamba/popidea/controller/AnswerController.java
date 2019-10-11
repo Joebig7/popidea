@@ -3,6 +3,7 @@ package com.mamba.popidea.controller;
 import com.mamba.popidea.model.QuestionAnswerBean;
 import com.mamba.popidea.model.common.result.RestResp;
 import com.mamba.popidea.service.AnswerService;
+import com.mamba.popidea.utils.CommonUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -28,8 +29,9 @@ public class AnswerController {
     @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "发布回答", notes = "发布回答")
     @PostMapping("/release")
-    public RestResp releaseComment(@Valid @RequestBody QuestionAnswerBean questionAnswerBean) {
-        answerService.releaseAnswer(questionAnswerBean);
+    public RestResp releaseAnswer(@Valid @RequestBody QuestionAnswerBean questionAnswerBean) {
+        questionAnswerBean.setUserId(CommonUtil.getUserId());
+        answerService.releaseOrUpdateAnswer(questionAnswerBean);
         return new RestResp();
     }
 

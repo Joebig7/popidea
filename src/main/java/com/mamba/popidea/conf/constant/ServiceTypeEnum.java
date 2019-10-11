@@ -22,17 +22,18 @@ public final class ServiceTypeEnum {
     }
 
     public enum AnswerStatus {
-        NORMAL(true),
-        DELETE(false);
+        DISABLE(0),
+        NORMAL(1),
+        DELETE(2);
 
-        private boolean status;
+        private Integer status;
 
-        AnswerStatus(boolean status) {
+        AnswerStatus(Integer status) {
             this.status = status;
 
         }
 
-        public boolean getStatus() {
+        public Integer getStatus() {
             return status;
         }
     }
