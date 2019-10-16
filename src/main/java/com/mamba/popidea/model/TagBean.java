@@ -7,6 +7,8 @@ public class TagBean {
 
     private String name;
 
+    private Integer status;
+
     private Date createTime;
 
     private Date updateTime;
@@ -25,6 +27,14 @@ public class TagBean {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreateTime() {
