@@ -32,3 +32,4 @@ mvnw.cmd
 
 ### file ###
 application-prod.properties
+generatorConfig.xml

@@ -6,6 +6,7 @@
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="establish_time" property="establishTime" jdbcType="TIMESTAMP" />
+    <result column="count" property="count" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -14,7 +15,7 @@
     <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_id, title, establish_time, status, create_time, update_time
+    id, user_id, title, establish_time, count, status, create_time, update_time
   </sql>
   <sql id="Blob_Column_List" >
     introduction
@@ -33,11 +34,13 @@
   </delete>
   <insert id="insert" parameterType="com.mamba.popidea.model.SpecialColumnBean" >
     insert into special_column (id, user_id, title, 
-      establish_time, status, create_time, 
-      update_time, introduction)
+      establish_time, count, status, 
+      create_time, update_time, introduction
+      )
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
-      #{establishTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{introduction,jdbcType=LONGVARCHAR})
+      #{establishTime,jdbcType=TIMESTAMP}, #{count,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{introduction,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.mamba.popidea.model.SpecialColumnBean" >
     insert into special_column
@@ -53,6 +56,9 @@
       </if>
       <if test="establishTime != null" >
         establish_time,
+      </if>
+      <if test="count != null" >
+        count,
       </if>
       <if test="status != null" >
         status,
@@ -80,6 +86,9 @@
       <if test="establishTime != null" >
         #{establishTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
       </if>
@@ -106,6 +115,9 @@
       <if test="establishTime != null" >
         establish_time = #{establishTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
       </if>
@@ -126,6 +138,7 @@
     set user_id = #{userId,jdbcType=BIGINT},
       title = #{title,jdbcType=VARCHAR},
       establish_time = #{establishTime,jdbcType=TIMESTAMP},
+      count = #{count,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
@@ -137,6 +150,7 @@
     set user_id = #{userId,jdbcType=BIGINT},
       title = #{title,jdbcType=VARCHAR},
       establish_time = #{establishTime,jdbcType=TIMESTAMP},
+      count = #{count,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}

@@ -1,8 +1,6 @@
 package com.mamba.popidea.dao;
 
 import com.mamba.popidea.model.SpecialColumnBean;
-import org.springframework.stereotype.Repository;
-
 
 public interface SpecialColumnBeanMapper {
     int deleteByPrimaryKey(Long id);

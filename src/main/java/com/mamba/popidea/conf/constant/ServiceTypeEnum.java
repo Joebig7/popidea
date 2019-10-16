@@ -70,4 +70,20 @@ public final class ServiceTypeEnum {
         }
     }
 
+    public enum ColumnStatus {
+        DISABLE(0),
+        NORMAL(1),
+        DELETE(2);
+
+        ColumnStatus(Integer status) {
+            this.status = status;
+        }
+
+        public Integer status;
+
+        public Integer getStatus() {
+            return status;
+        }
+    }
+
 }

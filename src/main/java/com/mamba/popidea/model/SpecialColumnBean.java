@@ -1,5 +1,6 @@
 package com.mamba.popidea.model;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 public class SpecialColumnBean {
@@ -7,16 +8,19 @@ public class SpecialColumnBean {
 
     private Long userId;
 
+    @NotBlank(message = "专栏名不能为空")
     private String title;
 
     private Date establishTime;
+
+    private Integer count;
 
     private Integer status;
 
     private Date createTime;
 
     private Date updateTime;
-
+    @NotBlank(message = "专栏描述不能为空")
     private String introduction;
 
     public Long getId() {
@@ -49,6 +53,14 @@ public class SpecialColumnBean {
 
     public void setEstablishTime(Date establishTime) {
         this.establishTime = establishTime;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     public Integer getStatus() {
