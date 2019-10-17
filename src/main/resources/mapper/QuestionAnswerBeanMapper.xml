@@ -138,6 +138,6 @@
   <select id="getAnswerList" parameterType="java.lang.Long" resultMap="AnswerVoMap">
     select qa.*,u.favicon,u.nick_name
     from question_answer qa left join user u
-    on u.id=qa.user_id where qa.question_id=#{id}
+    on u.id=qa.user_id where qa.question_id=#{id} and `status`=1
   </select>
 </mapper>

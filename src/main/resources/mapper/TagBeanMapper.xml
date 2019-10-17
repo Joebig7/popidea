@@ -90,4 +90,18 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="findByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from tag
+      where `name`=#{name} and status!=2
+  </select>
+
+  <select id="search" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tag where name like CONCAT('%',#{keyword},'%') and `status`!=2
+  </select>
+
 </mapper>

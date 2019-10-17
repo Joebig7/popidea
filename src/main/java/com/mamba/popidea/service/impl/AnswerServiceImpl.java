@@ -6,15 +6,14 @@ import com.mamba.popidea.dao.QuestionAnswerBeanMapper;
 import com.mamba.popidea.model.QuestionAnswerBean;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.vo.AnswerVo;
-import com.mamba.popidea.model.vo.QuestionVo;
 import com.mamba.popidea.service.AnswerService;
-import com.mamba.popidea.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
-import static com.mamba.popidea.conf.constant.ServiceTypeEnum.AnswerStatus;
+import static com.mamba.popidea.constant.ServiceTypeEnum.AnswerStatus;
 
 /**
  * @version 1.0
@@ -38,6 +37,7 @@ public class AnswerServiceImpl implements AnswerService {
     public void releaseOrUpdateAnswer(QuestionAnswerBean questionAnswerBean) {
 
         if (questionAnswerBean.getId() != null) {
+            questionAnswerBean.setUpdateTime(new Date());
             answerBeanMapper.updateByPrimaryKeySelective(questionAnswerBean);
         } else {
             questionAnswerBean.setStatus(AnswerStatus.NORMAL.getStatus());

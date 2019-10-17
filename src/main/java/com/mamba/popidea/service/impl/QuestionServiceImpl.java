@@ -23,10 +23,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import static com.mamba.popidea.conf.constant.ServiceTypeEnum.QuestionStatus;
+import static com.mamba.popidea.constant.ServiceTypeEnum.QuestionStatus;
 
 /**
  * 问题 业务层
@@ -60,6 +61,7 @@ public class QuestionServiceImpl implements QuestionService {
         QuestionBean questionBean = questionBeanBoConverter.convert(questionBeanBo);
 
         if (Objects.nonNull(questionBean.getId())) {
+            questionBean.setUpdateTime(new Date());
             questionBeanMapper.updateByPrimaryKeySelective(questionBean);
         } else {
             List<Long> topics = questionBeanBo.getTopics();
@@ -92,7 +94,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public void deleteQuestion(Long id) {
         QuestionBean questionBean = questionBeanMapper.selectByPrimaryKey(id);
-        assertNull(questionBean);
+        CommonUtil.assertNull(questionBean, ErrorCodes.QUESTION_EXIST_ERROR);
         questionBean.setStatus(QuestionStatus.DELETE.getStatus());
         questionBeanMapper.updateByPrimaryKeySelective(questionBean);
     }
@@ -107,7 +109,8 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public QuestionVo getQuestionInfo(Long id) {
         QuestionVo questionDetailInfo = questionBeanMapper.getQuestionDetailInfo(id);
-        assertNull(questionDetailInfo);
+        CommonUtil.assertNull(questionDetailInfo, ErrorCodes.QUESTION_EXIST_ERROR);
+
         questionDetailInfo.setFocusCount(getQuestionFocusCount(id));
         questionDetailInfo.setAnswerCount(getQuestionAnswerCount(id));
         return questionDetailInfo;
@@ -143,18 +146,4 @@ public class QuestionServiceImpl implements QuestionService {
         PageInfo<QuestionBean> pageInfo = new PageInfo<>(questionBeanList);
         return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
     }
-
-
-    /**
-     * 判断question是否存在，如果不存在抛出异常
-     *
-     * @param questionBean
-     */
-    private void assertNull(QuestionBean questionBean) {
-        if (Objects.isNull(questionBean)) {
-            throw new ServiceException(ErrorCodes.QUESTION_EXIST_ERROR);
-        }
-    }
-
-
 }

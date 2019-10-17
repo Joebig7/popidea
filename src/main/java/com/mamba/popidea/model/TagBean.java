@@ -1,10 +1,12 @@
 package com.mamba.popidea.model;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 public class TagBean {
     private Long id;
 
+    @NotBlank(message = "标签名称不能为空")
     private String name;
 
     private Integer status;

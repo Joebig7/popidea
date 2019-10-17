@@ -3,14 +3,13 @@ package com.mamba.popidea.utils;
 import com.mamba.popidea.dao.UserBeanMapper;
 import com.mamba.popidea.exception.ErrorCodes;
 import com.mamba.popidea.exception.RestException;
-import com.mamba.popidea.model.UserBean;
+import com.mamba.popidea.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-
-import static com.mamba.popidea.conf.constant.ServiceTypeEnum.*;
 
 /**
  * @version 1.0
@@ -39,6 +38,13 @@ public class CommonUtil {
             return Long.valueOf(request.getAttribute("userId").toString());
         } catch (NumberFormatException e) {
             throw RestException.newInstance(ErrorCodes.TOKEN_CHECKED_ERROR);
+        }
+    }
+
+
+    public static <T> void assertNull(T t, ErrorCodes errorCodes) {
+        if (t == null) {
+            ServiceException.newInstance(errorCodes);
         }
     }
 }

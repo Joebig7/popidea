@@ -1,4 +1,4 @@
-package com.mamba.popidea.conf.constant;
+package com.mamba.popidea.constant;
 
 /**
  * @version 1.0
@@ -21,27 +21,12 @@ public final class ServiceTypeEnum {
         }
     }
 
-    public enum AnswerStatus {
-        DISABLE(0),
-        NORMAL(1),
-        DELETE(2);
-
-        private Integer status;
-
-        AnswerStatus(Integer status) {
-            this.status = status;
-
-        }
-
-        public Integer getStatus() {
-            return status;
-        }
-    }
 
     public enum UserStatus {
         // 0-禁用 1正常
         DISABLE(0),
         NORMAL(1);
+
         private int status;
 
         UserStatus(Integer status) {
@@ -70,6 +55,23 @@ public final class ServiceTypeEnum {
         }
     }
 
+    public enum AnswerStatus {
+        DISABLE(0),
+        NORMAL(1),
+        DELETE(2);
+
+        private Integer status;
+
+        AnswerStatus(Integer status) {
+            this.status = status;
+
+        }
+
+        public Integer getStatus() {
+            return status;
+        }
+    }
+
     public enum ColumnStatus {
         DISABLE(0),
         NORMAL(1),
@@ -83,6 +85,27 @@ public final class ServiceTypeEnum {
 
         public Integer getStatus() {
             return status;
+        }
+    }
+
+    public enum TagStatus {
+        //0-默认 1-用户新添加 2-禁用
+        DEFAULT(0),
+        NEW(1),
+        DISABLE(2);
+
+        public int status;
+
+        TagStatus(int status){
+            this.status=status;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
         }
     }
 

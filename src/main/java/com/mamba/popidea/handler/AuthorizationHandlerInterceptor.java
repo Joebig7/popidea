@@ -7,7 +7,6 @@ import com.mamba.popidea.utils.JwtUtil;
 import com.mamba.popidea.utils.RedisUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -15,9 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
-import static com.mamba.popidea.conf.constant.ConstantEnum.USERID;
+import static com.mamba.popidea.constant.ConstantEnum.USERID;
 
 /**
  * @version 1.0

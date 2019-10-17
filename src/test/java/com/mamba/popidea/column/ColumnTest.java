@@ -1,6 +1,6 @@
 package com.mamba.popidea.column;
 
-import com.mamba.popidea.conf.constant.ServiceTypeEnum;
+import com.mamba.popidea.constant.ServiceTypeEnum;
 import com.mamba.popidea.model.SpecialColumnBean;
 import com.mamba.popidea.service.SpecialColumnService;
 import org.junit.Test;

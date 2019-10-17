@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.mamba.popidea.conf.constant.ServiceTypeEnum.UserStatus;
+import static com.mamba.popidea.constant.ServiceTypeEnum.UserStatus;
 
 /**
  * @version 1.0

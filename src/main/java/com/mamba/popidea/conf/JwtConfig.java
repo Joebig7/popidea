@@ -1,4 +1,4 @@
-package com.mamba.popidea.conf.authorization;
+package com.mamba.popidea.conf;
 
 import com.mamba.popidea.handler.AuthorizationHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.mamba.popidea.conf.constant.StaticConstant.LOGIN_EXPIRE_TIME;
+import static com.mamba.popidea.constant.StaticConstant.LOGIN_EXPIRE_TIME;
 
 /**
  * @version 1.0

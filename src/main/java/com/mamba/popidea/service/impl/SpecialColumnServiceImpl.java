@@ -2,16 +2,16 @@ package com.mamba.popidea.service.impl;
 
 import com.mamba.popidea.dao.SpecialColumnBeanMapper;
 import com.mamba.popidea.exception.ErrorCodes;
-import com.mamba.popidea.exception.ServiceException;
-import com.mamba.popidea.model.QuestionBean;
 import com.mamba.popidea.model.SpecialColumnBean;
 import com.mamba.popidea.service.SpecialColumnService;
+import com.mamba.popidea.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Objects;
 
-import static com.mamba.popidea.conf.constant.ServiceTypeEnum.ColumnStatus;
+import static com.mamba.popidea.constant.ServiceTypeEnum.ColumnStatus;
 
 /**
  * @version 1.0
@@ -35,6 +35,7 @@ public class SpecialColumnServiceImpl implements SpecialColumnService {
             columnBean.setStatus(ColumnStatus.NORMAL.status);
             specialColumnBeanMapper.insertSelective(columnBean);
         } else {
+            columnBean.setUpdateTime(new Date());
             specialColumnBeanMapper.updateByPrimaryKeySelective(columnBean);
         }
     }
@@ -47,20 +48,8 @@ public class SpecialColumnServiceImpl implements SpecialColumnService {
     @Override
     public void delete(Long id) {
         SpecialColumnBean specialColumnBean = specialColumnBeanMapper.selectByPrimaryKey(id);
-        assertNull(specialColumnBean);
+        CommonUtil.assertNull(specialColumnBean, ErrorCodes.COLUMN_EXIST_ERROR);
         specialColumnBean.setStatus(ColumnStatus.DELETE.status);
         specialColumnBeanMapper.updateByPrimaryKeySelective(specialColumnBean);
-    }
-
-
-    /**
-     * 判断question是否存在，如果不存在抛出异常
-     *
-     * @param columnBean
-     */
-    private void assertNull(SpecialColumnBean columnBean) {
-        if (Objects.isNull(columnBean)) {
-            throw new ServiceException(ErrorCodes.COLUMN_EXIST_ERROR);
-        }
     }
 }

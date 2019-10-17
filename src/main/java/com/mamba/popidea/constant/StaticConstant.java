@@ -1,4 +1,4 @@
-package com.mamba.popidea.conf.constant;
+package com.mamba.popidea.constant;
 
 /**
  * @version 1.0
