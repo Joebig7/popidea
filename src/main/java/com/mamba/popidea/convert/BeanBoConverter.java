@@ -14,13 +14,19 @@ import org.springframework.stereotype.Component;
  * @description
  */
 @Component
-public class QuestionBeanBoConverter implements Converter<QuestionBeanBo, QuestionBean> {
+public class BeanBoConverter<S, T> implements Converter<S, T> {
+
+    private T t;
+
+    public BeanBoConverter(T t) {
+        this.t = t;
+
+    }
 
     @Nullable
     @Override
-    public QuestionBean convert(QuestionBeanBo source) {
-        QuestionBean questionBean = new QuestionBean();
-        BeanUtils.copyProperties(source, questionBean);
-        return questionBean;
+    public T convert(S source) {
+        BeanUtils.copyProperties(source, t);
+        return t;
     }
 }

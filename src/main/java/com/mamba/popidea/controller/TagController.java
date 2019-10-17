@@ -5,6 +5,7 @@ import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.common.result.RestResp;
 import com.mamba.popidea.service.TagService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,13 @@ public class TagController {
     @Autowired
     private TagService tagService;
 
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "创建标签", notes = "创建标签")
     @PostMapping("/create")
     public RestResp create(@ApiParam("标签信息") @Valid @RequestBody TagBean tagBean) {
         tagService.add(tagBean);
         return new RestResp();
     }
-
 
     @ApiOperation(value = "搜索标签", notes = "搜索标签")
     @PostMapping("/search")

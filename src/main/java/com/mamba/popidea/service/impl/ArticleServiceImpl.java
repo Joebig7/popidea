@@ -1,14 +1,143 @@
 package com.mamba.popidea.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
+import com.mamba.popidea.convert.ConverterUtil;
+import com.mamba.popidea.dao.ArticleBeanMapper;
+import com.mamba.popidea.dao.ArticleTagMapBeanMapper;
+import com.mamba.popidea.exception.ErrorCodes;
+import com.mamba.popidea.model.ArticleBean;
+import com.mamba.popidea.model.ArticleTagMapBean;
+import com.mamba.popidea.model.bo.ArticleBeanBo;
+import com.mamba.popidea.model.common.result.RestData;
+import com.mamba.popidea.model.vo.ArticleVo;
 import com.mamba.popidea.service.ArticleService;
+import com.mamba.popidea.utils.CollectionUtil;
+import com.mamba.popidea.utils.CommonUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+
+import static com.mamba.popidea.constant.ServiceTypeEnum.ArticleStatus.DISABLE;
+import static com.mamba.popidea.constant.ServiceTypeEnum.ArticleStatus.NORMAL;
 
 /**
  * @version 1.0
  * @author: JoeBig7
  * @date: 2019/10/16 17:12
- * @description
  */
 @Service
 public class ArticleServiceImpl implements ArticleService {
+
+
+    @Autowired
+    private ArticleBeanMapper articleBeanMapper;
+
+    @Autowired
+    private ArticleTagMapBeanMapper articleTagMapBeanMapper;
+
+    /**
+     * 发布或者修文章
+     *
+     * @param articleBeanBo
+     */
+    @Override
+    public void release(ArticleBeanBo articleBeanBo) {
+        ArticleBean articleBean = ConverterUtil.convertBeanBo(new ArticleBean(), articleBeanBo);
+
+        if (Objects.nonNull(articleBean.getId())) {
+            articleBean.setUpdateTime(new Date());
+            articleBeanMapper.updateByPrimaryKeySelective(articleBean);
+        } else {
+            List<Long> tags = articleBeanBo.getTags();
+            articleBean.setStatus(NORMAL.getStatus());
+            articleBeanMapper.insertSelective(articleBean);
+
+            if (CollectionUtil.NotEmpty(tags)) {
+                batchInsertTags(articleBean.getId(), tags);
+            }
+        }
+    }
+
+    /**
+     * 删除文章
+     *
+     * @param id
+     */
+    @Override
+    public void delete(Long id) {
+        ArticleBean articleBean = articleBeanMapper.selectByPrimaryKey(id);
+        CommonUtil.assertNull(articleBean, ErrorCodes.ARTICLE_EXIST_ERROR);
+        articleBean.setStatus(DISABLE.status);
+        articleBeanMapper.updateByPrimaryKeySelective(articleBean);
+    }
+
+
+    /**
+     * 获取文章列表
+     *
+     * @param columnId 专栏id
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public RestData<ArticleBean> list(Long columnId, Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+
+        List<ArticleBean> articleList = articleBeanMapper.findArticleListByColumnId(columnId);
+
+        PageInfo<ArticleBean> pageInfo = new PageInfo<>(articleList);
+
+        return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
+    }
+
+    /**
+     * 获取文章详细信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public ArticleVo get(Long id) {
+        ArticleVo articleVo = articleBeanMapper.getDetailInfo(id);
+        CommonUtil.assertNull(articleVo, ErrorCodes.ARTICLE_EXIST_ERROR);
+        //TODO 设置评论数，赞/踩的数量
+
+        return articleVo;
+    }
+
+
+    /**
+     * 关键词搜索
+     *
+     * @param keyword
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public RestData<ArticleBean> search(String keyword, Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<ArticleBean> articleBeanList = articleBeanMapper.search(keyword);
+        PageInfo<ArticleBean> pageInfo = new PageInfo<>(articleBeanList);
+        return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
+    }
+
+    private void batchInsertTags(Long articleId, List<Long> tags) {
+        List<ArticleTagMapBean> articleTagMapBeanList = Lists.newArrayList();
+        tags.forEach(id -> {
+            ArticleTagMapBean articleTagMapBean = new ArticleTagMapBean();
+            articleTagMapBean.setArticleId(articleId);
+            articleTagMapBean.setTagId(id);
+            articleTagMapBeanList.add(articleTagMapBean);
+        });
+        articleTagMapBeanMapper.batchInsert(articleTagMapBeanList);
+    }
+
+
 }

@@ -90,4 +90,11 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into  article_tag_map  (article_id,tag_id) values
+    <foreach collection="list" item="item" separator=","  index="index">
+      (#{item.articleId},#{item.tagId})
+    </foreach>
+  </insert>
 </mapper>

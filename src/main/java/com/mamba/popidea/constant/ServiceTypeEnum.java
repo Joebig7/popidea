@@ -96,8 +96,8 @@ public final class ServiceTypeEnum {
 
         public int status;
 
-        TagStatus(int status){
-            this.status=status;
+        TagStatus(int status) {
+            this.status = status;
         }
 
         public int getStatus() {
@@ -108,5 +108,27 @@ public final class ServiceTypeEnum {
             this.status = status;
         }
     }
+
+    public enum ArticleStatus {
+        //0-未审核 1-正常  2-禁用
+        DISABLED(0),
+        NORMAL(1),
+        DISABLE(2);
+
+        public int status;
+
+        ArticleStatus(int status) {
+            this.status = status;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+    }
+
 
 }

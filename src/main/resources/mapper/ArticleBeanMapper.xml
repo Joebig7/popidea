@@ -4,15 +4,30 @@
   <resultMap id="BaseResultMap" type="com.mamba.popidea.model.ArticleBean" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="column_id" property="columnId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.mamba.popidea.model.ArticleBean" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
+
+  <resultMap id="ArticleVoResultMap" type="com.mamba.popidea.model.vo.ArticleVo" extends="ResultMapWithBLOBs" >
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="favicon" property="favicon" jdbcType="VARCHAR" />
+    <collection property="tags" column="id" ofType="com.mamba.popidea.model.TagBean">
+      <id column="tag_id" property="id" jdbcType="BIGINT" />
+      <result column="tag_name" property="name" jdbcType="VARCHAR" />
+      <result column="status" property="status" jdbcType="VARCHAR" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </collection>
+  </resultMap>
+
   <sql id="Base_Column_List" >
-    id, column_id, title, create_time, update_time
+    id, column_id, user_id, title, status, create_time, update_time
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -30,12 +45,12 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.mamba.popidea.model.ArticleBean" >
-    insert into article (id, column_id, title, 
-      create_time, update_time, content
-      )
-    values (#{id,jdbcType=BIGINT}, #{columnId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
-      )
+    insert into article (id, column_id, user_id, 
+      title, status, create_time, 
+      update_time, content)
+    values (#{id,jdbcType=BIGINT}, #{columnId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{title,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.mamba.popidea.model.ArticleBean" >
     insert into article
@@ -46,8 +61,14 @@
       <if test="columnId != null" >
         column_id,
       </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
       <if test="title != null" >
         title,
+      </if>
+      <if test="status != null" >
+        status,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -66,8 +87,14 @@
       <if test="columnId != null" >
         #{columnId,jdbcType=BIGINT},
       </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -86,8 +113,14 @@
       <if test="columnId != null" >
         column_id = #{columnId,jdbcType=BIGINT},
       </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -104,7 +137,9 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mamba.popidea.model.ArticleBean" >
     update article
     set column_id = #{columnId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
       title = #{title,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=LONGVARCHAR}
@@ -113,9 +148,36 @@
   <update id="updateByPrimaryKey" parameterType="com.mamba.popidea.model.ArticleBean" >
     update article
     set column_id = #{columnId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
       title = #{title,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="findArticleListByColumnId" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    where column_id=#{columnId} and `status`=1
+  </select>
+
+  <select id="getDetailInfo" parameterType="java.lang.Long" resultMap="ArticleVoResultMap">
+      select a.*,b.nick_name,b.favicon,d.`name` tag_name ,d.id tag_id,d.`status`,d.create_time,d.update_time from article a
+      left join user b on b.id=a.user_id
+      left join article_tag_map c on c.article_id=a.id
+      left join tag d on d.id=c.tag_id where a.id=? and a.`status`=1
+  </select>
+
+  <select id="search" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    where title like concat('%',#{keyword},'%') and `status`=1
+  </select>
 </mapper>

@@ -7,7 +7,11 @@ public class ArticleBean {
 
     private Long columnId;
 
+    private Long userId;
+
     private String title;
+
+    private Integer status;
 
     private Date createTime;
 
@@ -31,12 +35,28 @@ public class ArticleBean {
         this.columnId = columnId;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreateTime() {

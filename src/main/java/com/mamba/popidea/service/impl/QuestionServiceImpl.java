@@ -3,7 +3,8 @@ package com.mamba.popidea.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
-import com.mamba.popidea.convert.QuestionBeanBoConverter;
+import com.mamba.popidea.convert.BeanBoConverter;
+import com.mamba.popidea.convert.ConverterUtil;
 import com.mamba.popidea.dao.QuestionBeanMapper;
 import com.mamba.popidea.dao.TopicBeanMapper;
 import com.mamba.popidea.dao.TopicQuestionMapBeanMapper;
@@ -45,7 +46,7 @@ public class QuestionServiceImpl implements QuestionService {
     private TopicBeanMapper topicBeanMapper;
 
     @Autowired
-    private QuestionBeanBoConverter questionBeanBoConverter;
+    private BeanBoConverter questionBeanBoConverter;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -58,7 +59,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     @Override
     public void releaseOrUpdateQuestion(QuestionBeanBo questionBeanBo) {
-        QuestionBean questionBean = questionBeanBoConverter.convert(questionBeanBo);
+        QuestionBean questionBean = ConverterUtil.convertBeanBo(new QuestionBean(),questionBeanBo);
 
         if (Objects.nonNull(questionBean.getId())) {
             questionBean.setUpdateTime(new Date());
