@@ -1,6 +1,5 @@
 package com.mamba.popidea.controller;
 
-import com.mamba.popidea.model.QuestionBean;
 import com.mamba.popidea.model.bo.QuestionBeanBo;
 import com.mamba.popidea.model.common.result.RestResp;
 import com.mamba.popidea.service.QuestionService;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * @version 1.0

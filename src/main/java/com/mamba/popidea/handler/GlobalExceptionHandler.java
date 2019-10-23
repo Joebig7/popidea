@@ -25,7 +25,7 @@ import static com.mamba.popidea.exception.ErrorCodes.*;
  */
 
 @ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 

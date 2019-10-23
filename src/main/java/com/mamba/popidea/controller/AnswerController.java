@@ -4,7 +4,6 @@ import com.mamba.popidea.model.QuestionAnswerBean;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.common.result.RestResp;
 import com.mamba.popidea.model.vo.AnswerVo;
-import com.mamba.popidea.model.vo.QuestionVo;
 import com.mamba.popidea.service.AnswerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

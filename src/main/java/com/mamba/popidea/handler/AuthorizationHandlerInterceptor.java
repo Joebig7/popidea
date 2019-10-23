@@ -27,9 +27,6 @@ public class AuthorizationHandlerInterceptor implements HandlerInterceptor {
     @Autowired
     private Audience audience;
 
-    @Autowired
-    private RedisUtil redisUtil;
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
@@ -50,9 +47,9 @@ public class AuthorizationHandlerInterceptor implements HandlerInterceptor {
         }
         final String token = headerInfo.substring(7);
         try {
-                final Claims claims = JwtUtil.parseJWT(token, audience.getBase64Secret());
-                if (claims != null && request.getAttribute("userId") == null) {
-                    request.setAttribute(USERID.field(), JwtUtil.getUserId(claims));
+            final Claims claims = JwtUtil.parseJWT(token, audience.getBase64Secret());
+            if (claims != null && request.getAttribute("userId") == null) {
+                request.setAttribute(USERID.field(), JwtUtil.getUserId(claims));
             }
         } catch (Exception e) {
             throw RestException.newInstance(ErrorCodes.TOKEN_CHECKED_ERROR);

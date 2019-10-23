@@ -7,7 +7,4 @@ package com.mamba.popidea.constant;
  */
 public class StaticConstant {
 
-    public static Long LOGIN_EXPIRE_TIME = 30L;
-
-    public static String ANONYMOUS_USERS="匿名用户";
 }

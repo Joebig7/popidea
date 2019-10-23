@@ -1,7 +1,5 @@
 package com.mamba.popidea.convert;
 
-import com.mamba.popidea.model.QuestionBean;
-import com.mamba.popidea.model.bo.QuestionBeanBo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
