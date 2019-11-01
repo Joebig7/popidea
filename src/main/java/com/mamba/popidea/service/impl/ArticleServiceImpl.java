@@ -17,6 +17,7 @@ import com.mamba.popidea.utils.CollectionUtil;
 import com.mamba.popidea.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -45,6 +46,7 @@ public class ArticleServiceImpl implements ArticleService {
      *
      * @param articleBeanBo
      */
+    @Transactional
     @Override
     public void release(ArticleBeanBo articleBeanBo) {
         ArticleBean articleBean = ConverterUtil.convertBeanBo(new ArticleBean(), articleBeanBo);

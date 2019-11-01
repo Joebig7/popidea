@@ -42,15 +42,6 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     private TopicQuestionMapBeanMapper topicQuestionMapBeanMapper;
 
-    @Autowired
-    private TopicBeanMapper topicBeanMapper;
-
-    @Autowired
-    private BeanBoConverter questionBeanBoConverter;
-
-    @Autowired
-    private RedisUtil redisUtil;
-
     /**
      * 发布或者修改问题
      *

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
  * @date: 2019/10/10 14:58
  * @description
  */
-@Component
 public class BeanBoConverter<S, T> implements Converter<S, T> {
 
     private T t;

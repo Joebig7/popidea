@@ -5,9 +5,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
-
-import static com.mamba.popidea.constant.StaticConstant.LOGIN_EXPIRE_TIME;
-
 /**
  * @version 1.0
  * @author: JoeBig7
@@ -39,7 +36,4 @@ public class RedisUtil {
         return stringRedisTemplate.delete(key);
     }
 
-    public void expireKey(String key) {
-        stringRedisTemplate.expire(key, LOGIN_EXPIRE_TIME, TimeUnit.MINUTES);
-    }
 }

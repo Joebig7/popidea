@@ -52,7 +52,7 @@
       #{title,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.mamba.popidea.model.ArticleBean" >
+  <insert id="insertSelective" parameterType="com.mamba.popidea.model.ArticleBean" keyProperty="id" useGeneratedKeys="true">
     insert into article
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -169,7 +169,7 @@
       select a.*,b.nick_name,b.favicon,d.`name` tag_name ,d.id tag_id,d.`status`,d.create_time,d.update_time from article a
       left join user b on b.id=a.user_id
       left join article_tag_map c on c.article_id=a.id
-      left join tag d on d.id=c.tag_id where a.id=? and a.`status`=1
+      left join tag d on d.id=c.tag_id where a.id=#{id} and a.`status`=1
   </select>
 
   <select id="search" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
