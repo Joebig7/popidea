@@ -18,7 +18,7 @@ import javax.validation.Valid;
  */
 @Api(value = "评论相关Api", tags = "评论")
 @RestController
-@RequestMapping("/comment")
+@RequestMapping("/common/comment")
 public class CommentController {
 
 
@@ -32,6 +32,15 @@ public class CommentController {
         commentService.releaseComment(commentBean);
         return new RestResp();
     }
+
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
+    @ApiOperation(value = "删除评论", notes = "删除评论")
+    @PostMapping("/release")
+    public RestResp deleteComment(@RequestParam("commentId") Long commentId) {
+        commentService.deleteComment(commentId);
+        return new RestResp();
+    }
+
 
     @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "查询评论详情", notes = "查询评论详情")

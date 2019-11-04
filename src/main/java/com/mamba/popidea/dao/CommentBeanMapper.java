@@ -1,8 +1,6 @@
 package com.mamba.popidea.dao;
 
 import com.mamba.popidea.model.CommentBean;
-import org.springframework.stereotype.Repository;
-
 
 public interface CommentBeanMapper {
     int deleteByPrimaryKey(Long commentId);
@@ -18,4 +16,7 @@ public interface CommentBeanMapper {
     int updateByPrimaryKeyWithBLOBs(CommentBean record);
 
     int updateByPrimaryKey(CommentBean record);
+
+    //-------------------custom-------------------
+
 }

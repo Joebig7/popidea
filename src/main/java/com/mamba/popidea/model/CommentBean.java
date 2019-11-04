@@ -11,6 +11,7 @@ public class CommentBean {
 
     private Long replyCommentId;
     @NotBlank(message = "userId不能为空")
+
     private Long userId;
     @NotBlank(message = "type不能为空")
     private Integer type;
@@ -20,6 +21,9 @@ public class CommentBean {
     private Date updateTime;
 
     private String content;
+
+    private Integer status;
+
 
     public Long getCommentId() {
         return commentId;
@@ -83,5 +87,14 @@ public class CommentBean {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

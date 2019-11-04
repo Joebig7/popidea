@@ -27,7 +27,9 @@ public enum ErrorCodes {
     KEYWORD_EXIST_ERROR(30008, "请输入关键字"),
     COLUMN_EXIST_ERROR(30009, "专栏不存在"),
     TAG_EXIST_ERROR(30010, "标签已经存在"),
-    ARTICLE_EXIST_ERROR(30011, "文章不存在");
+    ARTICLE_EXIST_ERROR(30011, "文章不存在"),
+
+    ;
 
     private Integer errorCode;
     private String errorMessage;

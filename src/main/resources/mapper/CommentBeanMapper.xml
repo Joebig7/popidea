@@ -7,6 +7,7 @@
     <result column="reply_comment_id" property="replyCommentId" jdbcType="BIGINT" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -14,7 +15,8 @@
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    comment_id, comment_target_id, reply_comment_id, user_id, type, create_time, update_time
+    comment_id, comment_target_id, reply_comment_id, user_id, type, status, create_time, 
+    update_time
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -33,11 +35,13 @@
   </delete>
   <insert id="insert" parameterType="com.mamba.popidea.model.CommentBean" >
     insert into comment (comment_id, comment_target_id, reply_comment_id, 
-      user_id, type, create_time, 
-      update_time, content)
+      user_id, type, status, 
+      create_time, update_time, content
+      )
     values (#{commentId,jdbcType=BIGINT}, #{commentTargetId,jdbcType=BIGINT}, #{replyCommentId,jdbcType=BIGINT}, 
-      #{userId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+      #{userId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.mamba.popidea.model.CommentBean" >
     insert into comment
@@ -56,6 +60,9 @@
       </if>
       <if test="type != null" >
         type,
+      </if>
+      <if test="status != null" >
+        status,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -83,6 +90,9 @@
       <if test="type != null" >
         #{type,jdbcType=INTEGER},
       </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -109,6 +119,9 @@
       <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
       </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -127,6 +140,7 @@
       reply_comment_id = #{replyCommentId,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=BIGINT},
       type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=LONGVARCHAR}
@@ -138,6 +152,7 @@
       reply_comment_id = #{replyCommentId,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=BIGINT},
       type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where comment_id = #{commentId,jdbcType=BIGINT}

@@ -9,4 +9,6 @@ import com.mamba.popidea.model.CommentBean;
  */
 public interface CommentService {
     void releaseComment(CommentBean commentBean);
+
+    void deleteComment(Long commentId);
 }
