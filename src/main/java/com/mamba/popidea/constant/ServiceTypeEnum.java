@@ -8,20 +8,6 @@ package com.mamba.popidea.constant;
  */
 public final class ServiceTypeEnum {
 
-
-    public enum CommentStatus {
-        COMMENT_TO_QUESTION(0),
-        COMMENT_TO_ARTICLE(1),
-        COMMENT_TO_USER(2);
-
-        private Integer type;
-
-        CommentStatus(Integer type) {
-            this.type = type;
-        }
-    }
-
-
     public enum UserStatus {
         // 0-禁用 1正常
         DISABLE(0),
@@ -128,6 +114,22 @@ public final class ServiceTypeEnum {
         public void setStatus(int status) {
             this.status = status;
         }
+    }
+
+    public enum CommentStatus {
+        DISABLED(0),
+        NORMAL(1);
+
+        private Integer type;
+
+        CommentStatus(Integer type) {
+            this.type = type;
+        }
+
+        public int getStatus() {
+            return type;
+        }
+
     }
 
 

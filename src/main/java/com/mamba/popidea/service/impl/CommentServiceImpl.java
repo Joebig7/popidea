@@ -8,6 +8,8 @@ import com.mamba.popidea.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.mamba.popidea.constant.ServiceTypeEnum.CommentStatus.*;
+
 /**
  * @version 1.0
  * @author: JoeBig7
@@ -38,6 +40,8 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(Long commentId) {
         CommentBean commentBean = commentBeanMapper.selectByPrimaryKey(commentId);
         CommonUtil.assertNull(commentBean, ErrorCodes.QUESTION_EXIST_ERROR);
+        commentBean.setStatus(DISABLED.getStatus());
+        commentBeanMapper.updateByPrimaryKeySelective(commentBean);
     }
 
 }
