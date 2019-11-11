@@ -6,7 +6,6 @@ import com.mamba.popidea.dao.CommentBeanMapper;
 import com.mamba.popidea.exception.ErrorCodes;
 import com.mamba.popidea.model.CommentBean;
 import com.mamba.popidea.model.common.result.RestData;
-import com.mamba.popidea.model.common.result.RestResp;
 import com.mamba.popidea.model.vo.CommentVo;
 import com.mamba.popidea.service.CommentService;
 import com.mamba.popidea.utils.CommonUtil;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.mamba.popidea.constant.ServiceTypeEnum.CommentStatus.*;
+import static com.mamba.popidea.constant.ServiceTypeEnum.CommentStatus.DISABLED;
 
 /**
  * @version 1.0
