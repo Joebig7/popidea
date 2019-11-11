@@ -14,8 +14,12 @@
   <resultMap id="ResultMapWithBLOBs" type="com.mamba.popidea.model.CommentBean" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
+  <resultMap id="CommentListMap" type="com.mamba.popidea.model.vo.CommentVo" extends="ResultMapWithBLOBs" >
+    <result column="favicon" property="favicon" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
-    comment_id, comment_target_id, reply_comment_id, user_id, type, status, create_time, 
+    comment_id, comment_target_id, reply_comment_id, user_id, type, `status`, create_time,
     update_time
   </sql>
   <sql id="Blob_Column_List" >
@@ -62,7 +66,7 @@
         type,
       </if>
       <if test="status != null" >
-        status,
+        `status`,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -120,7 +124,7 @@
         type = #{type,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
+        `status` = #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -140,7 +144,7 @@
       reply_comment_id = #{replyCommentId,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=BIGINT},
       type = #{type,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=LONGVARCHAR}
@@ -152,9 +156,15 @@
       reply_comment_id = #{replyCommentId,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=BIGINT},
       type = #{type,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where comment_id = #{commentId,jdbcType=BIGINT}
   </update>
+
+  <select id="selectCommentByTargetIdAndType" resultMap="CommentListMap">
+    select co.*,u.nick_name,u.favicon from comment  co
+      inner join user u on u.id=co.user_id
+    where co.comment_target_id=#{commentTargetId} and co.type=#{commentType}
+  </select>
 </mapper>

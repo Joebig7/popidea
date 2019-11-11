@@ -132,5 +132,22 @@ public final class ServiceTypeEnum {
 
     }
 
+    public enum CommentType {
+        TO_ANSWER(0),
+        TO_ARTICLE(1);
+
+        private Integer type;
+
+        CommentType(Integer type) {
+            this.type = type;
+        }
+
+        public int getStatus() {
+            return type;
+        }
+
+    }
+
+
 
 }

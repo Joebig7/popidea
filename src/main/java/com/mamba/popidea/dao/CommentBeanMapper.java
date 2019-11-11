@@ -1,6 +1,11 @@
 package com.mamba.popidea.dao;
 
 import com.mamba.popidea.model.CommentBean;
+import com.mamba.popidea.model.vo.CommentVo;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Value;
+
+import java.util.List;
 
 public interface CommentBeanMapper {
     int deleteByPrimaryKey(Long commentId);
@@ -18,5 +23,7 @@ public interface CommentBeanMapper {
     int updateByPrimaryKey(CommentBean record);
 
     //-------------------custom-------------------
+
+    List<CommentVo> selectCommentByTargetIdAndType(@Param("commentTargetId") Long commentTargetId, @Param("commentType") Integer commentType);
 
 }

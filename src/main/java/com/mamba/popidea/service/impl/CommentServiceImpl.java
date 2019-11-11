@@ -1,12 +1,19 @@
 package com.mamba.popidea.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mamba.popidea.dao.CommentBeanMapper;
 import com.mamba.popidea.exception.ErrorCodes;
 import com.mamba.popidea.model.CommentBean;
+import com.mamba.popidea.model.common.result.RestData;
+import com.mamba.popidea.model.common.result.RestResp;
+import com.mamba.popidea.model.vo.CommentVo;
 import com.mamba.popidea.service.CommentService;
 import com.mamba.popidea.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static com.mamba.popidea.constant.ServiceTypeEnum.CommentStatus.*;
 
@@ -27,7 +34,6 @@ public class CommentServiceImpl implements CommentService {
      */
     @Override
     public void releaseComment(CommentBean commentBean) {
-        commentBean.setUserId(CommonUtil.getUserId());
         commentBeanMapper.insertSelective(commentBean);
     }
 
@@ -44,4 +50,22 @@ public class CommentServiceImpl implements CommentService {
         commentBeanMapper.updateByPrimaryKeySelective(commentBean);
     }
 
+    /**
+     * 获取评论列表
+     *
+     * @param commentTargetId 评论目标id
+     * @param commentType     评论类型 0-对问题的评论 1-对文章的评论
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public RestData<CommentVo> findCommentList(Long commentTargetId, Integer commentType, Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<CommentVo> commentBeanList = commentBeanMapper.selectCommentByTargetIdAndType(commentTargetId, commentType);
+        long count = commentBeanList.stream().filter(commentVo -> commentVo.getReplyCommentId() == 0).count();
+        PageInfo<CommentVo> pageInfo = new PageInfo<>(commentBeanList);
+        List<CommentVo> result = CommonUtil.getCommentTreeStructure(pageInfo.getList());
+        return new RestData<>(result, count);
+    }
 }
