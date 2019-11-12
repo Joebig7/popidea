@@ -1,14 +1,19 @@
 package com.mamba.popidea.service.impl;
 
 import com.mamba.popidea.dao.ThumbBeanMapper;
+import com.mamba.popidea.exception.ErrorCodes;
 import com.mamba.popidea.model.ThumbBean;
 import com.mamba.popidea.service.ThumbService;
+import com.mamba.popidea.utils.CommonUtil;
 import com.mamba.popidea.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
+
+import static com.mamba.popidea.constant.ServiceTypeEnum.ThumbStatus;
+import static com.mamba.popidea.constant.ServiceTypeEnum.ThumbType;
 
 /**
  * @version 1.0
@@ -18,11 +23,6 @@ import java.util.Objects;
  */
 @Service
 public class ThumbServiceImpl implements ThumbService {
-
-    private static final String THUMB_TO_ANSWER = "thumb_to_answer";
-    private static final String THUMB_TO_ARTICLE = "thumb_to_article";
-    private static final String THUMB_TO_COMMENT = "thumb_to_comment";
-
 
     @Autowired
     private ThumbBeanMapper thumbBeanMapper;
@@ -44,7 +44,6 @@ public class ThumbServiceImpl implements ThumbService {
         saveThumbRecord(userId, targetId, type, status);
         // 计数
         countThumb(targetId, type, status);
-
     }
 
 
@@ -58,8 +57,14 @@ public class ThumbServiceImpl implements ThumbService {
     private void saveThumbRecord(Long userId, Long targetId, Integer type, Integer status) {
         ThumbBean thumbBean = thumbBeanMapper.findThumbByTargetIdAndType(userId, targetId, type);
         if (Objects.isNull(thumbBean)) {
+            handleThumbCondition(thumbBean, status);
             thumbBean = new ThumbBean();
-            thumbBean.setStatus(status);
+            if (ThumbStatus.CANCLE_UP.getStatus().equals(status) || ThumbStatus.CANCLE_DOWN.getStatus().equals(status)) {
+                thumbBean.setStatus(0);
+            } else {
+                thumbBean.setStatus(status);
+            }
+
             thumbBean.setTargetId(targetId);
             thumbBean.setType(type);
             thumbBean.setUserId(userId);
@@ -70,16 +75,41 @@ public class ThumbServiceImpl implements ThumbService {
         }
     }
 
+    /**
+     * 处理已经点赞或者踩的情况
+     *
+     * @param thumbBean
+     * @param status
+     */
+    private void handleThumbCondition(ThumbBean thumbBean, Integer status) {
+        Integer source = thumbBean.getStatus();
+        if (status.equals(ThumbStatus.UP.getStatus()) || status.equals(ThumbStatus.DOWN.getStatus())) {
+            CommonUtil.assertEqual(source, status, ErrorCodes.THUMB_EXIST_ERROR);
+        } else if (status.equals(ThumbStatus.CANCLE_UP.getStatus()) || status.equals(ThumbStatus.CANCLE_DOWN.getStatus())) {
+            CommonUtil.assertEqual(source, 0, ErrorCodes.THUMB_CANCLE_EXIST_ERROR);
+        }
+
+
+    }
 
     /**
      * 进行赞/踩 计数
      *
-     * @param targetId
-     * @param type
-     * @param status
+     * @param targetId 目标id
+     * @param type     目标类型
+     * @param status   状态
      */
     private void countThumb(Long targetId, Integer type, Integer status) {
-
-
+        String key = ThumbType.getKey(type);
+        StringBuilder stringBuilder = new StringBuilder(key);
+        if (ThumbStatus.UP.equals(status)) {
+            redisUtil.incrementForHash(stringBuilder.append("_UP").toString(), targetId);
+        } else if (ThumbStatus.DOWN.equals(status)) {
+            redisUtil.incrementForHash(stringBuilder.append("_DOWN").toString(), targetId);
+        } else if (ThumbStatus.CANCLE_UP.equals(status)) {
+            redisUtil.decrementForHash(stringBuilder.append("_UP").toString(), targetId);
+        } else if (ThumbStatus.CANCLE_DOWN.equals(status)) {
+            redisUtil.decrementForHash(stringBuilder.append("_DOWN").toString(), targetId);
+        }
     }
 }

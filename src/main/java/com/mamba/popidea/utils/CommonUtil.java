@@ -57,6 +57,19 @@ public class CommonUtil {
         }
     }
 
+    /**
+     * 判断是否相等
+     *
+     * @param t
+     * @param errorCodes
+     * @param <T>
+     */
+    public static <T, S> void assertEqual(T source, S target, ErrorCodes errorCodes) {
+        if (source.equals(target)) {
+            ServiceException.newInstance(errorCodes);
+        }
+    }
+
 
     /**
      * 获取评论树形结构

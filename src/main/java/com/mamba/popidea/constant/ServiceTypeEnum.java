@@ -1,5 +1,9 @@
 package com.mamba.popidea.constant;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * @version 1.0
  * @author: JoeBig7
@@ -148,6 +152,49 @@ public final class ServiceTypeEnum {
 
     }
 
+    public enum ThumbType {
+        TO_ANSWER(0, "THUMB_TO_ANSWER"),
+        TO_ARTICLE(1, "THUMB_TO_ARTICLE"),
+        TO_COMMENT(2, "THUMB_TO_COMMENT");
+
+        private Integer type;
+        private String key;
+
+        ThumbType(Integer type, String key) {
+            this.type = type;
+            this.key = key;
+        }
+
+        public int getStatus() {
+            return type;
+        }
+
+        public static String getKey(Integer type) {
+            List<ThumbType> result = Stream
+                    .of(ThumbType.values())
+                    .filter(thumbType -> type.equals(thumbType.getStatus()))
+                    .collect(Collectors.toList());
+            return result.get(0).key;
+        }
+    }
+
+    public enum ThumbStatus {
+        UNMODIFIED(0),
+        UP(1),
+        DOWN(2),
+        CANCLE_UP(3),
+        CANCLE_DOWN(4);
+
+        private Integer status;
+
+        ThumbStatus(Integer status) {
+            this.status = status;
+        }
+
+        public Integer getStatus() {
+            return status;
+        }
+    }
 
 
 }

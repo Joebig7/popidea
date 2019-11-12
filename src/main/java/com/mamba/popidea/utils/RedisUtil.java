@@ -5,6 +5,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
+
 /**
  * @version 1.0
  * @author: JoeBig7
@@ -16,6 +17,20 @@ public class RedisUtil {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+
+
+    public void incrementForHash(String key, Long hashKey) {
+        stringRedisTemplate.opsForHash().increment(key, hashKey, 1L);
+    }
+
+
+    public void decrementForHash(String key, Long hashKey) {
+        stringRedisTemplate.opsForHash().increment(key, hashKey, -1L);
+    }
+
+    public long getCountForHash(String key, Long hashKey) {
+        return (Long) stringRedisTemplate.opsForHash().get(key, hashKey);
+    }
 
     /**
      * 添加key value

@@ -7,9 +7,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @version 1.0
@@ -28,12 +29,10 @@ public class ThumbController {
     @PostMapping("/thumb")
     public RestResp like(@ApiParam(value = "点赞目标id") @RequestParam("targetId") Long targetId,
                          @ApiParam(value = "点赞类型") @RequestParam("type") Integer type,
-                         @ApiParam(value = "踩/赞 0-踩 1-赞") @RequestParam("status") Integer status) {
-
+                         @ApiParam(value = "踩/赞  1-赞 2-踩 3-取消点赞 4-取消踩") @RequestParam("status") Integer status) {
         Long userId = CommonUtil.getUserId();
         thumbService.thumb(userId, targetId, type, status);
-
-        return null;
+        return new RestResp();
     }
 
 }
