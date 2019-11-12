@@ -7,7 +7,9 @@ import com.mamba.popidea.exception.ErrorCodes;
 import com.mamba.popidea.model.CommentBean;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.vo.CommentVo;
+import com.mamba.popidea.model.vo.ThumbVo;
 import com.mamba.popidea.service.CommentService;
+import com.mamba.popidea.service.ThumbService;
 import com.mamba.popidea.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static com.mamba.popidea.constant.ServiceTypeEnum.CommentStatus.DISABLED;
+import static com.mamba.popidea.constant.ServiceTypeEnum.ThumbType;
 
 /**
  * @version 1.0
@@ -27,6 +30,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private CommentBeanMapper commentBeanMapper;
+
+    @Autowired
+    private ThumbService thumbService;
 
     /**
      * 发布评论
@@ -64,7 +70,14 @@ public class CommentServiceImpl implements CommentService {
         List<CommentVo> commentBeanList = commentBeanMapper.selectCommentByTargetIdAndType(commentTargetId, commentType);
         long count = commentBeanList.stream().filter(commentVo -> commentVo.getReplyCommentId() == 0).count();
         PageInfo<CommentVo> pageInfo = new PageInfo<>(commentBeanList);
-        List<CommentVo> result = CommonUtil.getCommentTreeStructure(pageInfo.getList());
+        List<CommentVo> list = pageInfo.getList();
+        list.parallelStream().forEach(commentVo -> {
+            ThumbVo thumbData = thumbService.getThumbData(commentVo.getCommentId(), ThumbType.TO_COMMENT.getStatus());
+            commentVo.setLikeCount(thumbData.getUpCount());
+            commentVo.setDisLikeCount(thumbData.getDownCount());
+        });
+
+        List<CommentVo> result = CommonUtil.getCommentTreeStructure(list);
         return new RestData<>(result, count);
     }
 }

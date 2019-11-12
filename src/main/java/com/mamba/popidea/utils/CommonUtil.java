@@ -53,20 +53,22 @@ public class CommonUtil {
      */
     public static <T> void assertNull(T t, ErrorCodes errorCodes) {
         if (t == null) {
-            ServiceException.newInstance(errorCodes);
+            throw ServiceException.newInstance(errorCodes);
         }
     }
 
     /**
      * 判断是否相等
      *
-     * @param t
+     * @param source
+     * @param target
      * @param errorCodes
      * @param <T>
+     * @param <S>
      */
     public static <T, S> void assertEqual(T source, S target, ErrorCodes errorCodes) {
         if (source.equals(target)) {
-            ServiceException.newInstance(errorCodes);
+            throw ServiceException.newInstance(errorCodes);
         }
     }
 
@@ -75,7 +77,6 @@ public class CommonUtil {
      * 获取评论树形结构
      *
      * @param var1
-     * @param <T>
      * @return
      */
     public static List<CommentVo> getCommentTreeStructure(List<CommentVo> var1) {

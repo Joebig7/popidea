@@ -19,17 +19,21 @@ public class RedisUtil {
     private StringRedisTemplate stringRedisTemplate;
 
 
-    public void incrementForHash(String key, Long hashKey) {
-        stringRedisTemplate.opsForHash().increment(key, hashKey, 1L);
+    public void incrementForHash(String key, Object hashKey) {
+        stringRedisTemplate.opsForHash().increment(key, hashKey + "", 1L);
     }
 
 
-    public void decrementForHash(String key, Long hashKey) {
-        stringRedisTemplate.opsForHash().increment(key, hashKey, -1L);
+    public void decrementForHash(String key, Object hashKey) {
+        stringRedisTemplate.opsForHash().increment(key, hashKey + "", -1L);
     }
 
-    public long getCountForHash(String key, Long hashKey) {
-        return (Long) stringRedisTemplate.opsForHash().get(key, hashKey);
+    public Long getCountForHash(String key, Object hashKey) {
+        Object value = stringRedisTemplate.opsForHash().get(key, hashKey + "");
+        if (value == null) {
+            return null;
+        }
+        return Long.parseLong(String.valueOf(value));
     }
 
     /**

@@ -58,20 +58,19 @@ public class ThumbServiceImpl implements ThumbService {
     private void saveThumbRecord(Long userId, Long targetId, Integer type, Integer status) {
         ThumbBean thumbBean = thumbBeanMapper.findThumbByTargetIdAndType(userId, targetId, type);
         if (Objects.isNull(thumbBean)) {
-            handleThumbCondition(thumbBean, status);
             thumbBean = new ThumbBean();
-            if (ThumbStatus.CANCLE_UP.getStatus().equals(status) || ThumbStatus.CANCLE_DOWN.getStatus().equals(status)) {
-                thumbBean.setStatus(0);
-            } else {
-                thumbBean.setStatus(status);
-            }
-
+            thumbBean.setStatus(status);
             thumbBean.setTargetId(targetId);
             thumbBean.setType(type);
             thumbBean.setUserId(userId);
             thumbBeanMapper.insertSelective(thumbBean);
         } else {
-            thumbBean.setStatus(status);
+            handleThumbCondition(thumbBean, status);
+            if (ThumbStatus.CANCLE_UP.getStatus().equals(status) || ThumbStatus.CANCLE_DOWN.getStatus().equals(status)) {
+                thumbBean.setStatus(0);
+            } else {
+                thumbBean.setStatus(status);
+            }
             thumbBeanMapper.updateByPrimaryKeySelective(thumbBean);
         }
     }
@@ -89,8 +88,6 @@ public class ThumbServiceImpl implements ThumbService {
         } else if (status.equals(ThumbStatus.CANCLE_UP.getStatus()) || status.equals(ThumbStatus.CANCLE_DOWN.getStatus())) {
             CommonUtil.assertEqual(source, 0, ErrorCodes.THUMB_CANCLE_EXIST_ERROR);
         }
-
-
     }
 
     /**
@@ -103,13 +100,13 @@ public class ThumbServiceImpl implements ThumbService {
     private void countThumb(Long targetId, Integer type, Integer status) {
         String key = ThumbType.getKey(type);
         StringBuilder stringBuilder = new StringBuilder(key);
-        if (ThumbStatus.UP.equals(status)) {
+        if (ThumbStatus.UP.getStatus().equals(status)) {
             redisUtil.incrementForHash(stringBuilder.append("_UP").toString(), targetId);
-        } else if (ThumbStatus.DOWN.equals(status)) {
+        } else if (ThumbStatus.DOWN.getStatus().equals(status)) {
             redisUtil.incrementForHash(stringBuilder.append("_DOWN").toString(), targetId);
-        } else if (ThumbStatus.CANCLE_UP.equals(status)) {
+        } else if (ThumbStatus.CANCLE_UP.getStatus().equals(status)) {
             redisUtil.decrementForHash(stringBuilder.append("_UP").toString(), targetId);
-        } else if (ThumbStatus.CANCLE_DOWN.equals(status)) {
+        } else if (ThumbStatus.CANCLE_DOWN.getStatus().equals(status)) {
             redisUtil.decrementForHash(stringBuilder.append("_DOWN").toString(), targetId);
         }
     }
@@ -124,9 +121,10 @@ public class ThumbServiceImpl implements ThumbService {
      */
     public ThumbVo getThumbData(Long targetId, Integer type) {
         String key = ThumbType.getKey(type);
-        StringBuilder stringBuilder = new StringBuilder(key);
-        long upCount = redisUtil.getCountForHash(stringBuilder.append("_UP").toString(), targetId);
-        long downCount = redisUtil.getCountForHash(stringBuilder.append("_DOWN").toString(), targetId);
+
+        Long upCount = redisUtil.getCountForHash(new StringBuilder(key).append("_UP").toString(), targetId);
+
+        Long downCount = redisUtil.getCountForHash(new StringBuilder(key).append("_DOWN").toString(), targetId);
         ThumbVo thumbVo = new ThumbVo(upCount, downCount);
         return thumbVo;
     }

@@ -3,6 +3,7 @@ package com.mamba.popidea.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
+import com.mamba.popidea.constant.ServiceTypeEnum;
 import com.mamba.popidea.convert.ConverterUtil;
 import com.mamba.popidea.dao.ArticleBeanMapper;
 import com.mamba.popidea.dao.ArticleTagMapBeanMapper;
@@ -12,7 +13,9 @@ import com.mamba.popidea.model.ArticleTagMapBean;
 import com.mamba.popidea.model.bo.ArticleBeanBo;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.vo.ArticleVo;
+import com.mamba.popidea.model.vo.ThumbVo;
 import com.mamba.popidea.service.ArticleService;
+import com.mamba.popidea.service.ThumbService;
 import com.mamba.popidea.utils.CollectionUtil;
 import com.mamba.popidea.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,7 @@ import java.util.Objects;
 
 import static com.mamba.popidea.constant.ServiceTypeEnum.ArticleStatus.DISABLE;
 import static com.mamba.popidea.constant.ServiceTypeEnum.ArticleStatus.NORMAL;
+import static com.mamba.popidea.constant.ServiceTypeEnum.*;
 
 /**
  * @version 1.0
@@ -40,6 +44,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleTagMapBeanMapper articleTagMapBeanMapper;
+
+    @Autowired
+    private ThumbService thumbService;
 
     /**
      * 发布或者修文章
@@ -108,8 +115,11 @@ public class ArticleServiceImpl implements ArticleService {
     public ArticleVo get(Long id) {
         ArticleVo articleVo = articleBeanMapper.getDetailInfo(id);
         CommonUtil.assertNull(articleVo, ErrorCodes.ARTICLE_EXIST_ERROR);
-        //TODO 设置评论数，赞/踩的数量
-
+        //赞/踩的数量
+        ThumbVo thumbData = thumbService.getThumbData(articleVo.getId(), ThumbType.TO_ANSWER.getStatus());
+        articleVo.setLikeCount(thumbData.getUpCount());
+        articleVo.setDisLikeCount(thumbData.getDownCount());
+        //TODO 设置评论数
         return articleVo;
     }
 

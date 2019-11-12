@@ -11,7 +11,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    thumb_id, user_id, target_id, status, type, create_time, update_time
+    thumb_id, user_id, target_id, `status`, type, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select
@@ -25,7 +25,7 @@
   </delete>
   <insert id="insert" parameterType="com.mamba.popidea.model.ThumbBean" >
     insert into thumb (thumb_id, user_id, target_id,
-      status, type, create_time,
+      `status`, type, create_time,
       update_time)
     values (#{thumbId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{targetId,jdbcType=BIGINT},
       #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
@@ -44,7 +44,7 @@
         target_id,
       </if>
       <if test="status != null" >
-        status,
+        `status`,
       </if>
       <if test="type != null" >
         type,
@@ -90,7 +90,7 @@
         target_id = #{targetId,jdbcType=BIGINT},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
+        `status` = #{status,jdbcType=INTEGER},
       </if>
       <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
@@ -108,17 +108,17 @@
     update thumb
     set user_id = #{userId,jdbcType=BIGINT},
       target_id = #{targetId,jdbcType=BIGINT},
-      status = #{status,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where thumb_id = #{thumbId,jdbcType=BIGINT}
   </update>
 
-  <select id="findThumbByTargetIdAndType" resultType="com.mamba.popidea.model.ThumbBean">
+  <select id="findThumbByTargetIdAndType" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     FROM  thumb
-    where user_id=#{userId} target_id=#{targetId} and type=#{type}
+    where user_id=#{userId} and target_id=#{targetId} and type=#{type}
   </select>
 </mapper>

@@ -35,4 +35,12 @@ public class ThumbVo {
     public void setDownCount(Long downCount) {
         this.downCount = downCount;
     }
+
+    @Override
+    public String toString() {
+        return "ThumbVo{" +
+                "upCount=" + upCount +
+                ", downCount=" + downCount +
+                '}';
+    }
 }

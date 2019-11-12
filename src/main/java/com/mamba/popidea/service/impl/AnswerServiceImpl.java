@@ -6,7 +6,9 @@ import com.mamba.popidea.dao.QuestionAnswerBeanMapper;
 import com.mamba.popidea.model.QuestionAnswerBean;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.vo.AnswerVo;
+import com.mamba.popidea.model.vo.ThumbVo;
 import com.mamba.popidea.service.AnswerService;
+import com.mamba.popidea.service.ThumbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.mamba.popidea.constant.ServiceTypeEnum.AnswerStatus;
+import static com.mamba.popidea.constant.ServiceTypeEnum.ThumbType;
 
 /**
  * @version 1.0
@@ -27,6 +30,9 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Autowired
     private QuestionAnswerBeanMapper answerBeanMapper;
+
+    @Autowired
+    private ThumbService thumbService;
 
     /**
      * 发布回答
@@ -62,8 +68,15 @@ public class AnswerServiceImpl implements AnswerService {
         PageInfo<AnswerVo> pageInfo = new PageInfo<>(answerList);
         List<AnswerVo> result = pageInfo.getList();
 
-        result.forEach(answerVo -> {
-            //TODO 赞、踩信息 + 收藏评论数量
+        result.parallelStream().forEach(answerVo -> {
+            //赞、踩信息
+            ThumbVo thumbData = thumbService.getThumbData(answerVo.getId(), ThumbType.TO_ANSWER.getStatus());
+            answerVo.setLikeCount(thumbData.getUpCount());
+            answerVo.setDisLikeCount(thumbData.getDownCount());
+            // TODO 评论数量
+
+            // TODO 收藏
+
         });
 
 
