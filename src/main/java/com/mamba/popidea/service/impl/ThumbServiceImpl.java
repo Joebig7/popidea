@@ -3,6 +3,7 @@ package com.mamba.popidea.service.impl;
 import com.mamba.popidea.dao.ThumbBeanMapper;
 import com.mamba.popidea.exception.ErrorCodes;
 import com.mamba.popidea.model.ThumbBean;
+import com.mamba.popidea.model.vo.ThumbVo;
 import com.mamba.popidea.service.ThumbService;
 import com.mamba.popidea.utils.CommonUtil;
 import com.mamba.popidea.utils.RedisUtil;
@@ -111,5 +112,22 @@ public class ThumbServiceImpl implements ThumbService {
         } else if (ThumbStatus.CANCLE_DOWN.equals(status)) {
             redisUtil.decrementForHash(stringBuilder.append("_DOWN").toString(), targetId);
         }
+    }
+
+
+    /**
+     * 获取指定目标的点赞情况
+     *
+     * @param targetId
+     * @param type
+     * @return
+     */
+    public ThumbVo getThumbData(Long targetId, Integer type) {
+        String key = ThumbType.getKey(type);
+        StringBuilder stringBuilder = new StringBuilder(key);
+        long upCount = redisUtil.getCountForHash(stringBuilder.append("_UP").toString(), targetId);
+        long downCount = redisUtil.getCountForHash(stringBuilder.append("_DOWN").toString(), targetId);
+        ThumbVo thumbVo = new ThumbVo(upCount, downCount);
+        return thumbVo;
     }
 }
