@@ -15,4 +15,6 @@ public interface CommentService {
     void deleteComment(Long commentId);
 
     RestData<CommentVo> findCommentList(Long commentTargetId, Integer commentType, Integer pageNo, Integer pageSize);
+
+    long getCommentCount(Long targetId, Integer type);
 }

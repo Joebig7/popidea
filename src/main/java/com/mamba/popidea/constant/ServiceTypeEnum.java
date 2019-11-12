@@ -137,17 +137,27 @@ public final class ServiceTypeEnum {
     }
 
     public enum CommentType {
-        TO_ANSWER(0),
-        TO_ARTICLE(1);
+        TO_ANSWER(0,"COMMENT_TO_ANSWER"),
+        TO_ARTICLE(1,"COMMENT_TO_ARTICLE");
 
         private Integer type;
+        private String key;
 
-        CommentType(Integer type) {
+        CommentType(Integer type, String key) {
             this.type = type;
+            this.key = key;
         }
 
         public int getStatus() {
             return type;
+        }
+
+        public static String getKey(Integer type) {
+            List<CommentType> result = Stream
+                    .of(CommentType.values())
+                    .filter(commentType -> type.equals(commentType.getStatus()))
+                    .collect(Collectors.toList());
+            return result.get(0).key;
         }
 
     }

@@ -15,6 +15,7 @@ import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.vo.ArticleVo;
 import com.mamba.popidea.model.vo.ThumbVo;
 import com.mamba.popidea.service.ArticleService;
+import com.mamba.popidea.service.CommentService;
 import com.mamba.popidea.service.ThumbService;
 import com.mamba.popidea.utils.CollectionUtil;
 import com.mamba.popidea.utils.CommonUtil;
@@ -47,6 +48,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ThumbService thumbService;
+
+    @Autowired
+    private CommentService commentService;
 
     /**
      * 发布或者修文章
@@ -119,7 +123,9 @@ public class ArticleServiceImpl implements ArticleService {
         ThumbVo thumbData = thumbService.getThumbData(articleVo.getId(), ThumbType.TO_ANSWER.getStatus());
         articleVo.setLikeCount(thumbData.getUpCount());
         articleVo.setDisLikeCount(thumbData.getDownCount());
-        //TODO 设置评论数
+        //设置评论数
+        long commentCount = commentService.getCommentCount(articleVo.getId(), CommentType.TO_ARTICLE.getStatus());
+        articleVo.setCommentCount(commentCount);
         return articleVo;
     }
 

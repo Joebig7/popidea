@@ -11,13 +11,15 @@ import com.mamba.popidea.model.vo.ThumbVo;
 import com.mamba.popidea.service.CommentService;
 import com.mamba.popidea.service.ThumbService;
 import com.mamba.popidea.utils.CommonUtil;
+import com.mamba.popidea.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.mamba.popidea.constant.ServiceTypeEnum.*;
 import static com.mamba.popidea.constant.ServiceTypeEnum.CommentStatus.DISABLED;
-import static com.mamba.popidea.constant.ServiceTypeEnum.ThumbType;
 
 /**
  * @version 1.0
@@ -34,12 +36,17 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private ThumbService thumbService;
 
+    @Autowired
+    private RedisUtil redisUtil;
+
     /**
      * 发布评论
      */
+    @Transactional
     @Override
     public void releaseComment(CommentBean commentBean) {
         commentBeanMapper.insertSelective(commentBean);
+        countComment(commentBean.getCommentTargetId(), commentBean.getType(), CommentStatus.NORMAL.getStatus());
     }
 
     /**
@@ -47,12 +54,36 @@ public class CommentServiceImpl implements CommentService {
      *
      * @param commentId
      */
+    @Transactional
     @Override
     public void deleteComment(Long commentId) {
         CommentBean commentBean = commentBeanMapper.selectByPrimaryKey(commentId);
         CommonUtil.assertNull(commentBean, ErrorCodes.QUESTION_EXIST_ERROR);
         commentBean.setStatus(DISABLED.getStatus());
         commentBeanMapper.updateByPrimaryKeySelective(commentBean);
+
+        countComment(commentBean.getCommentTargetId(), commentBean.getType(), CommentStatus.NORMAL.getStatus());
+    }
+
+    /**
+     * 计数
+     *
+     * @param targetId
+     * @param type
+     */
+    private void countComment(Long targetId, Integer type, Integer status) {
+        String key = CommentType.getKey(type);
+        if (status.equals(CommentStatus.NORMAL)) {
+            redisUtil.incrementForHash(key, targetId);
+        } else if (status.equals(CommentStatus.DISABLED)) {
+            redisUtil.decrementForHash(key, targetId);
+        }
+    }
+
+    @Override
+    public long getCommentCount(Long targetId, Integer type) {
+        String key = CommentType.getKey(type);
+        return redisUtil.getCountForHash(key, targetId);
     }
 
     /**
