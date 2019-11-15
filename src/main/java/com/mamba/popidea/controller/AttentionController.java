@@ -1,0 +1,32 @@
+package com.mamba.popidea.controller;
+
+import com.mamba.popidea.model.UserAttentionBean;
+import com.mamba.popidea.model.common.result.RestResp;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
+/**
+ * @version 1.0
+ * @author: JoeBig7
+ * @date: 2019/11/15 18:03
+ */
+@Api(value = "关注功能", tags = "关注功能")
+@RestController
+@RequestMapping("/common/attention")
+public class AttentionController {
+
+    @ApiOperation(value = "关注/取消关注", notes = "关注/取消关注")
+    @PostMapping("/toggle")
+    public RestResp toggle(@ApiParam("关注相关参数") @Valid @RequestBody UserAttentionBean userAttentionBean) {
+
+        return null;
+    }
+
+}

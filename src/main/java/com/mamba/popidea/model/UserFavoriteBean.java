@@ -1,15 +1,18 @@
 package com.mamba.popidea.model;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
-public class FollowerBean {
-    private Long id;
+public class UserFavoriteBean {
+    private Long userFavoriteId;
 
-    private Long followedId;
+    @NotBlank(message = "被收藏对象id为空")
+    private Long collectedId;
 
+    @NotBlank(message = "收藏者用户id为空")
     private Long userId;
 
-    private Boolean status;
+    private Integer status;
 
     private Integer type;
 
@@ -17,20 +20,20 @@ public class FollowerBean {
 
     private Date updateTime;
 
-    public Long getId() {
-        return id;
+    public Long getUserFavoriteId() {
+        return userFavoriteId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserFavoriteId(Long userFavoriteId) {
+        this.userFavoriteId = userFavoriteId;
     }
 
-    public Long getFollowedId() {
-        return followedId;
+    public Long getCollectedId() {
+        return collectedId;
     }
 
-    public void setFollowedId(Long followedId) {
-        this.followedId = followedId;
+    public void setCollectedId(Long collectedId) {
+        this.collectedId = collectedId;
     }
 
     public Long getUserId() {
@@ -41,11 +44,11 @@ public class FollowerBean {
         this.userId = userId;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

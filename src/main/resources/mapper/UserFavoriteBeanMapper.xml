@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mamba.popidea.dao.FollowerBeanMapper" >
-  <resultMap id="BaseResultMap" type="com.mamba.popidea.model.FollowerBean" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="followed_id" property="followedId" jdbcType="BIGINT" />
+<mapper namespace="com.mamba.popidea.dao.UserFavoriteBeanMapper" >
+  <resultMap id="BaseResultMap" type="com.mamba.popidea.model.UserFavoriteBean" >
+    <id column="user_favorite_id" property="userFavoriteId" jdbcType="BIGINT" />
+    <result column="collected_id" property="collectedId" jdbcType="BIGINT" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
-    <result column="status" property="status" jdbcType="BIT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, followed_id, user_id, status, type, create_time, update_time
+    user_favorite_id, collected_id, user_id, status, type, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from follower
-    where id = #{id,jdbcType=BIGINT}
+    from user_favorite
+    where user_favorite_id = #{userFavoriteId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from follower
-    where id = #{id,jdbcType=BIGINT}
+    delete from user_favorite
+    where user_favorite_id = #{userFavoriteId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.mamba.popidea.model.FollowerBean" >
-    insert into follower (id, followed_id, user_id, 
+  <insert id="insert" parameterType="com.mamba.popidea.model.UserFavoriteBean" >
+    insert into user_favorite (user_favorite_id, collected_id, user_id, 
       status, type, create_time, 
       update_time)
-    values (#{id,jdbcType=BIGINT}, #{followedId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
-      #{status,jdbcType=BIT}, #{type,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+    values (#{userFavoriteId,jdbcType=BIGINT}, #{collectedId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.mamba.popidea.model.FollowerBean" >
-    insert into follower
+  <insert id="insertSelective" parameterType="com.mamba.popidea.model.UserFavoriteBean" >
+    insert into user_favorite
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
+      <if test="userFavoriteId != null" >
+        user_favorite_id,
       </if>
-      <if test="followedId != null" >
-        followed_id,
+      <if test="collectedId != null" >
+        collected_id,
       </if>
       <if test="userId != null" >
         user_id,
@@ -57,17 +57,17 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
+      <if test="userFavoriteId != null" >
+        #{userFavoriteId,jdbcType=BIGINT},
       </if>
-      <if test="followedId != null" >
-        #{followedId,jdbcType=BIGINT},
+      <if test="collectedId != null" >
+        #{collectedId,jdbcType=BIGINT},
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=BIGINT},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=BIT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="type != null" >
         #{type,jdbcType=INTEGER},
@@ -80,17 +80,17 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mamba.popidea.model.FollowerBean" >
-    update follower
+  <update id="updateByPrimaryKeySelective" parameterType="com.mamba.popidea.model.UserFavoriteBean" >
+    update user_favorite
     <set >
-      <if test="followedId != null" >
-        followed_id = #{followedId,jdbcType=BIGINT},
+      <if test="collectedId != null" >
+        collected_id = #{collectedId,jdbcType=BIGINT},
       </if>
       <if test="userId != null" >
         user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=BIT},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
@@ -102,16 +102,16 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where user_favorite_id = #{userFavoriteId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mamba.popidea.model.FollowerBean" >
-    update follower
-    set followed_id = #{followedId,jdbcType=BIGINT},
+  <update id="updateByPrimaryKey" parameterType="com.mamba.popidea.model.UserFavoriteBean" >
+    update user_favorite
+    set collected_id = #{collectedId,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=BIGINT},
-      status = #{status,jdbcType=BIT},
+      status = #{status,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
+    where user_favorite_id = #{userFavoriteId,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -206,5 +206,32 @@ public final class ServiceTypeEnum {
         }
     }
 
+    public enum AttentionType {
+        ATTENTION_TO_ANSWER(0, "ATTENTION_TO_ANSWER"),
+        ATTENTION_TO_COLUMN(1, "ATTENTION_TO_ARTICLE"),
+        ATTENTION_TO_USER(2, "ATTENTION_TO_COMMENT");
+
+        private Integer type;
+        private String key;
+
+        AttentionType(Integer type, String key) {
+            this.type = type;
+            this.key = key;
+        }
+
+        public int getStatus() {
+            return type;
+        }
+
+        public static String getKey(Integer type) {
+            List<ThumbType> result = Stream
+                    .of(ThumbType.values())
+                    .filter(thumbType -> type.equals(thumbType.getStatus()))
+                    .collect(Collectors.toList());
+            return result.get(0).key;
+        }
+    }
+
+
 
 }
