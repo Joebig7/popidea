@@ -3,6 +3,7 @@ package com.mamba.popidea.service.impl;
 import com.mamba.popidea.dao.UserAttentionBeanMapper;
 import com.mamba.popidea.model.UserAttentionBean;
 import com.mamba.popidea.service.AttentionService;
+import com.mamba.popidea.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,9 @@ public class AttentionServiceImpl implements AttentionService {
 
     @Autowired
     private UserAttentionBeanMapper userAttentionBeanMapper;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     /**
      * 关注/取消关注
@@ -41,10 +45,12 @@ public class AttentionServiceImpl implements AttentionService {
     }
 
     private void countAttention(Long targetId, Integer type, Integer status) {
-
         String key = AttentionType.getKey(type);
-        StringBuilder stringBuilder = new StringBuilder(key);
-
+        if (status.equals(AttentionStatus.FOLLOWER.getStatus())) {
+            redisUtil.incrementForHash(key, targetId);
+        } else if (status.equals(AttentionStatus.CANCLE_FOLLOW.getStatus())) {
+            redisUtil.decrementForHash(key, targetId);
+        }
     }
 
 }

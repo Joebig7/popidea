@@ -137,8 +137,8 @@ public final class ServiceTypeEnum {
     }
 
     public enum CommentType {
-        TO_ANSWER(0,"COMMENT_TO_ANSWER"),
-        TO_ARTICLE(1,"COMMENT_TO_ARTICLE");
+        TO_ANSWER(0, "COMMENT_TO_ANSWER"),
+        TO_ARTICLE(1, "COMMENT_TO_ARTICLE");
 
         private Integer type;
         private String key;
@@ -233,5 +233,19 @@ public final class ServiceTypeEnum {
     }
 
 
+    public enum AttentionStatus {
+        CANCLE_FOLLOW(0),
+        FOLLOWER(1);
+
+        private Integer status;
+
+        AttentionStatus(Integer status) {
+            this.status = status;
+        }
+
+        public Integer getStatus() {
+            return status;
+        }
+    }
 
 }
