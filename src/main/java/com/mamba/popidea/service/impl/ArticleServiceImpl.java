@@ -3,7 +3,6 @@ package com.mamba.popidea.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
-import com.mamba.popidea.constant.ServiceTypeEnum;
 import com.mamba.popidea.convert.ConverterUtil;
 import com.mamba.popidea.dao.ArticleBeanMapper;
 import com.mamba.popidea.dao.ArticleTagMapBeanMapper;
@@ -29,7 +28,8 @@ import java.util.Objects;
 
 import static com.mamba.popidea.constant.ServiceTypeEnum.ArticleStatus.DISABLE;
 import static com.mamba.popidea.constant.ServiceTypeEnum.ArticleStatus.NORMAL;
-import static com.mamba.popidea.constant.ServiceTypeEnum.*;
+import static com.mamba.popidea.constant.ServiceTypeEnum.CommentType;
+import static com.mamba.popidea.constant.ServiceTypeEnum.ThumbType;
 
 /**
  * @version 1.0

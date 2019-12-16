@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import static com.mamba.popidea.constant.ServiceTypeEnum.*;
+import static com.mamba.popidea.constant.ServiceTypeEnum.AttentionStatus;
+import static com.mamba.popidea.constant.ServiceTypeEnum.AttentionType;
 
 /**
  * @version 1.0

@@ -2,7 +2,6 @@ package com.mamba.popidea.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.mamba.popidea.constant.ServiceTypeEnum;
 import com.mamba.popidea.dao.QuestionAnswerBeanMapper;
 import com.mamba.popidea.model.QuestionAnswerBean;
 import com.mamba.popidea.model.common.result.RestData;
@@ -17,8 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-import static com.mamba.popidea.constant.ServiceTypeEnum.AnswerStatus;
-import static com.mamba.popidea.constant.ServiceTypeEnum.ThumbType;
 import static com.mamba.popidea.constant.ServiceTypeEnum.*;
 
 /**

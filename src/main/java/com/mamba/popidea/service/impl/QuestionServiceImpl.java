@@ -3,10 +3,8 @@ package com.mamba.popidea.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
-import com.mamba.popidea.convert.BeanBoConverter;
 import com.mamba.popidea.convert.ConverterUtil;
 import com.mamba.popidea.dao.QuestionBeanMapper;
-import com.mamba.popidea.dao.TopicBeanMapper;
 import com.mamba.popidea.dao.TopicQuestionMapBeanMapper;
 import com.mamba.popidea.exception.ErrorCodes;
 import com.mamba.popidea.exception.ServiceException;
@@ -18,7 +16,6 @@ import com.mamba.popidea.model.vo.QuestionVo;
 import com.mamba.popidea.service.QuestionService;
 import com.mamba.popidea.utils.CollectionUtil;
 import com.mamba.popidea.utils.CommonUtil;
-import com.mamba.popidea.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,7 +47,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     @Override
     public void releaseOrUpdateQuestion(QuestionBeanBo questionBeanBo) {
-        QuestionBean questionBean = ConverterUtil.convertBeanBo(new QuestionBean(),questionBeanBo);
+        QuestionBean questionBean = ConverterUtil.convertBeanBo(new QuestionBean(), questionBeanBo);
 
         if (Objects.nonNull(questionBean.getId())) {
             questionBean.setUpdateTime(new Date());
