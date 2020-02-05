@@ -1,5 +1,6 @@
 package com.mamba.popidea.controller;
 
+import com.mamba.popidea.model.UserFavoriteBean;
 import com.mamba.popidea.model.common.result.RestResp;
 import com.mamba.popidea.service.FavoriteService;
 import io.swagger.annotations.Api;
