@@ -3,6 +3,7 @@
 <mapper namespace="com.mamba.popidea.dao.UserFavoriteBeanMapper" >
   <resultMap id="BaseResultMap" type="com.mamba.popidea.model.UserFavoriteBean" >
     <id column="user_favorite_id" property="userFavoriteId" jdbcType="BIGINT" />
+    <result column="column_id" property="columnId" jdbcType="BIGINT" />
     <result column="collected_id" property="collectedId" jdbcType="BIGINT" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="status" property="status" jdbcType="INTEGER" />
@@ -11,7 +12,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    user_favorite_id, collected_id, user_id, status, type, create_time, update_time
+    user_favorite_id, column_id, collected_id, user_id, status, type, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -24,18 +25,21 @@
     where user_favorite_id = #{userFavoriteId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.mamba.popidea.model.UserFavoriteBean" >
-    insert into user_favorite (user_favorite_id, collected_id, user_id, 
-      status, type, create_time, 
-      update_time)
-    values (#{userFavoriteId,jdbcType=BIGINT}, #{collectedId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
-      #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+    insert into user_favorite (user_favorite_id, column_id, collected_id, 
+      user_id, status, type, 
+      create_time, update_time)
+    values (#{userFavoriteId,jdbcType=BIGINT}, #{columnId,jdbcType=BIGINT}, #{collectedId,jdbcType=BIGINT}, 
+      #{userId,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.mamba.popidea.model.UserFavoriteBean" >
     insert into user_favorite
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userFavoriteId != null" >
         user_favorite_id,
+      </if>
+      <if test="columnId != null" >
+        column_id,
       </if>
       <if test="collectedId != null" >
         collected_id,
@@ -60,6 +64,9 @@
       <if test="userFavoriteId != null" >
         #{userFavoriteId,jdbcType=BIGINT},
       </if>
+      <if test="columnId != null" >
+        #{columnId,jdbcType=BIGINT},
+      </if>
       <if test="collectedId != null" >
         #{collectedId,jdbcType=BIGINT},
       </if>
@@ -83,6 +90,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.mamba.popidea.model.UserFavoriteBean" >
     update user_favorite
     <set >
+      <if test="columnId != null" >
+        column_id = #{columnId,jdbcType=BIGINT},
+      </if>
       <if test="collectedId != null" >
         collected_id = #{collectedId,jdbcType=BIGINT},
       </if>
@@ -106,7 +116,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mamba.popidea.model.UserFavoriteBean" >
     update user_favorite
-    set collected_id = #{collectedId,jdbcType=BIGINT},
+    set column_id = #{columnId,jdbcType=BIGINT},
+      collected_id = #{collectedId,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=BIGINT},
       status = #{status,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},

@@ -2,6 +2,8 @@ package com.mamba.popidea.service;
 
 import com.mamba.popidea.model.UserBean;
 import com.mamba.popidea.model.UserDetail;
+import com.mamba.popidea.model.UserFavoriteBean;
+import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.vo.UserVO;
 
 /**
@@ -21,4 +23,6 @@ public interface UserService {
     void detailInfoEdit(UserDetail userDetail);
 
     UserVO geWholeUserInfo();
+
+    RestData<UserFavoriteBean> getUserFavList();
 }

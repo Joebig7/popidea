@@ -3,13 +3,16 @@ package com.mamba.popidea.service.impl;
 import com.google.common.collect.Maps;
 import com.mamba.popidea.dao.UserBeanMapper;
 import com.mamba.popidea.dao.UserDetailMapper;
+import com.mamba.popidea.dao.UserFavoriteBeanMapper;
 import com.mamba.popidea.dao.UserIntergralBeanMapper;
 import com.mamba.popidea.exception.ErrorCodes;
 import com.mamba.popidea.exception.ServiceException;
 import com.mamba.popidea.model.UserBean;
 import com.mamba.popidea.model.UserDetail;
+import com.mamba.popidea.model.UserFavoriteBean;
 import com.mamba.popidea.model.UserIntergralBean;
 import com.mamba.popidea.model.common.project.Audience;
+import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.vo.UserVO;
 import com.mamba.popidea.service.UserService;
 import com.mamba.popidea.utils.*;
@@ -55,6 +58,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDetailMapper userDetailMapper;
+
+    private UserFavoriteBeanMapper userFavoriteBeanMapper;
 
     @Transactional
     @Override
@@ -141,6 +146,18 @@ public class UserServiceImpl implements UserService {
     public UserVO geWholeUserInfo() {
         Long userId = CommonUtil.getUserId();
         return userBeanMapper.findWholeUserInfoById(userId);
+    }
+
+    /**
+     * 获取用户的收藏列表
+     *
+     * @return
+     */
+    @Override
+    public RestData<UserFavoriteBean> getUserFavList() {
+        Long userId = CommonUtil.getUserId();
+        userFavoriteBeanMapper.getUserFavList(userId);
+        return null;
     }
 
     protected UserBean findUserById(Long userId) {

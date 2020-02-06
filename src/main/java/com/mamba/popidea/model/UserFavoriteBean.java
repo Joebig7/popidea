@@ -6,11 +6,14 @@ import java.util.Date;
 public class UserFavoriteBean {
     private Long userFavoriteId;
 
+    private Long columnId;
+
     @NotBlank(message = "被收藏对象id为空")
     private Long collectedId;
 
     @NotBlank(message = "收藏者用户id为空")
     private Long userId;
+
 
     private Integer status;
 
@@ -26,6 +29,14 @@ public class UserFavoriteBean {
 
     public void setUserFavoriteId(Long userFavoriteId) {
         this.userFavoriteId = userFavoriteId;
+    }
+
+    public Long getColumnId() {
+        return columnId;
+    }
+
+    public void setColumnId(Long columnId) {
+        this.columnId = columnId;
     }
 
     public Long getCollectedId() {

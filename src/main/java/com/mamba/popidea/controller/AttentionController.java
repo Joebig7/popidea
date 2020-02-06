@@ -19,7 +19,7 @@ import javax.validation.Valid;
  * @author: JoeBig7
  * @date: 2019/11/15 18:03
  */
-@Api(value = "关注功能", tags = "关注功能")
+@Api(value = "关注相关api", tags = "关注相关api")
 @RestController
 @RequestMapping("/common/attention")
 public class AttentionController {

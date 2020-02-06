@@ -70,4 +70,12 @@ public class UserController {
         UserVO userVO = userService.geWholeUserInfo();
         return new RestResp<>(userVO);
     }
+
+    @ApiOperation(value = "查询我的收藏", notes = "查询我的收藏")
+    @GetMapping("/fav/list")
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
+    public RestResp getUserFavList() {
+        userService.getUserFavList();
+        return new RestResp<>();
+    }
 }
