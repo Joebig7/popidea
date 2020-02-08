@@ -38,7 +38,9 @@ public class AnswerController {
     @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "获取回答列表", notes = "获取回答列表")
     @GetMapping("/list")
-    public RestResp getAnswerList(@RequestParam("questionId") Long questionId, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+    public RestResp getAnswerList(@RequestParam("questionId") Long questionId,
+                                  @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                  @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         RestData<AnswerVo> answerList = answerService.findAnswerList(questionId, pageNo, pageSize);
         return new RestResp(answerList);
     }

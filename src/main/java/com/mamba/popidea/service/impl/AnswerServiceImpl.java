@@ -84,4 +84,15 @@ public class AnswerServiceImpl implements AnswerService {
 
         return new RestData<>(result, pageInfo.getTotal());
     }
+
+    /**
+     * 获取问题的回答数量
+     *
+     * @param questionId
+     * @return
+     */
+    @Override
+    public Long getAnswerCount(Long questionId) {
+        return answerBeanMapper.findAnswerCount(questionId);
+    }
 }

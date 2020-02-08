@@ -114,4 +114,53 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where user_attention_id = #{userAttentionId,jdbcType=BIGINT}
   </update>
+
+  <select id="findAttentionPersonList" resultType="com.mamba.popidea.model.vo.AttentionPersonVO">
+    SELECT
+      u.id,
+      u.nick_name nickName,
+      u.description,
+      u.favicon
+    FROM
+      user_attention ua
+      INNER JOIN `user` u ON ua.followered_id = u.id
+    WHERE
+      ua.user_id =?
+      AND ua.`status` = 1
+      AND ua.type = 2
+    ORDER BY
+      ua.create_time DESC
+  </select>
+
+  <select id="findAttentionColumnList" resultType="com.mamba.popidea.model.vo.AttentionColumnVO">
+    SELECT
+      sc.id,
+      sc.title,
+      sc.introduction
+    FROM
+      user_attention ua
+      INNER JOIN special_column sc ON ua.followered_id = sc.id
+    WHERE
+      ua.user_id = ?
+      AND ua.`status` = 1
+      AND ua.type = 1
+    ORDER BY
+      ua.create_time DESC
+  </select>
+
+  <select id="findAttentionQuestionList" resultType="com.mamba.popidea.model.vo.AttentionQuestionVO">
+    SELECT
+      ua.user_attention_id userAttentionId,
+      qu.id,
+      qu.question_title questionTitle
+    FROM
+      user_attention ua
+      INNER JOIN question qu ON qu.id = ua.followered_id
+    WHERE
+      ua.user_id = ?
+      AND ua.`status` = 1
+      AND ua.type = 0
+    ORDER BY
+      ua.create_time DESC
+  </select>
 </mapper>

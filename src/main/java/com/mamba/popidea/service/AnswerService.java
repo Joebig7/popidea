@@ -15,4 +15,6 @@ public interface AnswerService {
     void releaseOrUpdateAnswer(QuestionAnswerBean questionAnswerBean);
 
     RestData<AnswerVo> findAnswerList(Long questionId, Integer pageNo, Integer pageSize);
+
+    Long getAnswerCount(Long questionId);
 }

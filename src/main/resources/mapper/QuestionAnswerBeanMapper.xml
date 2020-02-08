@@ -140,4 +140,14 @@
     from question_answer qa left join user u
     on u.id=qa.user_id where qa.question_id=#{id} and `status`=1
   </select>
+
+  <select id="findAnswerCount" parameterType="java.lang.Long" resultType="java.lang.Long">
+    SELECT
+      count(*)
+    FROM
+      question_answer
+    WHERE
+      question_id = ?
+      AND `status` = 0
+  </select>
 </mapper>

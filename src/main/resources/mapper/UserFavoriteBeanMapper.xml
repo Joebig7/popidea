@@ -128,17 +128,17 @@
 
   <select id="findFavList" resultType="com.mamba.popidea.model.vo.FavBeanVo">
     SELECT
-      u.nick_name,
+      u.nick_name nickName,
       u.favicon,
-      qu.question_title,
-      qu.question_content,
-      qa.id answer_id,
-      qa.content answer_content,
-      arti.id article_id,
-      arti.title article_title,
-      arti.content article_content,
+      qu.question_title questionTitle,
+      qu.question_content questionContent,
+      qa.id answerId ,
+      qa.content answerContent,
+      arti.id articleId,
+      arti.title articleTitle,
+      arti.content articleContent,
       uf.type,
-      uf.create_time
+      uf.create_time createTime
     FROM
       user_favorite uf
       LEFT JOIN question_answer qa ON qa.id = uf.collected_id AND qa.`status` = 0

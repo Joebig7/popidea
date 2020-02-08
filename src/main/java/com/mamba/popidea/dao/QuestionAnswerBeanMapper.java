@@ -22,5 +22,9 @@ public interface QuestionAnswerBeanMapper {
 
     int updateByPrimaryKey(QuestionAnswerBean record);
 
-    List<AnswerVo> getAnswerList(@Param("id")Long id);
+    //========================custom=====================
+
+    List<AnswerVo> getAnswerList(@Param("id") Long id);
+
+    Long findAnswerCount(Long questionId);
 }

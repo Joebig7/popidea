@@ -12,8 +12,8 @@ import com.mamba.popidea.model.UserDetail;
 import com.mamba.popidea.model.UserIntergralBean;
 import com.mamba.popidea.model.common.project.Audience;
 import com.mamba.popidea.model.common.result.RestData;
-import com.mamba.popidea.model.vo.FavBeanVo;
-import com.mamba.popidea.model.vo.UserVO;
+import com.mamba.popidea.model.vo.*;
+import com.mamba.popidea.service.AttentionService;
 import com.mamba.popidea.service.FavColumnService;
 import com.mamba.popidea.service.FavoriteService;
 import com.mamba.popidea.service.UserService;
@@ -67,6 +67,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private FavoriteService favoriteService;
+
+    @Autowired
+    private AttentionService attentionService;
 
     @Transactional
     @Override
@@ -178,6 +181,45 @@ public class UserServiceImpl implements UserService {
         Long userId = CommonUtil.getUserId();
         return favoriteService.getFavList(columnId, userId, pageNo, pageSize);
 
+    }
+
+    /**
+     * 查询我关注的人
+     *
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public RestData<AttentionPersonVO> getMyAttentionPersonList(Integer pageNo, Integer pageSize) {
+        Long userId = CommonUtil.getUserId();
+        return attentionService.getAttentionPersonList(userId, pageNo, pageSize);
+    }
+
+    /**
+     * 查询我关注的问题
+     *
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public RestData<AttentionQuestionVO> getMyAttentionQuestionList(Integer pageNo, Integer pageSize) {
+        Long userId = CommonUtil.getUserId();
+        return attentionService.getAttentionQuestionList(userId, pageNo, pageSize);
+    }
+
+    /**
+     * 查询我关注的专栏
+     *
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public RestData<AttentionColumnVO> getMyAttentionColumnList(Integer pageNo, Integer pageSize) {
+        Long userId = CommonUtil.getUserId();
+        return attentionService.getAttentionColumnList(userId, pageNo, pageSize);
     }
 
 

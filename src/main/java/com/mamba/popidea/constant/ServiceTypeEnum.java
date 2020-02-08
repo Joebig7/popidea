@@ -219,9 +219,14 @@ public final class ServiceTypeEnum {
             this.key = key;
         }
 
-        public int getStatus() {
+        public int getType() {
             return type;
         }
+
+        public String getKey() {
+            return key;
+        }
+
 
         public static String getKey(Integer type) {
             List<ThumbType> result = Stream

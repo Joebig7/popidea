@@ -1,6 +1,10 @@
 package com.mamba.popidea.service;
 
 import com.mamba.popidea.model.UserAttentionBean;
+import com.mamba.popidea.model.common.result.RestData;
+import com.mamba.popidea.model.vo.AttentionQuestionVO;
+import com.mamba.popidea.model.vo.AttentionColumnVO;
+import com.mamba.popidea.model.vo.AttentionPersonVO;
 
 /**
  * @version 1.0
@@ -10,4 +14,11 @@ import com.mamba.popidea.model.UserAttentionBean;
 public interface AttentionService {
 
     void toggle(UserAttentionBean userAttentionBean);
+
+
+    RestData<AttentionPersonVO> getAttentionPersonList(Long userId, Integer pageNo, Integer pageSize);
+
+    RestData<AttentionQuestionVO> getAttentionQuestionList(Long userId, Integer pageNo, Integer pageSize);
+
+    RestData<AttentionColumnVO> getAttentionColumnList(Long userId, Integer pageNo, Integer pageSize);
 }

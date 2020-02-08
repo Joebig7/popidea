@@ -5,8 +5,7 @@ import com.mamba.popidea.model.UserBean;
 import com.mamba.popidea.model.UserDetail;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.common.result.RestResp;
-import com.mamba.popidea.model.vo.FavBeanVo;
-import com.mamba.popidea.model.vo.UserVO;
+import com.mamba.popidea.model.vo.*;
 import com.mamba.popidea.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -87,9 +86,36 @@ public class UserController {
     @GetMapping("/fav/content")
     @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     public RestResp getUserFavList(@ApiParam("收藏参数") @RequestParam("columnId") Long columnId,
-                                         @ApiParam("当前页数") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                         @ApiParam("每页条数") @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+                                   @ApiParam("当前页数") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                   @ApiParam("每页条数") @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         RestData<FavBeanVo> favBeanVoRestData = userService.getUserFavList(columnId, pageNo, pageSize);
         return new RestResp<>(favBeanVoRestData);
+    }
+
+    @ApiOperation(value = "查询我关注的人接口", notes = "查询我关注的人接口")
+    @GetMapping("/attention/person")
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
+    public RestResp person(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                           @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        RestData<AttentionPersonVO> attentionPersonList = userService.getMyAttentionPersonList(pageNo, pageSize);
+        return new RestResp(attentionPersonList);
+    }
+
+    @ApiOperation(value = "查询我关注的问题接口", notes = "查询我关注的问题接口")
+    @GetMapping("/attention/question")
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
+    public RestResp question(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                             @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        RestData<AttentionQuestionVO> attentionQuestionList = userService.getMyAttentionQuestionList(pageNo, pageSize);
+        return new RestResp(attentionQuestionList);
+    }
+
+    @ApiOperation(value = "查询我关注的专栏接口", notes = "查询我关注的专栏接口")
+    @GetMapping("/attention/column")
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
+    public RestResp column(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                           @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        RestData<AttentionColumnVO> attentionColumnList = userService.getMyAttentionColumnList(pageNo, pageSize);
+        return new RestResp(attentionColumnList);
     }
 }
