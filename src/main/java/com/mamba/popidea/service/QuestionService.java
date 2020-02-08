@@ -21,4 +21,6 @@ public interface QuestionService {
 
     RestData<QuestionBean> getQuestionListByKeyWord(String key, Integer pageNo, Integer pageSize);
 
+    RestData<QuestionBean> getQuestionListByUserId(Long userId, Integer pageNo, Integer pageSize);
+
 }

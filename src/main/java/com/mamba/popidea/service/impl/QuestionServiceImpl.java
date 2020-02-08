@@ -135,4 +135,18 @@ public class QuestionServiceImpl implements QuestionService {
         PageInfo<QuestionBean> pageInfo = new PageInfo<>(questionBeanList);
         return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
     }
+
+    /**
+     * 根据userId查询用户问题列表
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public RestData<QuestionBean> getQuestionListByUserId(Long userId, Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<QuestionBean> questionBeanList = questionBeanMapper.findListByUserId(userId);
+        PageInfo<QuestionBean> pageInfo = new PageInfo<>(questionBeanList);
+        return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
+    }
 }

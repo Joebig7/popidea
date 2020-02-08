@@ -150,4 +150,19 @@
       question_id = ?
       AND `status` = 0
   </select>
+
+  <select id="findAnswerListByUserId" parameterType="java.lang.Long" resultType="com.mamba.popidea.model.vo.OwnAnswerVo">
+    SELECT
+      qa.id,
+      qa.content,
+      qu.question_title questionTitle,
+      qa.create_time createTime
+    FROM
+      question_answer qa
+      INNER JOIN question qu ON qu.id = qa.question_id
+    WHERE
+      qa.user_id =?
+    ORDER BY
+      qa.create_time DESC
+  </select>
 </mapper>

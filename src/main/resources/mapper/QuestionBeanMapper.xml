@@ -142,13 +142,17 @@
   </select>
 
   <select id="findByKeyWord" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-      select * from question
+      select *from question
       where (question_title like concat("%",#{keyword},"%") or question_content like concat("%",#{keyword},"%")) and `status`=1
   </select>
 
   <select id="getQuestionDetailInfo" parameterType="java.lang.Long" resultMap="QuestionVoMap">
     select a.*,b.favicon,b.nick_name from question a
       left join `user` b on a.user_id=b.id where a.id=#{id} and  a.`status`=1
+  </select>
+
+  <select id="findListByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+       select *from question where user_id=#{userId} and `status`=0
   </select>
 </mapper>
 

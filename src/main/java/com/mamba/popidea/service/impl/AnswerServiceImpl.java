@@ -6,6 +6,7 @@ import com.mamba.popidea.dao.QuestionAnswerBeanMapper;
 import com.mamba.popidea.model.QuestionAnswerBean;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.vo.AnswerVo;
+import com.mamba.popidea.model.vo.OwnAnswerVo;
 import com.mamba.popidea.model.vo.ThumbVo;
 import com.mamba.popidea.service.AnswerService;
 import com.mamba.popidea.service.CommentService;
@@ -94,5 +95,21 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     public Long getAnswerCount(Long questionId) {
         return answerBeanMapper.findAnswerCount(questionId);
+    }
+
+    /**
+     * 根据用户id查询回答列表
+     *
+     * @param userId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public RestData<OwnAnswerVo> getAnswerListByUserId(Long userId, Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<OwnAnswerVo> answerVoList = answerBeanMapper.findAnswerListByUserId(userId);
+        PageInfo<OwnAnswerVo> pageInfo = new PageInfo<>(answerVoList);
+        return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
     }
 }

@@ -1,9 +1,6 @@
 package com.mamba.popidea.service;
 
-import com.mamba.popidea.model.FavColumnBean;
-import com.mamba.popidea.model.UserBean;
-import com.mamba.popidea.model.UserDetail;
-import com.mamba.popidea.model.UserFavoriteBean;
+import com.mamba.popidea.model.*;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.vo.*;
 
@@ -34,4 +31,11 @@ public interface UserService {
     RestData<AttentionQuestionVO> getMyAttentionQuestionList(Integer pageNo, Integer pageSize);
 
     RestData<AttentionColumnVO> getMyAttentionColumnList(Integer pageNo, Integer pageSize);
+
+    RestData<QuestionBean> getCreatedQuestionList(Integer pageNo, Integer pageSize);
+
+    RestData<SpecialColumnBean> getCreatedColumnList(Integer pageNo, Integer pageSize);
+
+    RestData<OwnAnswerVo> getCreatedAnswerList(Integer pageNo, Integer pageSize);
+
 }

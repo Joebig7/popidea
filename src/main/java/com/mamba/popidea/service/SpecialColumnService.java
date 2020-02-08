@@ -1,6 +1,7 @@
 package com.mamba.popidea.service;
 
 import com.mamba.popidea.model.SpecialColumnBean;
+import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.common.result.RestResp;
 
 /**
@@ -14,4 +15,6 @@ public interface SpecialColumnService {
     void createOrUpdate(SpecialColumnBean columnBean);
 
     void delete(Long id);
+
+    RestData<SpecialColumnBean> getColumnByUserId(Long userId, Integer pageNo, Integer pageSize);
 }

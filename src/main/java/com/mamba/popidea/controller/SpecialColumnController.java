@@ -1,6 +1,7 @@
 package com.mamba.popidea.controller;
 
 import com.mamba.popidea.model.SpecialColumnBean;
+import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.common.result.RestResp;
 import com.mamba.popidea.service.SpecialColumnService;
 import com.mamba.popidea.utils.CommonUtil;
@@ -44,5 +45,15 @@ public class SpecialColumnController {
     public RestResp delete(@ApiParam("专栏信息") @RequestParam("id") Long id) {
         specialColumnService.delete(id);
         return new RestResp();
+    }
+
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
+    @ApiOperation(value = "删除专栏", notes = "删除专栏")
+    @GetMapping("/list")
+    public RestResp getColumnByUserId(@ApiParam("专栏信息") @RequestParam("userId") Long userId,
+                                      @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                      @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        RestData<SpecialColumnBean> result = specialColumnService.getColumnByUserId(userId, pageNo, pageSize);
+        return new RestResp(result);
     }
 }

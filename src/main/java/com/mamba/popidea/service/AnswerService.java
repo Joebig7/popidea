@@ -3,7 +3,7 @@ package com.mamba.popidea.service;
 import com.mamba.popidea.model.QuestionAnswerBean;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.vo.AnswerVo;
-import com.mamba.popidea.model.vo.QuestionVo;
+import com.mamba.popidea.model.vo.OwnAnswerVo;
 
 /**
  * @version 1.0
@@ -17,4 +17,6 @@ public interface AnswerService {
     RestData<AnswerVo> findAnswerList(Long questionId, Integer pageNo, Integer pageSize);
 
     Long getAnswerCount(Long questionId);
+
+    RestData<OwnAnswerVo> getAnswerListByUserId(Long userId, Integer pageNo, Integer pageSize);
 }

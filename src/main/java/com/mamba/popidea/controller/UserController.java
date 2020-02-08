@@ -1,8 +1,6 @@
 package com.mamba.popidea.controller;
 
-import com.mamba.popidea.model.FavColumnBean;
-import com.mamba.popidea.model.UserBean;
-import com.mamba.popidea.model.UserDetail;
+import com.mamba.popidea.model.*;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.common.result.RestResp;
 import com.mamba.popidea.model.vo.*;
@@ -73,6 +71,37 @@ public class UserController {
         return new RestResp<>(userVO);
     }
 
+    @ApiOperation(value = "查询我提的问题列表", notes = "查询我提的问题列表")
+    @GetMapping("/creation/question")
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
+    public RestResp getCreatedQuestionList(@ApiParam("当前页数") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                           @ApiParam("每页条数") @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        RestData<QuestionBean> createdQuestionList = userService.getCreatedQuestionList(pageNo, pageSize);
+        return new RestResp<>(createdQuestionList);
+    }
+
+
+    @ApiOperation(value = "查询我的专栏列表", notes = "查询我的专栏列表")
+    @GetMapping("/creation/column")
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
+    public RestResp getCreatedColumnList(@ApiParam("当前页数") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                         @ApiParam("每页条数") @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        RestData<SpecialColumnBean> createdColumnList = userService.getCreatedColumnList(pageNo, pageSize);
+        return new RestResp<>(createdColumnList);
+    }
+
+    @ApiOperation(value = "查询我的回答列表", notes = "查询我的回答列表")
+    @GetMapping("/creation/answer")
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
+    public RestResp getCreatedAnswerList(@ApiParam("当前页数") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                         @ApiParam("每页条数") @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        RestData<OwnAnswerVo> createdAnswerList = userService.getCreatedAnswerList(pageNo, pageSize);
+        return new RestResp<>(createdAnswerList);
+    }
+
+
+    //=========================收藏===========================
+
     @ApiOperation(value = "查询我的收藏夹", notes = "查询我的收藏夹")
     @GetMapping("/fav/column")
     @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
@@ -91,6 +120,8 @@ public class UserController {
         RestData<FavBeanVo> favBeanVoRestData = userService.getUserFavList(columnId, pageNo, pageSize);
         return new RestResp<>(favBeanVoRestData);
     }
+
+    //=========================关注==========================
 
     @ApiOperation(value = "查询我关注的人接口", notes = "查询我关注的人接口")
     @GetMapping("/attention/person")

@@ -6,17 +6,11 @@ import com.mamba.popidea.dao.UserDetailMapper;
 import com.mamba.popidea.dao.UserIntergralBeanMapper;
 import com.mamba.popidea.exception.ErrorCodes;
 import com.mamba.popidea.exception.ServiceException;
-import com.mamba.popidea.model.FavColumnBean;
-import com.mamba.popidea.model.UserBean;
-import com.mamba.popidea.model.UserDetail;
-import com.mamba.popidea.model.UserIntergralBean;
+import com.mamba.popidea.model.*;
 import com.mamba.popidea.model.common.project.Audience;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.vo.*;
-import com.mamba.popidea.service.AttentionService;
-import com.mamba.popidea.service.FavColumnService;
-import com.mamba.popidea.service.FavoriteService;
-import com.mamba.popidea.service.UserService;
+import com.mamba.popidea.service.*;
 import com.mamba.popidea.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,7 +55,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDetailMapper userDetailMapper;
 
-
     @Autowired
     private FavColumnService favColumnService;
 
@@ -70,6 +63,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private AttentionService attentionService;
+
+    @Autowired
+    private QuestionService questionService;
+
+    @Autowired
+    private SpecialColumnService specialColumnService;
+
+    @Autowired
+    private AnswerService answerService;
 
     @Transactional
     @Override
@@ -220,6 +222,41 @@ public class UserServiceImpl implements UserService {
     public RestData<AttentionColumnVO> getMyAttentionColumnList(Integer pageNo, Integer pageSize) {
         Long userId = CommonUtil.getUserId();
         return attentionService.getAttentionColumnList(userId, pageNo, pageSize);
+    }
+
+    /**
+     * 查询我的提出的问题列表
+     *
+     * @return
+     */
+    @Override
+    public RestData<QuestionBean> getCreatedQuestionList(Integer pageNo, Integer pageSize) {
+        Long userId = CommonUtil.getUserId();
+        return questionService.getQuestionListByUserId(userId, pageNo, pageSize);
+    }
+
+    /**
+     * 查询我的专栏列表
+     *
+     * @return
+     */
+    @Override
+    public RestData<SpecialColumnBean> getCreatedColumnList(Integer pageNo, Integer pageSize) {
+        Long userId = CommonUtil.getUserId();
+        return specialColumnService.getColumnByUserId(userId, pageNo, pageSize);
+    }
+
+    /**
+     * 查询我的回答列表
+     *
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public RestData<OwnAnswerVo> getCreatedAnswerList(Integer pageNo, Integer pageSize) {
+        Long userId = CommonUtil.getUserId();
+        return answerService.getAnswerListByUserId(userId, pageNo, pageSize);
     }
 
 
