@@ -1,9 +1,11 @@
 package com.mamba.popidea.service;
 
+import com.mamba.popidea.model.FavColumnBean;
 import com.mamba.popidea.model.UserBean;
 import com.mamba.popidea.model.UserDetail;
 import com.mamba.popidea.model.UserFavoriteBean;
 import com.mamba.popidea.model.common.result.RestData;
+import com.mamba.popidea.model.vo.FavBeanVo;
 import com.mamba.popidea.model.vo.UserVO;
 
 /**
@@ -24,5 +26,8 @@ public interface UserService {
 
     UserVO geWholeUserInfo();
 
-    RestData<UserFavoriteBean> getUserFavList();
+    RestData<FavColumnBean> getUserFavColumnList(Integer pageNo, Integer pageSize);
+
+    RestData<FavBeanVo> getUserFavList(Long columnId, Integer pageNo, Integer pageSize);
+
 }

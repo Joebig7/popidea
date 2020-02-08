@@ -1,8 +1,11 @@
 package com.mamba.popidea.controller;
 
+import com.mamba.popidea.model.FavColumnBean;
 import com.mamba.popidea.model.UserBean;
 import com.mamba.popidea.model.UserDetail;
+import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.common.result.RestResp;
+import com.mamba.popidea.model.vo.FavBeanVo;
 import com.mamba.popidea.model.vo.UserVO;
 import com.mamba.popidea.service.UserService;
 import io.swagger.annotations.Api;
@@ -71,11 +74,22 @@ public class UserController {
         return new RestResp<>(userVO);
     }
 
-    @ApiOperation(value = "查询我的收藏", notes = "查询我的收藏")
-    @GetMapping("/fav/list")
+    @ApiOperation(value = "查询我的收藏夹", notes = "查询我的收藏夹")
+    @GetMapping("/fav/column")
     @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
-    public RestResp getUserFavList() {
-        userService.getUserFavList();
-        return new RestResp<>();
+    public RestResp getUserFavColumnList(@ApiParam("当前页数") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                         @ApiParam("每页条数") @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        RestData<FavColumnBean> userFavColumnList = userService.getUserFavColumnList(pageNo, pageSize);
+        return new RestResp<>(userFavColumnList);
+    }
+
+    @ApiOperation(value = "查询我的收藏内容", notes = "查询我的收藏内容")
+    @GetMapping("/fav/content")
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
+    public RestResp getUserFavList(@ApiParam("收藏参数") @RequestParam("columnId") Long columnId,
+                                         @ApiParam("当前页数") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                         @ApiParam("每页条数") @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        RestData<FavBeanVo> favBeanVoRestData = userService.getUserFavList(columnId, pageNo, pageSize);
+        return new RestResp<>(favBeanVoRestData);
     }
 }

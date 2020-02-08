@@ -2,8 +2,6 @@ package com.mamba.popidea.model.vo;
 
 import com.mamba.popidea.model.QuestionAnswerBean;
 
-import java.util.Date;
-
 /**
  * @version 1.0
  * @author: JoeBig7
@@ -15,16 +13,6 @@ public class AnswerVo extends QuestionAnswerBean {
     private String nickName;
 
     private String favicon;
-
-
-    // 赞数量
-    private Long likeCount;
-
-    // 踩数量
-    private Long disLikeCount;
-
-    // 评论数
-    private Long commentCount;
 
 
     public String getNickName() {
@@ -43,27 +31,5 @@ public class AnswerVo extends QuestionAnswerBean {
         this.favicon = favicon;
     }
 
-    public Long getLikeCount() {
-        return likeCount;
-    }
 
-    public void setLikeCount(Long likeCount) {
-        this.likeCount = likeCount;
-    }
-
-    public Long getDisLikeCount() {
-        return disLikeCount;
-    }
-
-    public void setDisLikeCount(Long disLikeCount) {
-        this.disLikeCount = disLikeCount;
-    }
-
-    public Long getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(Long commentCount) {
-        this.commentCount = commentCount;
-    }
 }

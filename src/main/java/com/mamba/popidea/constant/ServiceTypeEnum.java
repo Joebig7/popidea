@@ -248,4 +248,18 @@ public final class ServiceTypeEnum {
         }
     }
 
+    public enum FavType {
+        FAV_ANSWER(0),
+        FAV_ARTICLE(1);
+        private Integer type;
+
+        FavType(Integer type) {
+            this.type = type;
+        }
+
+        public Integer getType() {
+            return type;
+        }
+    }
+
 }

@@ -1,8 +1,10 @@
 package com.mamba.popidea.model;
 
+import com.mamba.popidea.model.vo.CommonVO;
+
 import java.util.Date;
 
-public class QuestionAnswerBean {
+public class QuestionAnswerBean extends CommonVO{
     private Long id;
 
     private Long questionId;

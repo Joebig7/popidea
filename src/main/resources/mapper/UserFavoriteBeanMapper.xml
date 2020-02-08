@@ -125,4 +125,33 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where user_favorite_id = #{userFavoriteId,jdbcType=BIGINT}
   </update>
+
+  <select id="findFavList" resultType="com.mamba.popidea.model.vo.FavBeanVo">
+    SELECT
+      u.nick_name,
+      u.favicon,
+      qu.question_title,
+      qu.question_content,
+      qa.id answer_id,
+      qa.content answer_content,
+      arti.id article_id,
+      arti.title article_title,
+      arti.content article_content,
+      uf.type,
+      uf.create_time
+    FROM
+      user_favorite uf
+      LEFT JOIN question_answer qa ON qa.id = uf.collected_id AND qa.`status` = 0
+      LEFT JOIN question qu ON qu.id = qa.question_id
+      LEFT JOIN article arti ON arti.id = uf.collected_id AND arti.`status` = 1
+      INNER JOIN `user` u ON u.id = qa.user_id or u.id=arti.user_id
+    WHERE
+      uf.user_id = ?
+      AND uf.column_id = ?
+      AND uf.`status` = 1
+      AND uf.type = ?
+    order by uf.create_time desc
+  </select>
+
+
 </mapper>

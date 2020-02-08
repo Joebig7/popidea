@@ -3,17 +3,19 @@ package com.mamba.popidea.service.impl;
 import com.google.common.collect.Maps;
 import com.mamba.popidea.dao.UserBeanMapper;
 import com.mamba.popidea.dao.UserDetailMapper;
-import com.mamba.popidea.dao.UserFavoriteBeanMapper;
 import com.mamba.popidea.dao.UserIntergralBeanMapper;
 import com.mamba.popidea.exception.ErrorCodes;
 import com.mamba.popidea.exception.ServiceException;
+import com.mamba.popidea.model.FavColumnBean;
 import com.mamba.popidea.model.UserBean;
 import com.mamba.popidea.model.UserDetail;
-import com.mamba.popidea.model.UserFavoriteBean;
 import com.mamba.popidea.model.UserIntergralBean;
 import com.mamba.popidea.model.common.project.Audience;
 import com.mamba.popidea.model.common.result.RestData;
+import com.mamba.popidea.model.vo.FavBeanVo;
 import com.mamba.popidea.model.vo.UserVO;
+import com.mamba.popidea.service.FavColumnService;
+import com.mamba.popidea.service.FavoriteService;
 import com.mamba.popidea.service.UserService;
 import com.mamba.popidea.utils.*;
 import org.slf4j.Logger;
@@ -59,7 +61,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDetailMapper userDetailMapper;
 
-    private UserFavoriteBeanMapper userFavoriteBeanMapper;
+
+    @Autowired
+    private FavColumnService favColumnService;
+
+    @Autowired
+    private FavoriteService favoriteService;
 
     @Transactional
     @Override
@@ -148,19 +155,33 @@ public class UserServiceImpl implements UserService {
         return userBeanMapper.findWholeUserInfoById(userId);
     }
 
+
+    /**
+     * 查询我的收藏夹列表
+     *
+     * @return
+     */
+    @Override
+    public RestData<FavColumnBean> getUserFavColumnList(Integer pageNo, Integer pageSize) {
+        Long userId = CommonUtil.getUserId();
+        return favColumnService.getColumnList(userId, pageNo, pageSize);
+    }
+
+
     /**
      * 获取用户的收藏列表
      *
      * @return
      */
     @Override
-    public RestData<UserFavoriteBean> getUserFavList() {
+    public RestData<FavBeanVo> getUserFavList(Long columnId, Integer pageNo, Integer pageSize) {
         Long userId = CommonUtil.getUserId();
-        userFavoriteBeanMapper.getUserFavList(userId);
-        return null;
+        return favoriteService.getFavList(columnId, userId, pageNo, pageSize);
+
     }
 
-    protected UserBean findUserById(Long userId) {
-        return userBeanMapper.selectByPrimaryKey(CommonUtil.getUserId());
-    }
+
+//    protected UserBean findUserById(Long userId) {
+//        return userBeanMapper.selectByPrimaryKey(CommonUtil.getUserId());
+//    }
 }
