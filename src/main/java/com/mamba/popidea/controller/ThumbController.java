@@ -4,6 +4,7 @@ import com.mamba.popidea.model.common.result.RestResp;
 import com.mamba.popidea.service.ThumbService;
 import com.mamba.popidea.utils.CommonUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class ThumbController {
     @Autowired
     private ThumbService thumbService;
 
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "点赞", notes = "点赞")
     @PostMapping("/thumb")
     public RestResp like(@ApiParam(value = "点赞目标id") @RequestParam("targetId") Long targetId,

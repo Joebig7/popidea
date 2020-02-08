@@ -5,6 +5,7 @@ import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.common.result.RestResp;
 import com.mamba.popidea.service.FavColumnService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class FavColumnController {
     @Autowired
     private FavColumnService favColumnService;
 
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "创建收藏夹", notes = "创建收藏夹")
     @PostMapping("/addOrUpdate")
     public RestResp addOrUpdate(@ApiParam("收藏夹参数") @Valid @RequestBody FavColumnBean favColumnBean) {
@@ -32,7 +34,7 @@ public class FavColumnController {
         return new RestResp();
     }
 
-
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "查询收藏夹列表", notes = "查询收藏夹列表")
     @GetMapping("/list")
     public RestResp getColumnList(@ApiParam("收藏夹参数") @RequestParam("userId") Long userId,
@@ -42,7 +44,7 @@ public class FavColumnController {
         return new RestResp(columnList);
     }
 
-
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "删除收藏夹", notes = "删除收藏夹")
     @DeleteMapping("/delete")
     public RestResp delete(@ApiParam("收藏夹参数") @RequestParam("columnId") Long columnId) {

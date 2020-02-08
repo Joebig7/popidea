@@ -4,6 +4,7 @@ import com.mamba.popidea.model.UserFavoriteBean;
 import com.mamba.popidea.model.common.result.RestResp;
 import com.mamba.popidea.service.FavoriteService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +29,12 @@ public class FavoriteController {
     @Autowired
     private FavoriteService favoriteService;
 
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     @ApiOperation(value = "收藏/取消收藏功能", notes = "收藏/取消收藏功能")
     @PostMapping("/toggle")
     public RestResp toggle(@ApiParam("收藏参数") @Valid @RequestBody UserFavoriteBean userFavoriteBean) {
         favoriteService.toggle(userFavoriteBean);
         return new RestResp();
     }
+
 }
