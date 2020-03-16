@@ -14,7 +14,7 @@
   <resultMap id="ResultMapWithBLOBs" type="com.mamba.popidea.model.CommentBean" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
-  <resultMap id="CommentListMap" type="com.mamba.popidea.model.vo.CommentVo" extends="ResultMapWithBLOBs" >
+  <resultMap id="CommentListMap" type="com.mamba.popidea.model.vo.CommentVO" extends="ResultMapWithBLOBs" >
     <result column="favicon" property="favicon" jdbcType="VARCHAR" />
     <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
   </resultMap>

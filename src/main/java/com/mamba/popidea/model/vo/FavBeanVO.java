@@ -8,7 +8,7 @@ import java.util.Date;
  * @date: 2020/2/8 15:24
  * @description
  */
-public class FavBeanVo extends CommonVO {
+public class FavBeanVO extends CommonVO {
     //用户名称
     private String nickName;
 

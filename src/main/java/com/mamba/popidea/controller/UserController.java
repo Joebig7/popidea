@@ -95,7 +95,7 @@ public class UserController {
     @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
     public RestResp getCreatedAnswerList(@ApiParam("当前页数") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                          @ApiParam("每页条数") @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-        RestData<OwnAnswerVo> createdAnswerList = userService.getCreatedAnswerList(pageNo, pageSize);
+        RestData<OwnAnswerVO> createdAnswerList = userService.getCreatedAnswerList(pageNo, pageSize);
         return new RestResp<>(createdAnswerList);
     }
 
@@ -117,7 +117,7 @@ public class UserController {
     public RestResp getUserFavList(@ApiParam("收藏参数") @RequestParam("columnId") Long columnId,
                                    @ApiParam("当前页数") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                    @ApiParam("每页条数") @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-        RestData<FavBeanVo> favBeanVoRestData = userService.getUserFavList(columnId, pageNo, pageSize);
+        RestData<FavBeanVO> favBeanVoRestData = userService.getUserFavList(columnId, pageNo, pageSize);
         return new RestResp<>(favBeanVoRestData);
     }
 

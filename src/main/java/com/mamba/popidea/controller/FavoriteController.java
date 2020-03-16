@@ -3,7 +3,7 @@ package com.mamba.popidea.controller;
 import com.mamba.popidea.model.UserFavoriteBean;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.common.result.RestResp;
-import com.mamba.popidea.model.vo.FavBeanVo;
+import com.mamba.popidea.model.vo.FavBeanVO;
 import com.mamba.popidea.service.FavoriteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -42,7 +42,7 @@ public class FavoriteController {
                          @ApiParam("用户id") @RequestParam("userId") Long userId,
                          @ApiParam("当前页数") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                          @ApiParam("每页条数") @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-        RestData<FavBeanVo> favList = favoriteService.getFavList(columnId, userId, pageNo, pageSize);
+        RestData<FavBeanVO> favList = favoriteService.getFavList(columnId, userId, pageNo, pageSize);
         return new RestResp(favList);
     }
 

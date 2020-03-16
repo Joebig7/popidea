@@ -11,7 +11,7 @@ import com.mamba.popidea.model.ArticleBean;
 import com.mamba.popidea.model.ArticleTagMapBean;
 import com.mamba.popidea.model.bo.ArticleBeanBo;
 import com.mamba.popidea.model.common.result.RestData;
-import com.mamba.popidea.model.vo.ArticleVo;
+import com.mamba.popidea.model.vo.ArticleVO;
 import com.mamba.popidea.model.vo.ThumbVo;
 import com.mamba.popidea.service.ArticleService;
 import com.mamba.popidea.service.CommentService;
@@ -116,8 +116,8 @@ public class ArticleServiceImpl implements ArticleService {
      * @return
      */
     @Override
-    public ArticleVo get(Long id) {
-        ArticleVo articleVo = articleBeanMapper.getDetailInfo(id);
+    public ArticleVO get(Long id) {
+        ArticleVO articleVo = articleBeanMapper.getDetailInfo(id);
         CommonUtil.assertNull(articleVo, ErrorCodes.ARTICLE_EXIST_ERROR);
         //赞/踩的数量
         ThumbVo thumbData = thumbService.getThumbData(articleVo.getId(), ThumbType.TO_ANSWER.getStatus());

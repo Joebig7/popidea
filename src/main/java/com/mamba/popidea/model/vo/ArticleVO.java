@@ -11,7 +11,7 @@ import java.util.List;
  * @date: 2019/10/17 15:32
  * @description
  */
-public class ArticleVo extends ArticleBean {
+public class ArticleVO extends ArticleBean {
 
     private String nickName;
 

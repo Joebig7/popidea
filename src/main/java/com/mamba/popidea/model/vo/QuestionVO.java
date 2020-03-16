@@ -10,7 +10,7 @@ import java.util.List;
  * @author: JoeBig7
  * @date: 2019/5/24 15:17
  */
-public class QuestionVo extends QuestionBean {
+public class QuestionVO extends QuestionBean {
 
 
 

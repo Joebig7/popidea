@@ -4,7 +4,7 @@ import com.mamba.popidea.model.ArticleBean;
 import com.mamba.popidea.model.bo.ArticleBeanBo;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.common.result.RestResp;
-import com.mamba.popidea.model.vo.ArticleVo;
+import com.mamba.popidea.model.vo.ArticleVO;
 import com.mamba.popidea.service.ArticleService;
 import com.mamba.popidea.utils.CommonUtil;
 import io.swagger.annotations.Api;
@@ -61,7 +61,7 @@ public class ArticleController {
     @ApiOperation(value = "获取文章详细信息", notes = "获取文章详细信息")
     @GetMapping("/get")
     public RestResp get(@ApiParam("获取文章列表") @RequestParam("id") Long id) {
-        ArticleVo articleVo = articleService.get(id);
+        ArticleVO articleVo = articleService.get(id);
         return new RestResp(articleVo);
     }
 

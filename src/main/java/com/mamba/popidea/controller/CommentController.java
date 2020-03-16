@@ -3,7 +3,7 @@ package com.mamba.popidea.controller;
 import com.mamba.popidea.model.CommentBean;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.common.result.RestResp;
-import com.mamba.popidea.model.vo.CommentVo;
+import com.mamba.popidea.model.vo.CommentVO;
 import com.mamba.popidea.service.CommentService;
 import com.mamba.popidea.utils.CommonUtil;
 import io.swagger.annotations.Api;
@@ -55,7 +55,7 @@ public class CommentController {
                                 @ApiParam("指定评论的对象类型") @RequestParam(value = "type", defaultValue = "") Integer type,
                                 @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                 @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
-        RestData<CommentVo> result = commentService.findCommentList(id, type, pageNo, pageSize);
+        RestData<CommentVO> result = commentService.findCommentList(id, type, pageNo, pageSize);
         return new RestResp(result);
     }
 

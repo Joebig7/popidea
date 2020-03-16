@@ -5,8 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.mamba.popidea.dao.QuestionAnswerBeanMapper;
 import com.mamba.popidea.model.QuestionAnswerBean;
 import com.mamba.popidea.model.common.result.RestData;
-import com.mamba.popidea.model.vo.AnswerVo;
-import com.mamba.popidea.model.vo.OwnAnswerVo;
+import com.mamba.popidea.model.vo.AnswerVO;
+import com.mamba.popidea.model.vo.OwnAnswerVO;
 import com.mamba.popidea.model.vo.ThumbVo;
 import com.mamba.popidea.service.AnswerService;
 import com.mamba.popidea.service.CommentService;
@@ -65,12 +65,12 @@ public class AnswerServiceImpl implements AnswerService {
      * @return
      */
     @Override
-    public RestData<AnswerVo> findAnswerList(Long questionId, Integer pageNo, Integer pageSize) {
+    public RestData<AnswerVO> findAnswerList(Long questionId, Integer pageNo, Integer pageSize) {
 
         PageHelper.startPage(pageNo, pageSize);
-        List<AnswerVo> answerList = answerBeanMapper.getAnswerList(questionId);
-        PageInfo<AnswerVo> pageInfo = new PageInfo<>(answerList);
-        List<AnswerVo> result = pageInfo.getList();
+        List<AnswerVO> answerList = answerBeanMapper.getAnswerList(questionId);
+        PageInfo<AnswerVO> pageInfo = new PageInfo<>(answerList);
+        List<AnswerVO> result = pageInfo.getList();
 
         result.parallelStream().forEach(answerVo -> {
             //赞、踩信息
@@ -106,10 +106,10 @@ public class AnswerServiceImpl implements AnswerService {
      * @return
      */
     @Override
-    public RestData<OwnAnswerVo> getAnswerListByUserId(Long userId, Integer pageNo, Integer pageSize) {
+    public RestData<OwnAnswerVO> getAnswerListByUserId(Long userId, Integer pageNo, Integer pageSize) {
         PageHelper.startPage(pageNo, pageSize);
-        List<OwnAnswerVo> answerVoList = answerBeanMapper.findAnswerListByUserId(userId);
-        PageInfo<OwnAnswerVo> pageInfo = new PageInfo<>(answerVoList);
+        List<OwnAnswerVO> answerVoList = answerBeanMapper.findAnswerListByUserId(userId);
+        PageInfo<OwnAnswerVO> pageInfo = new PageInfo<>(answerVoList);
         return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
     }
 }

@@ -35,4 +35,13 @@ public class CommonController {
         return new RestResp(restData);
     }
 
+
+    @ApiOperation(value = "推荐功能", notes = "推荐功能")
+    @GetMapping("/recommend")
+    public RestResp recommend(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
+                              @RequestParam(name = "pageSize", defaultValue = "20") Integer pageSize) {
+//        commonService.recommend(pageNo, pageSize);
+//        return new RestResp(restData);
+        return null;
+    }
 }

@@ -24,7 +24,7 @@ public interface UserService {
 
     RestData<FavColumnBean> getUserFavColumnList(Integer pageNo, Integer pageSize);
 
-    RestData<FavBeanVo> getUserFavList(Long columnId, Integer pageNo, Integer pageSize);
+    RestData<FavBeanVO> getUserFavList(Long columnId, Integer pageNo, Integer pageSize);
 
     RestData<AttentionPersonVO> getMyAttentionPersonList(Integer pageNo, Integer pageSize);
 
@@ -36,7 +36,7 @@ public interface UserService {
 
     RestData<SpecialColumnBean> getCreatedColumnList(Integer pageNo, Integer pageSize);
 
-    RestData<OwnAnswerVo> getCreatedAnswerList(Integer pageNo, Integer pageSize);
+    RestData<OwnAnswerVO> getCreatedAnswerList(Integer pageNo, Integer pageSize);
 
     RestData getUserSearch(String keyword, Integer pageNo, Integer pageSize);
 }

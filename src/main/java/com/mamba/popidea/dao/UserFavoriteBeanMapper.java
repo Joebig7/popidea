@@ -1,7 +1,7 @@
 package com.mamba.popidea.dao;
 
 import com.mamba.popidea.model.UserFavoriteBean;
-import com.mamba.popidea.model.vo.FavBeanVo;
+import com.mamba.popidea.model.vo.FavBeanVO;
 
 import java.util.List;
 
@@ -21,6 +21,6 @@ public interface UserFavoriteBeanMapper {
     //==========================custom=========================
 
 
-    List<FavBeanVo> findFavList(Long columnId, Long userId);
+    List<FavBeanVO> findFavList(Long columnId, Long userId);
 
 }

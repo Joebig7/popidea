@@ -3,7 +3,7 @@ package com.mamba.popidea.service;
 import com.mamba.popidea.model.ArticleBean;
 import com.mamba.popidea.model.bo.ArticleBeanBo;
 import com.mamba.popidea.model.common.result.RestData;
-import com.mamba.popidea.model.vo.ArticleVo;
+import com.mamba.popidea.model.vo.ArticleVO;
 
 public interface ArticleService {
 
@@ -13,7 +13,7 @@ public interface ArticleService {
 
     RestData<ArticleBean> list(Long columnId, Integer pageNo, Integer pageSize);
 
-    ArticleVo get(Long id);
+    ArticleVO get(Long id);
 
     RestData<ArticleBean> search(String keyword, Integer pageNo, Integer pageSize);
 }

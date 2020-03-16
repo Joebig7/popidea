@@ -1,10 +1,9 @@
 package com.mamba.popidea.service;
 
-import com.github.pagehelper.PageInfo;
 import com.mamba.popidea.model.QuestionBean;
 import com.mamba.popidea.model.bo.QuestionBeanBo;
 import com.mamba.popidea.model.common.result.RestData;
-import com.mamba.popidea.model.vo.QuestionVo;
+import com.mamba.popidea.model.vo.QuestionVO;
 
 /**
  * @version 1.0
@@ -17,7 +16,7 @@ public interface QuestionService {
 
     void deleteQuestion(Long id);
 
-    QuestionVo getQuestionInfo(Long id);
+    QuestionVO getQuestionInfo(Long id);
 
     RestData<QuestionBean> getQuestionListByKeyWord(String key, Integer pageNo, Integer pageSize);
 

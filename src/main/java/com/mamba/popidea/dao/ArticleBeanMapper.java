@@ -1,7 +1,7 @@
 package com.mamba.popidea.dao;
 
 import com.mamba.popidea.model.ArticleBean;
-import com.mamba.popidea.model.vo.ArticleVo;
+import com.mamba.popidea.model.vo.ArticleVO;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public interface ArticleBeanMapper {
 
     List<ArticleBean> findArticleListByColumnId(Long columnId);
 
-    ArticleVo getDetailInfo(Long id);
+    ArticleVO getDetailInfo(Long id);
 
     List<ArticleBean> search(String keyword);
 }

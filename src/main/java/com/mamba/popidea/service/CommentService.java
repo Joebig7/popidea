@@ -2,7 +2,7 @@ package com.mamba.popidea.service;
 
 import com.mamba.popidea.model.CommentBean;
 import com.mamba.popidea.model.common.result.RestData;
-import com.mamba.popidea.model.vo.CommentVo;
+import com.mamba.popidea.model.vo.CommentVO;
 
 /**
  * @version 1.0
@@ -14,7 +14,7 @@ public interface CommentService {
 
     void deleteComment(Long commentId);
 
-    RestData<CommentVo> findCommentList(Long commentTargetId, Integer commentType, Integer pageNo, Integer pageSize);
+    RestData<CommentVO> findCommentList(Long commentTargetId, Integer commentType, Integer pageNo, Integer pageSize);
 
     long getCommentCount(Long targetId, Integer type);
 }

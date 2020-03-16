@@ -3,20 +3,16 @@ package com.mamba.popidea.question;
 import com.google.common.collect.Lists;
 import com.mamba.popidea.dao.TopicQuestionMapBeanMapper;
 import com.mamba.popidea.model.QuestionBean;
-import com.mamba.popidea.model.TopicBean;
-import com.mamba.popidea.model.TopicQuestionMapBean;
 import com.mamba.popidea.model.bo.QuestionBeanBo;
 import com.mamba.popidea.model.common.result.RestData;
-import com.mamba.popidea.model.vo.QuestionVo;
+import com.mamba.popidea.model.vo.QuestionVO;
 import com.mamba.popidea.service.QuestionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.listener.Topic;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,7 +65,7 @@ public class QuestionServiceTest {
 
     @Test
     public void testGetQuestionInfo() {
-        QuestionVo questionInfo   = questionService.getQuestionInfo(20L);
+        QuestionVO questionInfo   = questionService.getQuestionInfo(20L);
         System.out.println(questionInfo);
     }
 

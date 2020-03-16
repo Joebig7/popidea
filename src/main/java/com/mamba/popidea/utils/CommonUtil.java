@@ -4,7 +4,7 @@ import com.mamba.popidea.dao.UserBeanMapper;
 import com.mamba.popidea.exception.ErrorCodes;
 import com.mamba.popidea.exception.RestException;
 import com.mamba.popidea.exception.ServiceException;
-import com.mamba.popidea.model.vo.CommentVo;
+import com.mamba.popidea.model.vo.CommentVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -79,11 +79,11 @@ public class CommonUtil {
      * @param var1
      * @return
      */
-    public static List<CommentVo> getCommentTreeStructure(List<CommentVo> var1) {
-        List<CommentVo> list = var1.stream().filter(t -> t.getReplyCommentId() == 0).collect(Collectors.toList());
+    public static List<CommentVO> getCommentTreeStructure(List<CommentVO> var1) {
+        List<CommentVO> list = var1.stream().filter(t -> t.getReplyCommentId() == 0).collect(Collectors.toList());
         list.parallelStream()
                 .forEach(t -> {
-                    List<CommentVo> temp = var1.parallelStream()
+                    List<CommentVO> temp = var1.parallelStream()
                             .filter(t2 -> t2.getReplyCommentId() == t.getCommentId())
                             .collect(Collectors.toList());
                     t.setChildList(temp);

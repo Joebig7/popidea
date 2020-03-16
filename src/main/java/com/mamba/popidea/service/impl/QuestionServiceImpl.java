@@ -12,7 +12,7 @@ import com.mamba.popidea.model.QuestionBean;
 import com.mamba.popidea.model.TopicQuestionMapBean;
 import com.mamba.popidea.model.bo.QuestionBeanBo;
 import com.mamba.popidea.model.common.result.RestData;
-import com.mamba.popidea.model.vo.QuestionVo;
+import com.mamba.popidea.model.vo.QuestionVO;
 import com.mamba.popidea.service.QuestionService;
 import com.mamba.popidea.utils.CollectionUtil;
 import com.mamba.popidea.utils.CommonUtil;
@@ -96,8 +96,8 @@ public class QuestionServiceImpl implements QuestionService {
      * @return
      */
     @Override
-    public QuestionVo getQuestionInfo(Long id) {
-        QuestionVo questionDetailInfo = questionBeanMapper.getQuestionDetailInfo(id);
+    public QuestionVO getQuestionInfo(Long id) {
+        QuestionVO questionDetailInfo = questionBeanMapper.getQuestionDetailInfo(id);
         CommonUtil.assertNull(questionDetailInfo, ErrorCodes.QUESTION_EXIST_ERROR);
 
         questionDetailInfo.setFocusCount(getQuestionFocusCount(id));

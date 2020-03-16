@@ -7,7 +7,7 @@ import com.mamba.popidea.model.QuestionAnswerBean;
  * @author: JoeBig7
  * @date: 2019/5/31 18:22
  */
-public class AnswerVo extends QuestionAnswerBean {
+public class AnswerVO extends QuestionAnswerBean {
 
 
     private String nickName;

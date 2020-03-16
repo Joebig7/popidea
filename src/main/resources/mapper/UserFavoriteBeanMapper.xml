@@ -126,7 +126,7 @@
     where user_favorite_id = #{userFavoriteId,jdbcType=BIGINT}
   </update>
 
-  <select id="findFavList" resultType="com.mamba.popidea.model.vo.FavBeanVo">
+  <select id="findFavList" resultType="com.mamba.popidea.model.vo.FavBeanVO">
     SELECT
       u.nick_name nickName,
       u.favicon,

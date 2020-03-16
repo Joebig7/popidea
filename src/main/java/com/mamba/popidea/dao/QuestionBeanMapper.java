@@ -1,9 +1,8 @@
 package com.mamba.popidea.dao;
 
 import com.mamba.popidea.model.QuestionBean;
-import com.mamba.popidea.model.vo.QuestionVo;
+import com.mamba.popidea.model.vo.QuestionVO;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public interface QuestionBeanMapper {
     //======================custom==========================
     List<QuestionBean> findByKeyWord(@Param("keyword") String keyword);
 
-    QuestionVo getQuestionDetailInfo(@Param("id") Long id);
+    QuestionVO getQuestionDetailInfo(@Param("id") Long id);
 
     List<QuestionBean> findListByUserId(Long userId);
 

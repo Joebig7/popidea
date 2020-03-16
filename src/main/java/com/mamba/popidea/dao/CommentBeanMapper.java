@@ -1,9 +1,8 @@
 package com.mamba.popidea.dao;
 
 import com.mamba.popidea.model.CommentBean;
-import com.mamba.popidea.model.vo.CommentVo;
+import com.mamba.popidea.model.vo.CommentVO;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
@@ -24,6 +23,6 @@ public interface CommentBeanMapper {
 
     //-------------------custom-------------------
 
-    List<CommentVo> selectCommentByTargetIdAndType(@Param("commentTargetId") Long commentTargetId, @Param("commentType") Integer commentType);
+    List<CommentVO> selectCommentByTargetIdAndType(@Param("commentTargetId") Long commentTargetId, @Param("commentType") Integer commentType);
 
 }

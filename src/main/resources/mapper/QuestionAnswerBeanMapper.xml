@@ -12,7 +12,7 @@
   <resultMap id="ResultMapWithBLOBs" type="com.mamba.popidea.model.QuestionAnswerBean" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
-  <resultMap id="AnswerVoMap" type="com.mamba.popidea.model.vo.AnswerVo" extends="ResultMapWithBLOBs" >
+  <resultMap id="AnswerVoMap" type="com.mamba.popidea.model.vo.AnswerVO" extends="ResultMapWithBLOBs" >
     <result column="favicon" property="favicon" jdbcType="VARCHAR" />
     <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
   </resultMap>
@@ -151,7 +151,7 @@
       AND `status` = 0
   </select>
 
-  <select id="findAnswerListByUserId" parameterType="java.lang.Long" resultType="com.mamba.popidea.model.vo.OwnAnswerVo">
+  <select id="findAnswerListByUserId" parameterType="java.lang.Long" resultType="com.mamba.popidea.model.vo.OwnAnswerVO">
     SELECT
       qa.id,
       qa.content,

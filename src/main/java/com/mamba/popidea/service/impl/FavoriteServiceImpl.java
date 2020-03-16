@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.mamba.popidea.dao.UserFavoriteBeanMapper;
 import com.mamba.popidea.model.UserFavoriteBean;
 import com.mamba.popidea.model.common.result.RestData;
-import com.mamba.popidea.model.vo.FavBeanVo;
+import com.mamba.popidea.model.vo.FavBeanVO;
 import com.mamba.popidea.model.vo.ThumbVo;
 import com.mamba.popidea.service.CommentService;
 import com.mamba.popidea.service.FavoriteService;
@@ -62,17 +62,17 @@ public class FavoriteServiceImpl implements FavoriteService {
      * @return
      */
     @Override
-    public RestData<FavBeanVo> getFavList(Long columnId, Long userId, Integer pageNo, Integer pageSize) {
+    public RestData<FavBeanVO> getFavList(Long columnId, Long userId, Integer pageNo, Integer pageSize) {
 
         PageHelper.startPage(pageNo, pageSize);
 
         //查询收藏的回答和文章的相关信息
-        List<FavBeanVo> result = userFavoriteBeanMapper.findFavList(columnId, userId);
+        List<FavBeanVO> result = userFavoriteBeanMapper.findFavList(columnId, userId);
 
-        PageInfo<FavBeanVo> pageInfo = new PageInfo<>(result);
+        PageInfo<FavBeanVO> pageInfo = new PageInfo<>(result);
 
         //将回答或者文章的其他相关信息添加进去
-        List<FavBeanVo> favBeanVoList = pageInfo.getList();
+        List<FavBeanVO> favBeanVoList = pageInfo.getList();
         if (!favBeanVoList.isEmpty()) {
             favBeanVoList.parallelStream().forEach(favBeanVo -> {
                 if (FavType.FAV_ANSWER.getType().equals(favBeanVo.getType())) {

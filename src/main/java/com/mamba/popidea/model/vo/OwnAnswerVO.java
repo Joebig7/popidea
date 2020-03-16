@@ -8,7 +8,7 @@ import java.util.Date;
  * @date: 2020/2/8 21:45
  * @description
  */
-public class OwnAnswerVo {
+public class OwnAnswerVO {
 
     private Long id;
     private String content;

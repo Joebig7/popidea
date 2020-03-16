@@ -2,8 +2,8 @@ package com.mamba.popidea.dao;
 
 
 import com.mamba.popidea.model.QuestionAnswerBean;
-import com.mamba.popidea.model.vo.AnswerVo;
-import com.mamba.popidea.model.vo.OwnAnswerVo;
+import com.mamba.popidea.model.vo.AnswerVO;
+import com.mamba.popidea.model.vo.OwnAnswerVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -25,11 +25,11 @@ public interface QuestionAnswerBeanMapper {
 
     //========================custom=====================
 
-    List<AnswerVo> getAnswerList(@Param("id") Long id);
+    List<AnswerVO> getAnswerList(@Param("id") Long id);
 
     Long findAnswerCount(Long questionId);
 
-    List<OwnAnswerVo> findAnswerListByUserId(Long userId);
+    List<OwnAnswerVO> findAnswerListByUserId(Long userId);
 
 
 

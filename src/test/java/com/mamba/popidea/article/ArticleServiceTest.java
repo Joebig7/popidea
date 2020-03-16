@@ -1,10 +1,9 @@
 package com.mamba.popidea.article;
 
 import com.mamba.popidea.model.ArticleBean;
-import com.mamba.popidea.model.TagBean;
 import com.mamba.popidea.model.bo.ArticleBeanBo;
 import com.mamba.popidea.model.common.result.RestData;
-import com.mamba.popidea.model.vo.ArticleVo;
+import com.mamba.popidea.model.vo.ArticleVO;
 import com.mamba.popidea.service.ArticleService;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
@@ -72,7 +71,7 @@ public class ArticleServiceTest {
 
     @Test
     public void getArticleInfo() {
-        ArticleVo articleVo = articleService.get(2L);
+        ArticleVO articleVo = articleService.get(2L);
 
         System.out.println(articleVo.getTitle());
     }

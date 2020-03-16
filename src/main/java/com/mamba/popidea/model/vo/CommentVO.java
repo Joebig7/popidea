@@ -10,7 +10,7 @@ import java.util.List;
  * @date: 2019/11/11 16:08
  * @description
  */
-public class CommentVo extends CommentBean {
+public class CommentVO extends CommentBean {
 
     private String nickName;
 
@@ -23,13 +23,13 @@ public class CommentVo extends CommentBean {
     private Long disLikeCount;
 
     //子回复
-    private List<CommentVo> childList;
+    private List<CommentVO> childList;
 
-    public List<CommentVo> getChildList() {
+    public List<CommentVO> getChildList() {
         return childList;
     }
 
-    public void setChildList(List<CommentVo> childList) {
+    public void setChildList(List<CommentVO> childList) {
         this.childList = childList;
     }
 

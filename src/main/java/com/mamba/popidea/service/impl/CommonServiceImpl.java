@@ -55,4 +55,9 @@ public class CommonServiceImpl implements CommonService {
                 return null;
         }
     }
+
+    @Override
+    public void recommend(Integer pageNo, Integer pageSize) {
+
+    }
 }

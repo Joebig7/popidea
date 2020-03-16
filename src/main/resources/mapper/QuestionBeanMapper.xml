@@ -13,7 +13,7 @@
     <result column="question_content" property="questionContent" jdbcType="LONGVARCHAR" />
   </resultMap>
 
-  <resultMap id="QuestionVoMap" type="com.mamba.popidea.model.vo.QuestionVo" extends="ResultMapWithBLOBs" >
+  <resultMap id="QuestionVoMap" type="com.mamba.popidea.model.vo.QuestionVO" extends="ResultMapWithBLOBs" >
     <result column="favicon" property="favicon" jdbcType="VARCHAR" />
     <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
   </resultMap>

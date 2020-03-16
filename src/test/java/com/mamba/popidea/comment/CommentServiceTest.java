@@ -3,7 +3,7 @@ package com.mamba.popidea.comment;
 import com.mamba.popidea.constant.ServiceTypeEnum;
 import com.mamba.popidea.model.CommentBean;
 import com.mamba.popidea.model.common.result.RestData;
-import com.mamba.popidea.model.vo.CommentVo;
+import com.mamba.popidea.model.vo.CommentVO;
 import com.mamba.popidea.service.CommentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +48,7 @@ public class CommentServiceTest {
 
     @Test
     public void findCommentList() {
-        RestData<CommentVo> commentList = commentService.findCommentList(1L, ServiceTypeEnum.CommentType.TO_ARTICLE.getStatus(), 1, 10);
+        RestData<CommentVO> commentList = commentService.findCommentList(1L, ServiceTypeEnum.CommentType.TO_ARTICLE.getStatus(), 1, 10);
         System.out.println(commentList.getRsData());
     }
 }

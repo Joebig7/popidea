@@ -3,7 +3,7 @@ package com.mamba.popidea.controller;
 import com.mamba.popidea.model.QuestionAnswerBean;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.common.result.RestResp;
-import com.mamba.popidea.model.vo.AnswerVo;
+import com.mamba.popidea.model.vo.AnswerVO;
 import com.mamba.popidea.service.AnswerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -41,7 +41,7 @@ public class AnswerController {
     public RestResp getAnswerList(@RequestParam("questionId") Long questionId,
                                   @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                   @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-        RestData<AnswerVo> answerList = answerService.findAnswerList(questionId, pageNo, pageSize);
+        RestData<AnswerVO> answerList = answerService.findAnswerList(questionId, pageNo, pageSize);
         return new RestResp(answerList);
     }
 

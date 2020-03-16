@@ -182,7 +182,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public RestData<FavBeanVo> getUserFavList(Long columnId, Integer pageNo, Integer pageSize) {
+    public RestData<FavBeanVO> getUserFavList(Long columnId, Integer pageNo, Integer pageSize) {
         Long userId = CommonUtil.getUserId();
         return favoriteService.getFavList(columnId, userId, pageNo, pageSize);
 
@@ -257,7 +257,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public RestData<OwnAnswerVo> getCreatedAnswerList(Integer pageNo, Integer pageSize) {
+    public RestData<OwnAnswerVO> getCreatedAnswerList(Integer pageNo, Integer pageSize) {
         Long userId = CommonUtil.getUserId();
         return answerService.getAnswerListByUserId(userId, pageNo, pageSize);
     }
