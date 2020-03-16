@@ -20,4 +20,6 @@ public interface SpecialColumnBeanMapper {
     int updateByPrimaryKey(SpecialColumnBean record);
 
     List<SpecialColumnBean> findColumnListByUserId(Long userId);
+
+    List<SpecialColumnBean> findColumnListByKeyword(String keyword);
 }

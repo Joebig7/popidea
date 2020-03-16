@@ -29,4 +29,6 @@ public interface QuestionBeanMapper {
     QuestionVo getQuestionDetailInfo(@Param("id") Long id);
 
     List<QuestionBean> findListByUserId(Long userId);
+
+    List<QuestionBean> findQuestionByKeyword(String keyword);
 }

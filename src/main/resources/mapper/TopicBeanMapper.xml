@@ -132,4 +132,13 @@
     select *from topic t
     LEFT JOIN topic_question_map m on t.topic_id=m.topic_id where question_id=#{id}
   </select>
+
+  <select id="findTopicSearch" resultMap="ResultMapWithBLOBs">
+    select *from topic t
+    <set>
+      <if test="keyword != null" >
+        where `name` like concat("%",#{keyword},"%")
+      </if>
+    </set>
+  </select>
 </mapper>

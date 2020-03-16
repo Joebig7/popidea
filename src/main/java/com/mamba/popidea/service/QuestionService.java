@@ -23,4 +23,5 @@ public interface QuestionService {
 
     RestData<QuestionBean> getQuestionListByUserId(Long userId, Integer pageNo, Integer pageSize);
 
+    RestData getQuestionSearch(String keyword, Integer pageNo, Integer pageSize);
 }

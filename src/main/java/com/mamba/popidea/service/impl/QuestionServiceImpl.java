@@ -149,4 +149,21 @@ public class QuestionServiceImpl implements QuestionService {
         PageInfo<QuestionBean> pageInfo = new PageInfo<>(questionBeanList);
         return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
     }
+
+
+    /**
+     * 根据关键字查询问题
+     *
+     * @param keyword
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public RestData getQuestionSearch(String keyword, Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<QuestionBean> questionBeanList = questionBeanMapper.findQuestionByKeyword(keyword);
+        PageInfo<QuestionBean> pageInfo = new PageInfo<>(questionBeanList);
+        return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
+    }
 }

@@ -26,4 +26,6 @@ public interface TopicBeanMapper {
     List<TopicBean> findTopicListWithCondition(@Param("keyword") String key);
 
     List<TopicBean> findTopicListWithQuesionId(@Param("id") Long id);
+
+    List<TopicBean> findTopicSearch(String keyword);
 }

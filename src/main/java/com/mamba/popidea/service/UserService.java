@@ -38,4 +38,5 @@ public interface UserService {
 
     RestData<OwnAnswerVo> getCreatedAnswerList(Integer pageNo, Integer pageSize);
 
+    RestData getUserSearch(String keyword, Integer pageNo, Integer pageSize);
 }

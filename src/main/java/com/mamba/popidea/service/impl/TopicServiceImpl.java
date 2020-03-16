@@ -39,4 +39,19 @@ public class TopicServiceImpl implements TopicService {
         return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
 
     }
+
+    /**
+     * 根据关键字查询话题
+     * @param keyword
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public RestData getTopicSearch(String keyword, Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<TopicBean> topicBeanList = topicBeanMapper.findTopicSearch(keyword);
+        PageInfo<TopicBean> pageInfo = new PageInfo<>(topicBeanList);
+        return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
+    }
 }

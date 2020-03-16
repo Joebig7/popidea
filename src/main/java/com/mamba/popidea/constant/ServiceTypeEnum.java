@@ -267,4 +267,29 @@ public final class ServiceTypeEnum {
         }
     }
 
+    public enum SearchType {
+        TO_ANSWER(1),
+        TO_TOPIC(2),
+        TO_USER(3),
+        TO_COLUMN(4);
+
+        private int type;
+
+        SearchType(int type) {
+            this.type = type;
+        }
+
+        public Integer getType() {
+            return type;
+        }
+
+        public static SearchType getKey(Integer type) {
+            List<SearchType> result = Stream
+                    .of(SearchType.values())
+                    .filter(searchType -> type.equals(searchType.getType()))
+                    .collect(Collectors.toList());
+            return result.get(0);
+        }
+    }
+
 }

@@ -17,4 +17,6 @@ public interface SpecialColumnService {
     void delete(Long id);
 
     RestData<SpecialColumnBean> getColumnByUserId(Long userId, Integer pageNo, Integer pageSize);
+
+    RestData getSpecialColumnSearch(String keyword, Integer pageNo, Integer pageSize);
 }

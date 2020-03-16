@@ -170,4 +170,15 @@
   <update id="switchMode">
       update `user` set `status`=#{status} where id=#{userId}
   </update>
+
+  <select id="findUserByKeyword" parameterType="java.lang.Long" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List"/>
+      from user where `status`=0
+      <set>
+      <if test="keyword != null" >
+        and `name` like concat("%",#{keyword},"%")
+      </if>
+    </set>
+  </select>
 </mapper>

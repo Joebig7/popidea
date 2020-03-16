@@ -160,4 +160,13 @@
   <select id="findColumnListByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select *from special_column where user_id=#{userId} and `status`=1
   </select>
+
+  <select id="findColumnListByKeyword" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *from special_column where   `status`=1
+    <set>
+      <if test="keyword != null">
+        and `name` like concat("%",#{keyword},"%")
+      </if>
+    </set>
+  </select>
 </mapper>

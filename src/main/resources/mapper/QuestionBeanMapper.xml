@@ -152,7 +152,17 @@
   </select>
 
   <select id="findListByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
-       select *from question where user_id=#{userId} and `status`=0
+       select *from question where user_id=#{userId} and `status`=1
   </select>
+
+  <select id="findQuestionByKeyword" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *from question where `status`=1
+    <set>
+      <if test="keyword != null" >
+        and `name` like concat("%",#{keyword},"%")
+      </if>
+    </set>
+  </select>
+
 </mapper>
 

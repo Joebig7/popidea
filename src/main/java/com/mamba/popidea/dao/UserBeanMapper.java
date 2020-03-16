@@ -4,6 +4,8 @@ import com.mamba.popidea.model.UserBean;
 import com.mamba.popidea.model.vo.UserVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 
 public interface UserBeanMapper {
     int deleteByPrimaryKey(Long id);
@@ -25,4 +27,6 @@ public interface UserBeanMapper {
     UserVO findWholeUserInfoById(@Param("userId") Long userId);
 
     int switchMode(@Param("userId") Long userId, @Param("status") Integer status);
+
+    List<UserBean> findUserByKeyword(String keyword);
 }

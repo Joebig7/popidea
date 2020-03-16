@@ -1,5 +1,7 @@
 package com.mamba.popidea.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import com.mamba.popidea.dao.UserBeanMapper;
 import com.mamba.popidea.dao.UserDetailMapper;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -257,6 +260,22 @@ public class UserServiceImpl implements UserService {
     public RestData<OwnAnswerVo> getCreatedAnswerList(Integer pageNo, Integer pageSize) {
         Long userId = CommonUtil.getUserId();
         return answerService.getAnswerListByUserId(userId, pageNo, pageSize);
+    }
+
+    /**
+     * 根据关键字查询用户列表
+     *
+     * @param keyword
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public RestData getUserSearch(String keyword, Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<UserBean> userBeanList = userBeanMapper.findUserByKeyword(keyword);
+        PageInfo<UserBean> pageInfo = new PageInfo<>(userBeanList);
+        return new RestData(pageInfo.getList(), pageInfo.getTotal());
     }
 
 

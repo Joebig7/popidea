@@ -72,4 +72,19 @@ public class SpecialColumnServiceImpl implements SpecialColumnService {
         PageInfo<SpecialColumnBean> pageInfo = new PageInfo<>(specialColumnBeanList);
         return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
     }
+
+    /**
+     * 根据关键字查找
+     * @param keyword
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public RestData getSpecialColumnSearch(String keyword, Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<SpecialColumnBean> specialColumnBeanList = specialColumnBeanMapper.findColumnListByKeyword(keyword);
+        PageInfo<SpecialColumnBean> pageInfo = new PageInfo<>(specialColumnBeanList);
+        return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
+    }
 }

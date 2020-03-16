@@ -30,4 +30,7 @@ public interface QuestionAnswerBeanMapper {
     Long findAnswerCount(Long questionId);
 
     List<OwnAnswerVo> findAnswerListByUserId(Long userId);
+
+
+
 }

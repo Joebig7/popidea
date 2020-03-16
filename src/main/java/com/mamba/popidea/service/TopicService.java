@@ -6,4 +6,6 @@ import com.mamba.popidea.model.common.result.RestData;
 public interface TopicService {
 
     RestData<TopicBean> findTopicList(String key, Integer pageNo, Integer pageSize);
+
+    RestData getTopicSearch(String keyword, Integer pageNo, Integer pageSize);
 }
