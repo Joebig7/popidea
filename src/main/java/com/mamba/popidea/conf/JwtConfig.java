@@ -26,6 +26,7 @@ public class JwtConfig extends WebMvcConfigurerAdapter {
                 .excludePathPatterns("/user/login/**")
                 .excludePathPatterns("/swagger-ui.html/**", "/swagger-resources/**", "/v2/api-docs/**", "/configuration/**", "/webjars/**", "/images/**");
 
+//        registry.addInterceptor();
     }
 
     @Override

@@ -48,7 +48,7 @@ public class SpecialColumnController {
     }
 
     @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
-    @ApiOperation(value = "删除专栏", notes = "删除专栏")
+    @ApiOperation(value = "查询专栏", notes = "查询专栏")
     @GetMapping("/list")
     public RestResp getColumnByUserId(@ApiParam("专栏信息") @RequestParam("userId") Long userId,
                                       @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
