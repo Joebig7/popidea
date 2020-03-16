@@ -2,8 +2,11 @@ package com.mamba.popidea.service.impl;
 
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.service.*;
+import com.mamba.popidea.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 import static com.mamba.popidea.constant.ServiceTypeEnum.SearchType;
 
@@ -56,8 +59,16 @@ public class CommonServiceImpl implements CommonService {
         }
     }
 
+    /**
+     * 向用户推荐问题
+     *
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     @Override
-    public void recommend(Integer pageNo, Integer pageSize) {
-
+    public RestData recommend(Integer pageNo, Integer pageSize) {
+        Long userId = CommonUtil.getUserId();
+        return questionService.recommend(userId, pageNo, pageSize);
     }
 }

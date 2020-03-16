@@ -40,8 +40,7 @@ public class CommonController {
     @GetMapping("/recommend")
     public RestResp recommend(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                               @RequestParam(name = "pageSize", defaultValue = "20") Integer pageSize) {
-//        commonService.recommend(pageNo, pageSize);
-//        return new RestResp(restData);
-        return null;
+        RestData restData = commonService.recommend(pageNo, pageSize);
+        return new RestResp(restData);
     }
 }

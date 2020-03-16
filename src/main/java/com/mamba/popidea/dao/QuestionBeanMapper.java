@@ -30,4 +30,6 @@ public interface QuestionBeanMapper {
     List<QuestionBean> findListByUserId(Long userId);
 
     List<QuestionBean> findQuestionByKeyword(String keyword);
+
+    List<QuestionBean> findByRecommend(Long userId);
 }

@@ -138,11 +138,19 @@
 
 
   <select id="QuestionBean" parameterType="java.lang.Long" resultType="com.mamba.popidea.model.QuestionBean">
-       select *from qusetion where id=#{id} and `status`=1
+       select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+       from qusetion where id=#{id} and `status`=1
   </select>
 
   <select id="findByKeyWord" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-      select *from question
+      select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+      from question
       where (question_title like concat("%",#{keyword},"%") or question_content like concat("%",#{keyword},"%")) and `status`=1
   </select>
 
@@ -152,16 +160,38 @@
   </select>
 
   <select id="findListByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
-       select *from question where user_id=#{userId} and `status`=1
+       select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+       from question where user_id=#{userId} and `status`=1
   </select>
 
   <select id="findQuestionByKeyword" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select *from question where `status`=1
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from question where `status`=1
     <set>
       <if test="keyword != null" >
         and `name` like concat("%",#{keyword},"%")
       </if>
     </set>
+  </select>
+
+  <select id="findByRecommend" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from question   where `status`=1
+    <set>
+      <if test="userId != null" >
+        and id in(select DISTINCT followered_id from user_attention where type=0 and `status`=1 and user_id=#{userId})
+      </if>
+    </set>
+    order by rand() limit 20
   </select>
 
 </mapper>

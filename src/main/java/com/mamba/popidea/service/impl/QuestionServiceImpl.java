@@ -166,4 +166,23 @@ public class QuestionServiceImpl implements QuestionService {
         PageInfo<QuestionBean> pageInfo = new PageInfo<>(questionBeanList);
         return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
     }
+
+    /**
+     * 推荐问题
+     *
+     * @param userId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public RestData<QuestionBean> recommend(Long userId, Integer pageNo, Integer pageSize) {
+
+        PageHelper.startPage(pageNo, pageSize);
+        List<QuestionBean> questionBeanList = questionBeanMapper.findByRecommend(userId);
+        PageInfo<QuestionBean> pageInfo = new PageInfo<>(questionBeanList);
+        return new RestData<>(pageInfo.getList(), pageInfo.getTotal());
+
+
+    }
 }
