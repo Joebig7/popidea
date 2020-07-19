@@ -1,41 +1,38 @@
-##  前言
-✅本项目实现一个信息交流平台，主要包括提问、讨论等形式对一些问题，创意进行分享。
-
-## ⬆ 项目名称：PopIdea
-### 1 项目介绍
-- ✅首先，PopIdea的定位是一个知识分享的社区，有问题、文章、点子三个个主要的概念。用来进行内容的一个分类以及传播。
+##  1.Perface
+✅The program is a community for us to quesion and share our idea,and it was called `popidea`
 
 
-### 2 项目架构图（可能会更新）
-- ✅ 图片如下
+## 2.Architecture diagram
+- ✅ As is the follwing（it will be constantly updated）
 ![EmhT9x.png](https://s2.ax1x.com/2019/04/26/EmhT9x.png)
 
-#### 项目具体功能产品设计
+## 3.function design
 [产品设计详细](./doc/product_design.md)
 
-### 3 后端技术选型
+## 4 Related technologies
 - ✅主要技术清单（更新状态）
 
-名称 | 版本 | 功能
+Name | Version | Role
 ---|---|---
-Swagger2 |2.2.2| 构建Api文档
-SpringBoot | 2.1.4 | 基础框架
-Mybatis |3.5.1 | 数据库交互
-JJWT |0.6.0| 用户身份验证
-Redis |5.0.5| 缓存
-ElasticSearch | | 做搜索使用
-RocketMq || 消息通知
+Swagger2 |2.2.2| Build Api Doc
+SpringBoot | 2.1.4 | Ioc Framework
+Mybatis |3.5.1 | 
+JJWT |0.6.0| authentication
+Redis |5.0.5| cache
+ElasticSearch | | search engine
+RocketMq || message
 
 
-### 4 数据库选型
-名称 | 版本 | 功能
+### 4 database
+Name| Version | Role
 ---|---|---
-Mysql | 5.7 | 存储通用数据
-MongoDB || 存储文章和问题
+Mysql | 5.7 | Store Structed data
+MongoDB || Store nosql data
 
-### 5 服务器选型
-名称 | 版本 |  
----|---
-Linux | Centos7 
+### 5 In Progress
 
-### 6.任务进度，如下图所示（待更新）
+- [x] Common Functions
+- [ ] Popidea-front(front page)
+- [ ] Message System
+- [ ] ranking list
+- [ ] Popidea-IM
