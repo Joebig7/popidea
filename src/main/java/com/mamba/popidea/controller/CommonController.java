@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "common相关Api", tags = "common相关Api")
 @RestController
 @RequestMapping("/common")
-public class CommonController {
+public class  CommonController {
 
     @Autowired
     private CommonService commonService;

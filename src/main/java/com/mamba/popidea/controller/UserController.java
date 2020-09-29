@@ -34,6 +34,7 @@ public class UserController {
     @ApiOperation(value = "用户注册", notes = "用户注册 ")
     @PostMapping("/register")
     public RestResp register(@ApiParam("用户参数") @Valid @RequestBody UserBean userBean) {
+        System.out.println(userBean.getNickName());
         userService.register(userBean);
         return new RestResp();
     }
