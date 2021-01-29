@@ -1,16 +1,11 @@
 ##  1.Perface
-✅The program is a community for us to quesion and share our idea,and it was called `popidea`
+✅The program is a community for us to question and share your idea mainly about technology,nba,universe and it was called `popidea`
 
 
-## 2.Architecture diagram
-- ✅ As is the follwing（it will be constantly updated）
-![EmhT9x.png](https://s2.ax1x.com/2019/04/26/EmhT9x.png)
+ 
 
-## 3.function design
-[产品设计详细](./doc/product_design.md)
-
-## 4 Related technologies
-- ✅主要技术清单（更新状态）
+## 2 Related technologies
+- ✅Mainly technology list（keep updating）
 
 Name | Version | Role
 ---|---|---
@@ -23,13 +18,13 @@ ElasticSearch | | search engine
 RocketMq || message
 
 
-### 4 database
+### 3 database
 Name| Version | Role
 ---|---|---
 Mysql | 5.7 | Store Structed data
 MongoDB || Store nosql data
 
-### 5 In Progress
+### 4 In Progress
 
 - [x] Common Functions
 - [ ] Popidea-front(front page)
