@@ -1,33 +1,31 @@
-##  1.Perface
-✅The program is a community for us to question and share your idea mainly about technology,nba,universe and it was called `popidea`
+## Introduction
+Popidea is a website mainly  abount  `nba`,`techonology`,`programming` and `universe`。It can recommends  wonderful articles for us and we also can write some  `articles` or ask some `questions` on the platform.The purpose of this community is to let us learn  something new and arouse our curiosity.
 
 
+## Architecture
  
+<img src="https://s3.ax1x.com/2021/02/02/yuGcvj.png" alt="DJyum4.png" border="0"  width="1400"/> 
 
-## 2 Related technologies
-- ✅Mainly technology list（keep updating）
+## In progress
+- [x] User Module
+- [x] Article Module
+- [x] question Module
+- [ ] front-end
+- [ ] message System
 
+
+## Technology
 Name | Version | Role
 ---|---|---
 Swagger2 |2.2.2| Build Api Doc
 SpringBoot | 2.1.4 | Ioc Framework
-Mybatis |3.5.1 | 
-JJWT |0.6.0| authentication
+Mybatis |3.5.1 | DAO Framework
+JJWT |0.6.0| Authentication
 Redis |5.0.5| cache
-ElasticSearch | | search engine
-RocketMq || message
+Mysql | 5.7 | database
+RocketMq |for update| message
+MongoDB |for update|  nosql database
+React || JavaScript library
 
-
-### 3 database
-Name| Version | Role
----|---|---
-Mysql | 5.7 | Store Structed data
-MongoDB || Store nosql data
-
-### 4 In Progress
-
-- [x] Common Functions
-- [ ] Popidea-front(front page)
-- [ ] Message System
-- [ ] ranking list
-- [ ] Popidea-IM
+## Detail 
+see this document  [entrance](./doc/popidea.xmind)
