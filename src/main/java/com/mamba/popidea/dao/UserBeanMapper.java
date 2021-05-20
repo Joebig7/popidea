@@ -3,10 +3,12 @@ package com.mamba.popidea.dao;
 import com.mamba.popidea.model.UserBean;
 import com.mamba.popidea.model.vo.UserVO;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
-
+@Repository
 public interface UserBeanMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -29,4 +31,6 @@ public interface UserBeanMapper {
     int switchMode(@Param("userId") Long userId, @Param("status") Integer status);
 
     List<UserBean> findUserByKeyword(String keyword);
+
+    List<UserBean> list(@Param("set")Set<Long> set);
 }

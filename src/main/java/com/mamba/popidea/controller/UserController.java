@@ -1,5 +1,7 @@
 package com.mamba.popidea.controller;
 
+import com.google.common.collect.Sets;
+import com.mamba.popidea.dao.UserBeanMapper;
 import com.mamba.popidea.model.*;
 import com.mamba.popidea.model.common.result.RestData;
 import com.mamba.popidea.model.common.result.RestResp;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.Set;
 
 /**
  * @version 1.0
@@ -30,6 +34,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserBeanMapper userBeanMapper;
 
     @ApiOperation(value = "用户注册", notes = "用户注册 ")
     @PostMapping("/register")
@@ -149,5 +156,18 @@ public class UserController {
                            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         RestData<AttentionColumnVO> attentionColumnList = userService.getMyAttentionColumnList(pageNo, pageSize);
         return new RestResp(attentionColumnList);
+    }
+
+
+    @ApiOperation(value = "查询我关注的专栏接口", notes = "查询我关注的专栏接口")
+    @GetMapping("/list")
+    @ApiImplicitParam(paramType = "header", dataType = "string", name = "Authorization", required = true)
+    public RestResp getList(@RequestParam(value = "ids") String ids) {
+        String[] split = ids.split(",");
+        Set<Long> set = Sets.newHashSet();
+        for (String id : split) {
+            set.add(Long.parseLong(id));
+        }
+        return new RestResp(userBeanMapper.list(set));
     }
 }

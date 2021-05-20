@@ -181,4 +181,14 @@
       </if>
     </set>
   </select>
+  <select id="list" resultType="com.mamba.popidea.model.UserBean">
+    select
+    <include refid="Base_Column_List"/>
+    from user where id
+    in
+<foreach collection="set" item="item" index="index" separator="," open="(" close=")">
+    #{item}
+</foreach>
+
+  </select>
 </mapper>
